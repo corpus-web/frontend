@@ -1,177 +1,82 @@
 <template>
     <div class="frequency">
-        <el-table :data="currentPageData" border style="width: 76.8rem;text-align: center;" height="19.7rem"
-            @row-click="rowclick"
+        <el-table :data="currentPageData" border style="width: 100%;text-align: center;" height="40rem" show-summary
+            :summary-method="getSummaries" @row-click="rowclick"
             :header-cell-style="{ background: 'rgba(231, 230, 230, 1)', color: '#606266', fontSize: '1rem' }">
-            <el-table-column prop="id" label="No." width="180" align="center">
+            <el-table-column type="index" width="100" align="center">
             </el-table-column>
-            <el-table-column prop="fname" label="Filename" width="180" align="center">
-            </el-table-column>
-            <el-table-column prop="fline" label="Solution 1 to 50   Page " align="center">
-                <template slot-scope="scope">
-                    <span v-html="setkey(scope.row.fline)"></span>
+            <el-table-column prop="name" width="800" align="center">
+                <template slot="header">
+                    All Forms(Samples): {{ indexnum }}
                 </template>
-
+            </el-table-column>
+            <el-table-column prop="num" label="Frequency" align="center">
             </el-table-column>
         </el-table>
-        <div class="pagination">
-            <div class="firstpage" @click="firstpage">
-                |&lt;
-            </div>
-            <div class="firstpage" @click="prevPage">
-                &lt;
-            </div>
-            <div class="firstpage" @click="nextPage">
-                &gt;
-            </div>
-            <div class="firstpage" @click="lastPage">
-                &gt;|
-            </div>
-            <div class="buttondark" style="width: 20%;margin-left: 5%;cursor: pointer;" @click="showpage">
-                Show Page
-            </div>
-            <input class="pagenum" v-model="showp" placeholder="" />
-            <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;"
-                @click="change">
-                {{ order }}
-            </div>
-        </div>
+
 
     </div>
 </template>
 
 <script>
 export default {
-    props: ["longtext", "resindexnum", "indexnum", "currentPageData"],
+    props: ["longtext", "resindexnum", "indexnum", "currentPageData", "bothnum"],
     // "longtext":要高亮的词
     // "total"：总共的索引数
     // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数
     // "currentPageData"：表格的数据
+    // "bothnum":被检索词两边的字符数
     data() {
         return {
-
-            pageSize: 1, // 统共页数，默认为1
-            currentPage: 1, //当前页数 ，默认为1
-
-            // currentPageData: [], //当前页显示内容
-            headPage: 1,
-            showp: '',
-            order: 'Random Order',
-            orderway: 1,//1表示Show Corpus；2表示Random Order
             // title: "五百年前孙悟空大闹天宫",
             // searchWord: "孙悟空",
+
         }
     },
 
-    mounted() {
-        // this.getCurrentPageData();
 
-        this.p();//计算表格共多少页
-        console.log(this.pageSize)
-    },
     methods: {
-        p() {
-            this.pageSize = Math.ceil(this.resindexnum / this.indexnum);
-        },
-        getCurrentPageData() {
-            this.$axios.request({
-                method: 'GET',
-                url: "/api/corpus/article",
-                params: {
-                    'word': this.longtext,// 检索内容                       
-                    'max_num': this.indexnum,// 一页展示的索引条数
-                    'current_page': this.currentPage,
+        getSummaries(param) {
+            const { columns, data } = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+                if (index === 0) {
+                    sums[index] = 'Total';
+                    return;
                 }
+                const values = data.map(item => Number(item[column.property]));
+                if (!values.every(value => isNaN(value))) {
+                    sums[index] = values.reduce((prev, curr) => {
+                        const value = Number(curr);
+                        if (!isNaN(value)) {
+                            return prev + curr;
+                        } else {
+                            return prev;
+                        }
+                    }, 0);
 
-            }).then((res) => {
-                this.$message({
-                    showClose: true,
-                    message: '开始检索……',
-                    type: 'success'
-                });
-                // eslint-disable-next-line
-                this.currentPageData = res.data.data
+                } else {
+                    // sums[index] = 'N/A';
+                }
+            });
 
-
-            })
-
-        },
-        //首页
-        firstpage() {
-            this.currentPage = this.headPage;
-            this.getCurrentPageData();
-        },
-        //上一页
-        prevPage() {
-            if (this.currentPage == 1) {
-                return false;
-            } else {
-                this.currentPage--;
-                this.getCurrentPageData();
-            }
-        },
-        // 下一页
-        nextPage() {
-            console.log("下一页")
-            if (this.currentPage == this.pageSize) {
-                return false;
-            } else {
-                this.currentPage++;
-                this.getCurrentPageData();
-            }
-        },
-        //尾页
-        lastPage() {
-            if (this.currentPage == this.pageSize) {
-                return false;
-            } else {
-                this.currentPage = this.pageSize;
-                this.getCurrentPageData();
-            }
-
-        },
-        showpage() {
-            this.currentPage = this.showp;
-            this.getCurrentPageData();
-            console.log(this.showp)
-        },
-        change() {
-            if (this.order == 'Show Corpus') {
-                this.order = 'Random Order';
-                this.orderway = 1;//Show Corpus
-                this.getCurrentPageData();
-            }
-            else {
-                this.order = 'Show Corpus';
-                this.orderway = 2;//Show Corpus
-                this.getCurrentPageData();
-            }
-        },
-
-        setkey(line) {
-            if (line.includes(this.longtext)) {
-                line = line.replace(
-                    this.longtext,
-                    // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
-                    '<font style="color:rgba(47, 85, 151, 1)!important;">' + this.longtext + '</font>'
-
-                )
-                return line
-            }
-            // 不包含的话还用这个
-            else {
-                return line
-            }
+            return sums;
         },
         rowclick(row) {
-            console.log(row.id)
-            this.$emit('jump', row.fpar)
+            console.log(row.name)
+            this.$emit('jump', row.name)
+
+
         }
     },
 }
 </script>
 
 <style>
+.el-table {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
 .el-table tr {
     background-color: rgba(231, 230, 230, 1);
     padding: 0.1rem 0.1rem;
