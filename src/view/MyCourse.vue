@@ -67,12 +67,14 @@ export default {
     margin-top: 0rem;
     width: 76.8rem;
     height: 31.44rem;
+    background-color: #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
 }
 
 #img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
     /* width: 80vw;
     height: 80vh; */
 }

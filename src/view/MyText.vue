@@ -71,7 +71,9 @@ export default {
 
 .swiper-container {
     position: absolute;
-    left: 0;
+    left: 4px;
+    top: 4px;
+    border: 1px solid #e5e5e5;
     height: 440px;
     width: 38.4rem;
     /* border: 1px solid red; */
@@ -80,8 +82,8 @@ export default {
 #img {
     width: 100%;
     height: 100%;
-    object-position: center;
-    object-fit: cover;
+    /* object-position: center; */
+    object-fit: contain;
 }
 
 #title {

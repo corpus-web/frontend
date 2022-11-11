@@ -8,6 +8,8 @@ import Language from '@/view/MyLanguage.vue'
 import Text from '@/view/MyText.vue'
 import Detail from '@/view/MainDetail'
 import News from '@/view/MyNews'
+import Manage from '@/view/MyManage'
+import Login from '@/view/MyLogin'
 Vue.use(VueRouter)
 
 const originalPush = VueRouter.prototype.push
@@ -16,7 +18,7 @@ VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 }
 
-export default new VueRouter({
+const router = new VueRouter({
     routes: [
         { path: '*', redirect: '/Main' },
         {
@@ -54,8 +56,18 @@ export default new VueRouter({
             path: '/news',
             component: News
         },
-
-
+        {
+            path: '/manage',
+            component: Manage,
+            meta: {
+                needLogin: true, //需要登录
+                title: "后台管理",
+            }
+        },
+        {
+            path: '/login',
+            component: Login
+        },
         {
 
             path: '/home',
@@ -91,3 +103,23 @@ export default new VueRouter({
         },
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    let token = localStorage.getItem('token')
+    if (to.meta.needLogin) { // 判断该路由是否需要登录权限
+        if (token) { // 判断是否已经登录
+            next()
+        }
+        else {
+            next({ path: '/Login' }) //跳转到登录页
+        }
+    } else {
+        next()
+    }
+})
+// 全局后置钩子
+router.afterEach(to => {
+    // 设置title
+    document.title = to.meta.title;
+})
+export default router

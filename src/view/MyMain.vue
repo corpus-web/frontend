@@ -8,7 +8,10 @@
                 <div class="swiper-container">
                     <el-carousel trigger="click" height="26rem" indicator-position="none">
                         <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-                            <img :src="item.pictureurl" id="img">
+                            <img :src="item.pictureurl" id="img" @click="open(item.pictureurl)">
+                            <!-- <el-image :src="item.pictureurl" id="img" >
+
+                            </el-image> -->
                             <!-- <el-image :src=item.pictureurl fit="cover" id="img"></el-image> -->
                         </el-carousel-item>
                     </el-carousel>
@@ -32,7 +35,7 @@
                                     <div class="short_text">
                                         <span class="short_text_span" @click=detail(pp.aid)>{{ pp.title }}</span>
                                     </div>
-                                    <span style="float:right;color: #bcbcc1;">{{ pp.update_time }}</span>
+                                    <span style="float:right;color: #bcbcc1;">{{ pp.create_time }}</span>
                                 </li>
 
                             </ul>
@@ -40,21 +43,6 @@
 
                     </div>
 
-
-                    <!-- <span class="news_title">课程建设</span>
-                    <div class="latest">
-
-                        <ul>
-                            
-                            <li class="short_text" v-for="(tt, index) in text" :key="index" :v-show="tt.id == navli">
-                                <div class="short_text">
-                                    <span class="short_text_span" @click=detail(tt.id)>{{ tt.text }}</span>
-                                </div>
-                                <span style="float:right;color: #bcbcc1;">{{ tt.time }}</span>
-                            </li>
-
-                        </ul>
-                    </div> -->
                     <div class="more">
                         <div class="more_btn" @click="more()">
                             <el-button type="primary" style="background-color:#607d8b;border: #607d8b;">查看更多</el-button>
@@ -97,9 +85,12 @@
 
 export default {
     // name: 'MyMain',
-    created() {
+    async created() {
         this.getbannerList();
-        this.gettext();
+        // this.gettext();
+        await this.loading();
+        // this.sleep(5000)
+        console.log(1111);
     },
     data() {
         return {
@@ -109,11 +100,17 @@ export default {
             navLi: -1,
             newsLi: 0,
             text: [],
+            pretext: [[{ aid: 1, create_time: "2022-02-01", title: "jcoidajdsi" }], [], [], []],
         }
     },
 
 
     methods: {
+        sleep(ms) {
+            return new Promise(resolve =>
+                setTimeout(resolve, ms)
+            )
+        },
         select(index) {
             if (index == 0) {
                 // this.$router.replace("/Course");
@@ -142,34 +139,112 @@ export default {
                 // console.log(res);
                 if (res.status == 200) {
                     this.bannerList = res.data;
-                } else {
-                    alert("出错啦！")
                 }
 
             })
         },
+        async loading() {
+            const result = await this.gettext();
+            this.text = result;
+        },
         // 获取所有的text数据
-        gettext() {
-            this.$axios.request({
+        async gettext() {
+
+            //获取课程建设的新闻
+            await this.prefor();
+            console.log(this.pretext);
+            return this.pretext;
+        },
+
+        async prefor() {
+            await this.$axios.request({
                 method: 'GET',
-                url: "/api/home/text",
+                url: "/api/message/title",
+                params: { category: 2 }
             }).then((res) => {
                 // console.log(res.data);
                 if (res.status == 200) {
-                    this.text = res.data;
-                } else {
-                    alert("出错啦！")
-                }
+                    let data = res.data;
 
+                    if (data.length >= 5) {
+                        console.log(11111111111111);
+                        this.pretext[0] = data.splice(0, 5);
+                    } else {
+                        this.pretext[0] = data;
+                    }
+
+
+                }
+            })
+            //获取学术交流信息
+            await this.$axios.request({
+                method: 'GET',
+                url: '/api/academic/title'
+            }).then((res) => {
+                // console.log("/api/academic/title");
+                if (res.status == 200) {
+                    let data = res.data.data;
+                    console.log(data);
+                    if (data.length >= 5) {
+
+                        this.pretext[1] = data.splice(0, 5);
+                    } else
+
+                        this.pretext[1] = data;
+                }
+            })
+            //获取上传照片的信息
+            await this.$axios.request({
+                method: 'GET',
+                url: '/api/team/lists'
+            }).then((res) => {
+                // console.log("/api/academic/title");
+                if (res.status == 200) {
+                    console.log(res.data);
+                    let data = res.data;
+                    let pdata = data.map(item => {
+                        return { title: item.text };
+                    })
+                    // console.log(pdata);
+                    if (pdata.length >= 5) {
+                        this.pretext[2] = pdata.splice(0, 5);
+                    } else
+                        this.pretext[2] = pdata;
+
+                }
+            })
+            //获取语料库的消息
+            await this.$axios.request({
+                method: 'GET',
+                url: "/api/message/title",
+                params: { category: 5 }
+            }).then((res) => {
+                // console.log(res.data);
+                if (res.status == 200) {
+                    let data = res.data;
+                    if (data.length >= 5) {
+                        this.pretext[3] = data.splice(0, 5);
+                    } else
+                        this.pretext[3] = data;
+                }
             })
         },
         //进入更多页面
         more() {
+            if (this.newsLi == 2) {
+                this.$router.push('/Group')
+            }
             // 详细内容的页面,两个括号
-            this.$router.push({
-                path: '/detail',
-                query: { part_id: this.newsLi }
-            })
+            else {
+                this.$router.push({
+                    path: '/detail',
+                    query: { part_id: this.newsLi }
+                })
+            }
+
+        },
+        open(link) {
+            window.open(link);
         },
         // news(news_id) {
         //     this.$router.push({
@@ -182,13 +257,27 @@ export default {
         // },
         //进入新闻详情页面
         detail(aid) {
-            this.$router.push({
-                path: "/news",
-                query: {
-                    part_id: this.newsLi,
-                    news_id: aid
-                }
-            })
+            if (this.newsLi == 1) {
+                this.$router.push({
+                    path: "/text",
+                    query: {
+                        part_id: this.newsLi,
+                        academic_id: aid
+                    }
+                })
+            } else if (this.newsLi == 2) {
+                this.$router.push('/Group')
+            }
+            else {
+                this.$router.push({
+                    path: "/news",
+                    query: {
+                        part_id: this.newsLi,
+                        news_id: aid
+                    }
+                })
+            }
+
         }
     }
 }
@@ -209,15 +298,17 @@ export default {
 .swiper-container {
     height: 26rem;
     width: 100%;
-    background-color: skyblue;
+    background-color: #e5e5e5;
 }
 
 /* 图片位cover自适应 */
 #img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
+    cursor: pointer;
     /* object-position: center; */
-    object-position: 50% 50%;
+    /* object-position: 50% 50%; */
     /* object-fit: cover; */
 }
 

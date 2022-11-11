@@ -5,7 +5,7 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //引入axios
-import axios from 'axios'
+import axios from '@/api/index'
 //导入路由
 import router from '@/router'
 
