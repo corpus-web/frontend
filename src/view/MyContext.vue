@@ -1,30 +1,230 @@
 <template>
-    <div class="context">
-        <div class="graybox">
-            <!-- 例子：Remembering_VVG (_( including_II forgetting_VVG )_) is_VBZ both_RR an_AT1 important_JJ cognitive_JJ process_NN1 and_CC a_AT1 pervasive_JJ linguistic_JJ phenomenon_NN1 ._. This_DD1 paper_NN1 focuses_VVZ on_II a_AT1 less_RRR researched_VVN phenomenon_NN1 in_II remembrance_NN1 ,_, namely_REX ,_, how_RRQ remembrance_NN1 can_VM be_VBI disputed_VVN by_II interlocutors_NN2 in_II conversation_NN1 ._. I_PPIS1 show_VV0 ,_, with_IW data_NN from_II audio_JJ video_NN1 -_- recorded_JJ Mandarin_NN1 conversations_NN2 ,_, that_CST disputed_VVD remembering_VVG in_II the_AT form_NN1 of_IO debating_NN1 ,_, augmentation_NN1 ,_, emendation_NN1 ,_, and_CC alternation_NN1 ,_, etc_RA ._. is_VBZ often_RR displayed_VVN in_II the_AT service_NN1 of_IO social_JJ interaction_NN1 ._. -->
-            {{ par }}
+    <div class="frequency">
+        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem"
+            :header-cell-style="{ background: 'rgba(231, 230, 230, 1)', color: '#606266', fontSize: '1rem' }">
+            <el-table-column label="No." type="index" width="100" align="center">
+            </el-table-column>
+            <el-table-column prop="fname" label="Filename" width="180" align="center">
+            </el-table-column>
+            <el-table-column prop="fline" align="center">
+                <template slot="header">
+                    Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ currentPage }}/#
+                </template>
+                <template slot-scope="scope">
+                    <span v-html="setkey(scope.row.fline)"></span>
+                </template>
+
+            </el-table-column>
+        </el-table>
+        <div class="pagination">
+            <div class="firstpage" @click="firstpage">
+                |&lt;
+            </div>
+            <div class="firstpage" @click="prevPage">
+                &lt;
+            </div>
+            <div class="firstpage" @click="nextPage">
+                &gt;
+            </div>
+            <div class="firstpage" @click="lastPage">
+                &gt;|
+            </div>
+            <div class="buttondark" style="width: 20%;margin-left: 5%;cursor: pointer;" @click="showpage">
+                Show Page
+            </div>
+            <input class="pagenum" v-model="showp" placeholder="" />
+            <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;"
+                @click="change">
+                {{ order }}
+            </div>
         </div>
+
     </div>
 </template>
 
 <script>
 export default {
-    props: ["par"],
+    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize"],
+    // "longtext":要高亮的词
+    // "total"：总共的索引数
+    // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数
+    // "currentPageData"：表格的数据
     data() {
         return {
-            text: ''
+
+
+            currentPage: 1, //当前页数 ，默认为1
+
+            // currentPageData: [], //当前页显示内容
+            headPage: 1,
+            showp: '',
+            order: 'Random Order',
+            randomcase: false,//1表示Show Corpus；2表示Random Order
+            // title: "五百年前孙悟空大闹天宫",
+            // searchWord: "孙悟空",
+            pack: {
+                page: 0,
+                rank: true,
+
+            }
         }
     },
 
+    mounted() {
+
+    },
+    methods: {
+        getCurrentPageData() {
+            this.pack.page = this.currentPage;
+            this.pack.rank = this.randomcase;
+            this.$emit('turnpage', this.pack)
+
+
+        },
+        //首页
+        firstpage() {
+            this.currentPage = this.headPage;
+            this.getCurrentPageData();
+        },
+        //上一页
+        prevPage() {
+            if (this.currentPage == 1) {
+                return false;
+            } else {
+                this.currentPage--;
+                this.getCurrentPageData();
+            }
+        },
+        // 下一页
+        nextPage() {
+            console.log("下一页")
+            if (this.currentPage == this.pageSize) {
+                return false;
+            } else {
+                this.currentPage++;
+                this.getCurrentPageData();
+            }
+        },
+        //尾页
+        lastPage() {
+            if (this.currentPage == this.pageSize) {
+                return false;
+            } else {
+                this.currentPage = this.pageSize;
+                this.getCurrentPageData();
+            }
+
+        },
+        showpage() {
+            this.currentPage = this.showp;
+            this.getCurrentPageData();
+            console.log(this.showp)
+        },
+        change() {
+            this.getCurrentPageData();
+            if (this.order == 'Show Corpus') {
+                this.order = 'Random Order';
+                this.randomcase = false;
+                this.getCurrentPageData();
+                console.log(1)
+            }
+            else {
+                this.order = 'Show Corpus';
+                this.randomcase = true;
+                this.getCurrentPageData();
+                console.log(2)
+            }
+        },
+
+        setkey(line) {
+            if (line.includes(this.longtext)) {
+                line = line.replace(
+                    this.longtext,
+                    // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+                    '<font style="color:red!important;">' + this.longtext + '</font>'
+
+                )
+                return line
+            }
+            // 不包含的话还用这个
+            else {
+                return line
+            }
+        },
+
+    },
 }
 </script>
 
-<style scoped>
-.graybox {
-    background-color: rgba(231, 230, 230, 1);
-    width: 100%;
-    font-size: 1rem;
-    line-height: 2rem;
+<style>
+.el-table {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
 
+.el-table tr {
+    background-color: rgba(231, 230, 230, 1);
+    padding: 0.1rem 0.1rem;
+}
+
+.el-table thead {
+    background-color: rgba(231, 230, 230, 1);
+}
+
+/**
+改变边框颜色
+ */
+.el-table--border,
+.el-table--group {
+    border: 1px solid #ffffff !important;
+}
+
+/**
+改变表格内行线颜色
+ */
+.el-table td,
+.el-table th.is-leaf {
+    border: 1.5px solid #ffffff !important;
+}
+
+.pagination {
+    margin-top: 0.3rem;
+    display: flex;
+    background-color: rgba(218, 227, 243, 1);
+    height: 2.7rem;
+}
+
+.firstpage {
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 0.1rem solid black;
+    width: 2rem;
+    height: 1.8rem;
+    text-align: center;
+    line-height: 1.5rem;
+    margin-top: 0.5rem;
+    margin-left: 0.8rem;
+    font-weight: 800;
+}
+
+.buttondark {
+    background-color: rgba(47, 85, 151, 1);
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 2rem;
+    height: 2rem;
+
+}
+
+.pagenum {
+    width: 1.8rem;
+    margin-top: 0.5rem;
+    margin-left: 0.8rem;
+    font-size: 1.8rem;
+    height: 1.8rem;
+    text-align: center;
+    border: 0.1rem solid black;
 }
 </style>

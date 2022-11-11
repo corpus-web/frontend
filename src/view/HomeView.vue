@@ -38,7 +38,7 @@
     <div class="Mindmapping">
       <img src="../assets/images/Mindmapping.png" alt="Mind mapping">
     </div>
-    <div style="display: flex;padding-right: 1rem;">
+    <div style="display: flex;">
       <div class="button" @click="$router.push('/Search')">
         Go Searching
       </div>
@@ -102,7 +102,7 @@ export default {
   text-indent: 2rem;
   text-align: justify;
   margin: 0 auto;
-  width: 55rem;
+  width: 75rem;
   /* font-weight: 800; */
   padding-top: 1.5rem;
   font-size: 1.2rem;
@@ -111,16 +111,18 @@ export default {
 }
 
 .button {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   cursor: pointer;
   background-color: rgba(47, 85, 151, 1);
   color: white;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 2.1rem;
   text-align: center;
-  width: 9.6rem;
-  height: 1.5rem;
-  margin-right: 1rem;
-  margin-left: auto
+  width: 16rem;
+  height: 2.7rem;
+  /* margin-right: 1rem; */
+  margin-left: auto;
+  margin-bottom: 0.5rem;
 }
 
 /* 轮播图 */
