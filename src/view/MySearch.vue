@@ -60,12 +60,13 @@
 
             <div class="tickbox">
               <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
-                Save list
+                Retrieval range
               </div>
-              <select v-model="saveyes" id="selectbox">
+              <select v-model="choice" id="selectbox">
                 <option disabled value=""></option>
-                <option>Yes</option>
-                <option>No</option>
+                <option>the whole corpus</option>
+                <option>sub-corpus of Shipbuilding-</option>
+                <option>sub-corpus of Nuclear-</option>
 
               </select>
             </div>
@@ -74,7 +75,7 @@
         </div>
         <div class="graybox1">
 
-          <div class="graysmall" style="margin-top:2rem ;">
+          <div class="graysmall">
             Case-Sensitive determines whether The result and the result would be two different searches, or It finds, it
             finds, It Finds.
           </div>
@@ -88,11 +89,12 @@
         </div>
       </div>
       <div v-else-if="frequencyclick" class="frequency">
-        <frequency :currentPageData="currentPageData" :longtext="longtext" :indexnum="indexnum"
-          :resindexnum="resindexnum" @jump="jump"></frequency>
+        <frequency :currentPageData="currentPageData" :longtext="longtext" :indexnum="indexnum" :bothnum="bothnum"
+           :limitcase="limitcase"  @jump="jump"></frequency>
       </div>
       <div v-else-if="contextclick" class="context">
-        <context :par="par"></context>
+        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :bothnum="bothnum" :pageSize="pageSize"
+          :limitcase="limitcase" :resindexnum="resindexnum" @turnpage="turnpage"></context>
       </div>
     </div>
     <my-footer></my-footer>
@@ -118,10 +120,14 @@ export default {
       limitcase: false,//默认不限制大小写
       bothnum: 50,//被检索词两边的字符数
       indexnum: 50,//索引条数
-      resindexnum: '',//后端返回的索引条数
-      saveyes: '',//选择yes能够保存检索列表
+      resindexnum: 0,//后端返回的索引条数
+      pageSize: 1, // 统共页数，默认为1
+      choice: 'the whole corpus',//选择哪一个语料库进行检索
+      choicenum: 0,
       currentPageData: [],
-      par: ''//context页面要展示的文字的par
+      par: '',//context页面要展示的文字的par
+      keytype: '',
+      tableData: []
     }
   },
   methods: {
@@ -142,15 +148,25 @@ export default {
     },
     // 对检索框内容进行检索
     startsearch() {
-
-
+      if (this.choice == 'the whole corpus') {
+        this.choicenum = 0
+      }
+      else if (this.choice == 'sub-corpus of Shipbuilding-') {
+        this.choicenum = 1
+      }
+      else if (this.choice == 'sub-corpus of Nuclear-') {
+        this.choicenum = 2
+      }
       this.$axios.request({
         method: 'GET',
         url: "/api/corpus/article",
         params: {
           word: this.longtext,// 检索内容
+          limitcase: this.limitcase,//大小写敏感
           window_size: this.bothnum,// 检索词两边的字符数
           max_num: this.indexnum,// 一页展示的索引条数
+          category: this.choicenum,//选择哪一个语料库进行检索
+
         }
 
       }).then((res) => {
@@ -159,8 +175,8 @@ export default {
           message: '开始检索……',
           type: 'success'
         });
-        this.currentPageData = res.data.data
-        this.resindexnum = res.data.total
+        this.currentPageData = res.data
+        // this.resindexnum = res.data.total
 
       })
       this.searchclick = false;
@@ -173,13 +189,66 @@ export default {
       this.longtext = ''
     },
     jump(t) {
-      console.log(t)
-      this.par = t;
+      this.keytype = t;
+      console.log(t);
+      this.$axios.request({
+        method: 'GET',
+        url: "/api/corpus/articles",
+        params: {
+          'word': t,// 检索内容key的类型                       
+          'limitcase': this.limitcase,//大小写敏感
+          'window_size': this.bothnum,// 检索词两边的字符数
+          'max_num': this.indexnum,// 一页展示的索引条数
+          'current_page': 1,
+          'category': this.choicenum,//选择哪一个语料库进行检索
+        }
+
+      }).then((res) => {
+        this.$message({
+          showClose: true,
+          message: '开始检索……',
+          type: 'success'
+        });
+        this.tableData = res.data.data;
+        this.resindexnum=res.data.total;
+        this.pageSize = Math.ceil(this.resindexnum / this.indexnum);
+        console.log('后端返回值')
+        console.log(this.tableData);
+        console.log(this.resindexnum)
+      })
+
 
       this.searchclick = false;
       this.frequencyclick = false;
       this.contextclick = true;
 
+    },
+    turnpage(t){
+      console.log(t)
+      this.$axios.request({
+                method: 'GET',
+                url: "/api/corpus/articles",
+                params: {
+                    'word': this.keytype,// 检索内容key的类型                    
+                    'limitcase': this.limitcase,//大小写敏感
+                    'window_size': this.bothnum,// 检索词两边的字符数
+                    'max_num': this.indexnum,// 一页展示的索引条数
+                    'current_page': t.page,
+                    'randomcase':t.rank,
+                    'category': this.choicenum,//选择哪一个语料库进行检索
+                }
+
+            }).then((res) => {
+                this.$message({
+                    showClose: true,
+                    message: '开始检索……',
+                    type: 'success'
+                });
+                // eslint-disable-next-line
+                this.tableData = res.data.data;
+
+
+            })
     }
   }
 }
@@ -193,6 +262,7 @@ export default {
 }
 
 .click {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   cursor: pointer;
   background-color: rgba(47, 85, 151, 1);
   color: white;
@@ -205,6 +275,7 @@ export default {
 }
 
 .unclick {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   cursor: pointer;
   background-color: rgba(143, 170, 220, 1);
   color: white;
@@ -228,12 +299,12 @@ export default {
 
 .frequency {
 
-  padding: 2rem 9rem;
+  padding: 1rem 0rem;
 }
 
 .context {
 
-  padding: 2rem 9rem;
+  padding: 1rem 0rem;
 }
 
 .graybox {
@@ -244,24 +315,28 @@ export default {
 }
 
 .graybox1 {
+  font-family: 'Times New Roman', Times, serif;
+
   background-color: rgba(231, 230, 230, 1);
   width: 45%;
   /* height: 10vh; */
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   color: rgba(47, 85, 151, 1);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   /* text-align: center; */
-  line-height: 3rem;
+  line-height: 2rem;
 }
 
 .graysmall {
   text-indent: 2rem;
   text-align: justify;
-  padding-top: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
 }
 
 .buttonbox {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   padding: 2rem 0;
   display: flex;
   justify-content: space-between;
@@ -269,6 +344,7 @@ export default {
 }
 
 .buttondark {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   background-color: rgba(47, 85, 151, 1);
   color: white;
   font-weight: 700;
@@ -296,6 +372,7 @@ export default {
 }
 
 #longinput {
+  font-family: 'Times New Roman', Times, serif;
   width: 100%;
   min-height: 10rem;
   font-weight: 700;
@@ -309,6 +386,7 @@ export default {
 }
 
 #selectbox {
-  width: 3rem;
+  width: 9rem;
+  text-align: center;
 }
 </style>
