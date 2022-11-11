@@ -15,7 +15,7 @@
             }}年风采墙</div>
             <div id="imgs">
                 <div class="img" v-for="(list, index) in imgsList[yearr]" :key="index">
-                    <el-image :src=list.pictureurl fit="contain"
+                    <el-image :src=list.pictureurl fit="contain" @click="open(list.pictureurl)"
                         style="width: 100%;height: 88%; background-color: white ;"></el-image>
                     <div class="text">{{ list.text }}</div>
                 </div>
@@ -37,6 +37,9 @@ export default {
         this.getimgsList();
     },
     methods: {
+        open(link) {
+            window.open(link);
+        },
         getimgsList() {
             this.$axios.request({
                 method: 'GET',
@@ -98,7 +101,7 @@ export default {
     height: 24.65rem;
     margin-top: 0.5rem;
     margin-right: 3%;
-
+    cursor: pointer;
     /* margin-bottom: 0.5rem; */
 }
 

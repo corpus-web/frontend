@@ -97,7 +97,19 @@ export default {
         },
         getdetail() {
             this.part_id = this.$route.query.part_id;
-            if (this.part_id == 1) {
+            if (this.part_id == 0) {
+                this.$axios.request({
+                    method: 'GET',
+                    url: "/api/message/title",
+                    params: { category: 2 }
+                }).then((res) => {
+                    // console.log(res.data);
+                    if (res.status == 200) {
+                        this.DetailList = res.data;
+                    }
+                })
+            }
+            else if (this.part_id == 1) {
                 this.$axios.request({
                     method: 'GET',
                     url: "/api/academic/title",
@@ -108,9 +120,18 @@ export default {
                 }).then((res) => {
                     if (res.status == 200) {
                         this.DetailList = res.data.data;
-
-                    } else {
-                        alert("出错啦！！")
+                    }
+                })
+            }
+            else if (this.part_id == 3) {
+                this.$axios.request({
+                    method: 'GET',
+                    url: "/api/message/title",
+                    params: { category: 5 }
+                }).then((res) => {
+                    // console.log(res.data);
+                    if (res.status == 200) {
+                        this.DetailList = res.data;
                     }
                 })
             }

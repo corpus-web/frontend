@@ -8,6 +8,7 @@
                 <el-carousel indicator-position="outside" trigger="click" height="31.44rem">
                     <el-carousel-item v-for="(item, index) in bannerList" :key="index">
                         <img :src="item.pictureurl" id="img">
+                        <!-- <el-image :src="item.pictureurl" id="img" fit="contain"></el-image> -->
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -17,7 +18,11 @@
                 <ul style="margin-top:2.751rem">
                     <li v-for="(litext, index) in text" :key="index">
 
-                        <div @click="select(litext.aid)">{{ index + 1 }}.&nbsp;{{ litext.title }}</div>
+                        <div style="height:1.5rem;border-bottom:1px solid #e5e5e5" @click="select(litext.aid)">{{ index
+                                +
+                                1
+                        }}.&nbsp;{{ litext.title }}
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -97,8 +102,9 @@ export default {
 #img {
     width: 100%;
     height: 100%;
-    object-position: center;
-    object-fit: cover;
+    object-fit: contain;
+    /* object-position: center; */
+    /* object-fit: cover;  */
 }
 
 #text {
@@ -111,9 +117,10 @@ export default {
 
 #text li {
     /* list-style-type: disc; */
-    font-family: "宋体";
-    font-size: larger;
-    margin-bottom: 1rem;
+    font-family: "微软雅黑";
+    /* font-size: larger; */
+    font-weight: 400;
+    margin-bottom: 1.5rem;
 }
 
 #text li div {
