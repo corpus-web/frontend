@@ -20,8 +20,8 @@
                 <el-table-column>
                     <template slot="header">
                         <!-- <el-button type="success" @click="MainSwiperadd">添加</el-button> -->
-                        <el-upload class="upload-demo" :action="'http://192.168.1.144:8100' + url[part]"
-                            :show-file-list=false :on-success="() => uploadsucc()">
+                        <el-upload class="upload-demo" :action="geturl()" :show-file-list=false
+                            :on-success="() => uploadsucc()">
                             <el-button size="small" type="primary">点击上传</el-button>
                         </el-upload>
                     </template>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import Base from '@/globle/globleApi.js'
 export default {
     created() {
         this.GetMainSwiper();
@@ -46,6 +47,9 @@ export default {
     },
     props: ['part'],
     methods: {
+        geturl() {
+            return Base.baseURL;
+        },
         curs(row) {
             if (row.column.label === "图片地址")
                 return "cursor:pointer;"
@@ -54,7 +58,7 @@ export default {
             window.open(url);
         },
         GetMainSwiper() {
-            console.log(this.url[this.part]);
+            // console.log(this.url[this.part]);
             this.$axios.request({
                 method: 'GET',
                 url: this.url[this.part],
@@ -66,7 +70,7 @@ export default {
             })
         },
         MainSwiperDel(index, row) {
-            console.log(row.pid);
+            // console.log(row.pid);
             this.$confirm('是否确认删除继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

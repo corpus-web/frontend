@@ -196,7 +196,7 @@ export default {
     jump(t) {
       this.loading2=true;
       this.keytype = t;
-      console.log(t);
+      // console.log(t);
       this.$axios.request({
         method: 'GET',
         url: "/api/corpus/articles",
@@ -217,11 +217,11 @@ export default {
         //   type: 'success'
         // });
         this.tableData = res.data.data;
-        this.resindexnum=res.data.total;
+        this.resindexnum = res.data.total;
         this.pageSize = Math.ceil(this.resindexnum / this.indexnum);
-        console.log('后端返回值')
-        console.log(this.tableData);
-        console.log(this.resindexnum)
+        // console.log('后端返回值')
+        // console.log(this.tableData);
+        // console.log(this.resindexnum)
       })
 
 

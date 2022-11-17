@@ -24,37 +24,60 @@ const router = new VueRouter({
         {
             path: '/Main',
             component: Main,
+            meta: {
+                title: "主页",
+            }
         },
         {
             path: '/Course',
             component: Course,
+            meta: {
+                title: "课程建设",
+            }
         },
         {
             path: '/Academic',
             component: Academic,
-
+            meta: {
+                title: "学术交流",
+            }
 
 
         },
         {
             path: '/text',
             component: Text,
+            meta: {
+                title: "会议内容",
+            }
         },
         {
             path: '/Group',
             component: Group,
+            meta: {
+                title: "团队风采",
+            }
         },
         {
             path: '/Language',
             component: Language,
+            meta: {
+                title: "语料库",
+            }
         },
         {
             path: '/detail',
             component: Detail,
+            meta: {
+                title: "更多内容",
+            }
         },
         {
             path: '/news',
-            component: News
+            component: News,
+            meta: {
+                title: "新闻",
+            }
         },
         {
             path: '/manage',
@@ -66,7 +89,10 @@ const router = new VueRouter({
         },
         {
             path: '/login',
-            component: Login
+            component: Login,
+            meta: {
+                title: "登录",
+            }
         },
         {
 

@@ -72,7 +72,7 @@ export default {
             return sums;
         },
         rowclick(row) {
-            console.log(row.name)
+            // console.log(row.name)
             this.$emit('jump', row.name)
 
 
