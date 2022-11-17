@@ -1,28 +1,28 @@
 <template>
-
-    <div style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
+    <div>
         <my-header></my-header>
-        <my-image></my-image>
-        <div id="body">
-            <div class="swiper-container">
-                <el-carousel indicator-position="none" trigger="click" height="27.51rem">
-                    <el-carousel-item v-for="(item, index) in list[0].pictureurl" :key="index">
-                        <img :src="item" id="img">
-                    </el-carousel-item>
-                </el-carousel>
-                <div id="title">{{ list[0].title }}</div>
-            </div>
-            <div id="text">
-                <div class="ganxiang">参会感想：</div>
-                <div>
-                    <p v-for="(paragraph, index) in list[0].text_par" :key="index" class="paragraph">
-                        {{ paragraph }}
-                    </p>
+        <div style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
+
+            <my-image></my-image>
+            <div id="body">
+                <div class="swiper-container">
+
+                    <img :src="list[0].pictureurl[0]" id="img">
+
+                    <div id="title">{{ list[0].title }}</div>
+                </div>
+                <div id="text">
+                    <div class="ganxiang">参会感想：</div>
+                    <div>
+                        <p v-for="(paragraph, index) in list[0].text_par" :key="index" class="paragraph">
+                            {{ paragraph }}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <my-footer></my-footer>
+            <my-footer></my-footer>
+        </div>
     </div>
 </template>
 
@@ -74,8 +74,8 @@ export default {
     left: 4px;
     top: 4px;
     border: 1px solid #e5e5e5;
-    height: 440px;
-    width: 38.4rem;
+    height: 450px;
+    width: 600px;
     /* border: 1px solid red; */
 }
 
@@ -92,7 +92,7 @@ export default {
     line-height: 3.144rem;
     text-align: center;
     margin: auto;
-    margin-top: 0.8rem;
+    margin-top: 0.3rem;
     width: 38.4rem;
     /* border: 1px solid purple; */
 }

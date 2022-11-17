@@ -4,7 +4,7 @@
     <my-image></my-image>
     <div class="menu">
       <div :class="[searchclick ? click : unclick]" @click="search">
-        Serch
+        Search
       </div>
       <div :class="[frequencyclick ? click : unclick]" @click="frequency">
         Frequency
@@ -90,11 +90,11 @@
       </div>
       <div v-else-if="frequencyclick" class="frequency">
         <frequency :currentPageData="currentPageData" :longtext="longtext" :indexnum="indexnum" :bothnum="bothnum"
-           :limitcase="limitcase"  @jump="jump"></frequency>
+          :limitcase="limitcase" @jump="jump"></frequency>
       </div>
       <div v-else-if="contextclick" class="context">
-        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :bothnum="bothnum" :pageSize="pageSize"
-          :limitcase="limitcase" :resindexnum="resindexnum" @turnpage="turnpage"></context>
+        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :bothnum="bothnum"
+          :pageSize="pageSize" :limitcase="limitcase" :resindexnum="resindexnum" @turnpage="turnpage"></context>
       </div>
     </div>
     <my-footer></my-footer>
@@ -190,7 +190,7 @@ export default {
     },
     jump(t) {
       this.keytype = t;
-      console.log(t);
+      // console.log(t);
       this.$axios.request({
         method: 'GET',
         url: "/api/corpus/articles",
@@ -210,11 +210,11 @@ export default {
           type: 'success'
         });
         this.tableData = res.data.data;
-        this.resindexnum=res.data.total;
+        this.resindexnum = res.data.total;
         this.pageSize = Math.ceil(this.resindexnum / this.indexnum);
-        console.log('后端返回值')
-        console.log(this.tableData);
-        console.log(this.resindexnum)
+        // console.log('后端返回值')
+        // console.log(this.tableData);
+        // console.log(this.resindexnum)
       })
 
 
@@ -223,32 +223,32 @@ export default {
       this.contextclick = true;
 
     },
-    turnpage(t){
-      console.log(t)
+    turnpage(t) {
+      // console.log(t)
       this.$axios.request({
-                method: 'GET',
-                url: "/api/corpus/articles",
-                params: {
-                    'word': this.keytype,// 检索内容key的类型                    
-                    'limitcase': this.limitcase,//大小写敏感
-                    'window_size': this.bothnum,// 检索词两边的字符数
-                    'max_num': this.indexnum,// 一页展示的索引条数
-                    'current_page': t.page,
-                    'randomcase':t.rank,
-                    'category': this.choicenum,//选择哪一个语料库进行检索
-                }
+        method: 'GET',
+        url: "/api/corpus/articles",
+        params: {
+          'word': this.keytype,// 检索内容key的类型                    
+          'limitcase': this.limitcase,//大小写敏感
+          'window_size': this.bothnum,// 检索词两边的字符数
+          'max_num': this.indexnum,// 一页展示的索引条数
+          'current_page': t.page,
+          'randomcase': t.rank,
+          'category': this.choicenum,//选择哪一个语料库进行检索
+        }
 
-            }).then((res) => {
-                this.$message({
-                    showClose: true,
-                    message: '开始检索……',
-                    type: 'success'
-                });
-                // eslint-disable-next-line
-                this.tableData = res.data.data;
+      }).then((res) => {
+        this.$message({
+          showClose: true,
+          message: '开始检索……',
+          type: 'success'
+        });
+        // eslint-disable-next-line
+        this.tableData = res.data.data;
 
 
-            })
+      })
     }
   }
 }

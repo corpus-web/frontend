@@ -1,35 +1,39 @@
 <template>
-    <div style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
+    <div>
         <my-header></my-header>
-        <my-image></my-image>
-        <div class="mian">
-            <div class="column-path">
-                <span style="cursor:pointer" @click="$router.push('/Main')">&nbsp;&nbsp;首页&nbsp;&nbsp;</span>
-                <span class="possplit">&nbsp;&nbsp;</span>
-                <span style="cursor:pointer" @click="$router.push({ path: '/detail', query: { part_id: part_id } })">
-                    &nbsp;{{ list[part_id] }}</span>
-            </div>
-            <div id="article">
-                <!-- 文章标题 -->
-                <h1 id="title">{{ news.title }}</h1>
-                <!-- 文章信息 -->
-                <p id="meta">
-                    <span id="time">时间：{{ news.create_time }}</span>
-                    <span id="sources">文章来源：外国语学院</span>
-                    <!-- <span id="views">浏览：{{ news.viewed }}</span> -->
-                </p>
-                <!-- 文章内容 -->
-                <div class="entry">
-                    <!-- <div v-text="news.text" id="text"></div> -->
-                    <div id="text">
-                        <p v-for="(paragraph, index) in news.text_par" :key="index">
-                            {{ paragraph }}
-                        </p>
+        <div style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
+
+            <my-image></my-image>
+            <div class="mian">
+                <div class="column-path">
+                    <span style="cursor:pointer" @click="$router.push('/Main')">&nbsp;&nbsp;首页&nbsp;&nbsp;</span>
+                    <span class="possplit">&nbsp;&nbsp;</span>
+                    <span style="cursor:pointer"
+                        @click="$router.push({ path: '/detail', query: { part_id: part_id } })">
+                        &nbsp;{{ list[part_id] }}</span>
+                </div>
+                <div id="article">
+                    <!-- 文章标题 -->
+                    <h1 id="title">{{ news.title }}</h1>
+                    <!-- 文章信息 -->
+                    <p id="meta">
+                        <span id="time">时间：{{ news.create_time }}</span>
+                        <span id="sources">文章来源：外国语学院</span>
+                        <!-- <span id="views">浏览：{{ news.viewed }}</span> -->
+                    </p>
+                    <!-- 文章内容 -->
+                    <div class="entry">
+                        <!-- <div v-text="news.text" id="text"></div> -->
+                        <div id="text">
+                            <p v-for="(paragraph, index) in news.text_par" :key="index">
+                                {{ paragraph }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+            <my-footer></my-footer>
         </div>
-        <my-footer></my-footer>
     </div>
 </template>
 

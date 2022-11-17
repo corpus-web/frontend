@@ -1,8 +1,13 @@
 <template>
     <!-- style="background-image: linear-gradient(to bottom,#d8dfe2,white)" -->
-    <div style="background-image: linear-gradient(to bottom,#d8dfe2,white)">
-        <div class="main" style="width:76.8rem;margin: auto;">
-            <my-header></my-header>
+    <!-- style="background-image: linear-gradient(to bottom,#d8dfe2,white)" -->
+    <div>
+        <my-header></my-header>
+        <div class="main" style="width:78rem;margin: auto;">
+
+
+
+
             <!-- 轮播图 -->
             <div class="body1">
                 <div class="swiper-container">
@@ -18,65 +23,178 @@
                 </div>
             </div>
 
-            <!-- 最近动态 -->
 
-            <div id="wp_w">
-                <div class="lasted_div">
-                    <div class="i-title">
-                        <img src="@/assets/images/ggtz.png">
+
+            <div class="ch_wraper">
+
+
+
+                <div class="ch_innerw">
+                    <div class="ch_title">
+                        <span class="ch_title_text">课程建设</span>
+                        <span class="ch_title_more" @click="ch_more(0)">更多</span>
                     </div>
-
-                    <div v-for="(tt, index) in text" :key="index" v-show="index == newsLi">
-                        <span class="news_title">{{ liContent[index] }}</span>
-                        <div class="latest">
+                    <div class="ch_innerblock">
+                        <div class="ch_innerimg">
+                            <img src="@/assets/images/1.jpg" alt="">
+                        </div>
+                        <div class="ch_innerul">
                             <ul>
-                                <!-- 从后端获取数据 -->
-                                <li class="short_text" v-for="(pp, index) in tt" :key="index">
-                                    <div class="short_text">
-                                        <span class="short_text_span" @click=detail(pp.aid)>{{ pp.title }}</span>
+
+                                <li v-for="(pp, index) in text[0]" :key="index" style="">
+                                    <div style="position:relative;height: 2rem;">
+                                        <span class="ch_short_text_span" @click="detail(pp.aid, 0)">{{ pp.title
+                                        }}</span>
+                                        <span style="position:absolute;top:0;right:0;color: #bcbcc1;">{{ pp.create_time
+                                        }}</span>
                                     </div>
-                                    <span style="float:right;color: #bcbcc1;">{{ pp.create_time }}</span>
+
                                 </li>
 
                             </ul>
                         </div>
-
-                    </div>
-
-                    <div class="more">
-                        <div class="more_btn" @click="more()">
-                            <el-button type="primary" style="background-color:#607d8b;border: #607d8b;">查看更多</el-button>
-                        </div>
-                        <!-- <button>查看更多</button> -->
                     </div>
                 </div>
-                <ul class="wp_nav">
-                    <li class="nav-item" id="i1" @mouseenter="enter(0)" @mouseleave="leave()"
-                        :class="0 === navLi ? 'active' : 'unactive'" @click="select(0)">
-                        <span class="item-name">课程建设</span>
-                        <div class="mark" v-show="navLi == 0">课程建设</div>
-                    </li>
-                    <li class="nav-item " id="i2" @mouseenter="enter(1)" @mouseleave="leave()"
-                        :class="1 === navLi ? 'active' : 'unactive'" @click="select(1)">
-                        <span class="item-name">学术交流</span>
-                        <div class="mark" v-show="navLi == 1">学术交流</div>
-                    </li>
-                    <li class="nav-item" id="i3" @mouseenter="enter(2)" @mouseleave="leave()"
-                        :class="2 === navLi ? 'active' : 'unactive'" @click="select(2)">
-                        <span class="item-name">团队风采</span>
-                        <div class="mark" v-show="navLi == 2">团队风采</div>
-                    </li>
-                    <li class="nav-item" id="i4" @mouseenter="enter(3)" @mouseleave="leave()"
-                        :class="3 === navLi ? 'active' : 'unactive'" @click="select(3)">
-                        <span class="item-name">语料库</span>
-                        <div class="mark" v-show="navLi == 3">语料库</div>
-                    </li>
+                <div class="ch_innerw">
+                    <div class="ch_title">
+                        <span class="ch_title_text">学术交流</span>
+                        <span class="ch_title_more" @click="ch_more(1)">更多</span>
+                    </div>
+                    <div class="ch_innerblock">
+                        <div class="ch_innerimg">
+                            <img src="@/assets/images/1.jpg" alt="">
+                        </div>
+                        <div class="ch_innerul">
+                            <ul>
 
-                </ul>
+                                <li v-for="(pp, index) in text[1]" :key="index" style="">
+                                    <div style="position:relative;height: 2rem;">
+                                        <span class="ch_short_text_span" @click="detail(pp.aid, 1)">{{ pp.title
+                                        }}</span>
+                                        <span style="position:absolute;top:0;right:0;color: #bcbcc1;">{{ pp.create_time
+                                        }}</span>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ch_innerw">
+                    <div class="ch_title">
+                        <span class="ch_title_text">团队风采</span>
+                        <span class="ch_title_more" @click="ch_more(2)">更多</span>
+                    </div>
+                    <div class="ch_innerblock">
+                        <div class="ch_innerimg">
+                            <img src="@/assets/images/1.jpg" alt="">
+                        </div>
+                        <div class="ch_innerul">
+                            <ul>
+
+                                <li v-for="(pp, index) in text[2]" :key="index" style="">
+                                    <div style="position:relative;height: 2rem;">
+                                        <span class="ch_short_text_span" @click="detail(pp.aid, 2)">{{ pp.title
+                                        }}</span>
+                                        <span style="position:absolute;top:0;right:0;color: #bcbcc1;">{{ pp.create_time
+                                        }}</span>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch_innerw">
+                    <div class="ch_title">
+                        <span class="ch_title_text">语料库</span>
+                        <span class="ch_title_more" @click="ch_more(3)">更多</span>
+                    </div>
+                    <div class="ch_innerblock">
+                        <div class="ch_innerimg">
+                            <img src="@/assets/images/1.jpg" alt="">
+                        </div>
+                        <div class="ch_innerul">
+                            <ul>
+
+                                <li v-for="(pp, index) in text[3]" :key="index" style="">
+                                    <div style="position:relative;height: 2rem;">
+                                        <span class="ch_short_text_span" @click="detail(pp.aid, 3)">{{ pp.title
+                                        }}</span>
+                                        <span style="position:absolute;top:0;right:0;color: #bcbcc1;">{{ pp.create_time
+                                        }}</span>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <my-footer></my-footer>
+
+
         </div>
         <router-view></router-view>
+        <!-- 最近动态 -->
+        <!-- <div id="wp_w">
+            <div class="lasted_div">
+                <div class="i-title">
+                    <img src="@/assets/images/ggtz.png">
+                </div>
+
+                <div v-for="(tt, index) in text" :key="index" v-show="index == newsLi">
+                    <span class="news_title">{{ liContent[index] }}</span>
+                    <div class="latest">
+                        <ul>
+                            
+                            <li class="short_text" v-for="(pp, index) in tt" :key="index">
+                                <div class="short_text">
+                                    <span class="short_text_span" @click=detail(pp.aid)>{{ pp.title }}</span>
+                                </div>
+                                <span style="float:right;color: #bcbcc1;">{{ pp.create_time }}</span>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="more">
+                    <div class="more_btn" @click="more()">
+                        <el-button type="primary" style="background-color:#607d8b;border: #607d8b;">查看更多</el-button>
+                    </div>
+                    
+                </div>
+            </div>
+            <ul class="wp_nav">
+                <li class="nav-item" id="i1" @mouseenter="enter(0)" @mouseleave="leave()"
+                    :class="0 === navLi ? 'active' : 'unactive'" @click="select(0)">
+                    <span class="item-name">课程建设</span>
+                    <div class="mark" v-show="navLi == 0">课程建设</div>
+                </li>
+                <li class="nav-item " id="i2" @mouseenter="enter(1)" @mouseleave="leave()"
+                    :class="1 === navLi ? 'active' : 'unactive'" @click="select(1)">
+                    <span class="item-name">学术交流</span>
+                    <div class="mark" v-show="navLi == 1">学术交流</div>
+                </li>
+                <li class="nav-item" id="i3" @mouseenter="enter(2)" @mouseleave="leave()"
+                    :class="2 === navLi ? 'active' : 'unactive'" @click="select(2)">
+                    <span class="item-name">团队风采</span>
+                    <div class="mark" v-show="navLi == 2">团队风采</div>
+                </li>
+                <li class="nav-item" id="i4" @mouseenter="enter(3)" @mouseleave="leave()"
+                    :class="3 === navLi ? 'active' : 'unactive'" @click="select(3)">
+                    <span class="item-name">语料库</span>
+                    <div class="mark" v-show="navLi == 3">语料库</div>
+                </li>
+
+            </ul>
+        </div> -->
+        <my-footer></my-footer>
     </div>
 </template>
 
@@ -84,23 +202,23 @@
 
 
 export default {
-    // name: 'MyMain',
+    name: 'MyMain',
     async created() {
-        this.getbannerList();
+        await this.getbannerList();
         // this.gettext();
         await this.loading();
-        // this.sleep(5000)
-        console.log(1111);
+        console.log(this.pretext);
     },
+
     data() {
         return {
             //轮播图轮播的图片的地址
             bannerList: [],
             liContent: ["课程建设", "学术交流", "团队风采", "语料库"],
             navLi: -1,
-            newsLi: 0,
+            // newsLi: 0,
             text: [],
-            pretext: [[{ aid: 1, create_time: "2022-02-01", title: "jcoidajdsi" }], [], [], []],
+            pretext: [[], [], [], []],
         }
     },
 
@@ -146,13 +264,16 @@ export default {
         async loading() {
             const result = await this.gettext();
             this.text = result;
+
+
         },
+
         // 获取所有的text数据
         async gettext() {
 
             //获取课程建设的新闻
             await this.prefor();
-            console.log(this.pretext);
+            // console.log(this.pretext);
             return this.pretext;
         },
 
@@ -167,7 +288,7 @@ export default {
                     let data = res.data;
 
                     if (data.length >= 5) {
-                        console.log(11111111111111);
+                        // console.log(11111111111111);
                         this.pretext[0] = data.splice(0, 5);
                     } else {
                         this.pretext[0] = data;
@@ -184,7 +305,7 @@ export default {
                 // console.log("/api/academic/title");
                 if (res.status == 200) {
                     let data = res.data.data;
-                    console.log(data);
+                    // console.log(data);
                     if (data.length >= 5) {
 
                         this.pretext[1] = data.splice(0, 5);
@@ -200,10 +321,10 @@ export default {
             }).then((res) => {
                 // console.log("/api/academic/title");
                 if (res.status == 200) {
-                    console.log(res.data);
+                    // console.log(res.data);
                     let data = res.data;
                     let pdata = data.map(item => {
-                        return { title: item.text };
+                        return { title: item.text, create_time: item.create_time };
                     })
                     // console.log(pdata);
                     if (pdata.length >= 5) {
@@ -243,6 +364,17 @@ export default {
             }
 
         },
+        ch_more(p) {
+            if (p == 2) {
+                this.$router.push('/Group')
+            }
+            else {
+                this.$router.push({
+                    path: '/detail',
+                    query: { part_id: p }
+                })
+            }
+        },
         open(link) {
             window.open(link);
         },
@@ -256,8 +388,8 @@ export default {
         //     })
         // },
         //进入新闻详情页面
-        detail(aid) {
-            if (this.newsLi == 1) {
+        detail(aid, p) {
+            if (p == 1) {
                 this.$router.push({
                     path: "/text",
                     query: {
@@ -265,14 +397,14 @@ export default {
                         academic_id: aid
                     }
                 })
-            } else if (this.newsLi == 2) {
+            } else if (p == 2) {
                 this.$router.push('/Group')
             }
             else {
                 this.$router.push({
                     path: "/news",
                     query: {
-                        part_id: this.newsLi,
+                        part_id: p,
                         news_id: aid
                     }
                 })
@@ -370,9 +502,10 @@ export default {
     position: absolute;
     width: 50rem;
     height: 390px;
-    top: -7rem;
-    left: 14rem;
-    background-color: white;
+    top: -5rem;
+    left: 23rem;
+    background-color: #fbfbf9;
+    border: 1px dashed #000;
 }
 
 .more {
@@ -392,6 +525,8 @@ export default {
     position: absolute;
     height: 309px;
     top: 22rem;
+    /* margin: auto; */
+    left: 9rem;
     padding: 0;
     display: inline-block;
 
@@ -465,5 +600,89 @@ export default {
     font-size: x-large;
     /* color: #013064; */
     color: #607d8b;
+}
+
+.ch_wraper {
+    margin-top: 2rem;
+    width: 100%;
+    height: 30rem;
+    /* background-color: skyblue; */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.ch_innerw {
+    width: 35rem;
+    height: 15rem;
+    border: 1px solid white;
+}
+
+.ch_title {
+    height: 20%;
+    line-height: 2.8rem;
+    color: #07347e;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ch_title_text {
+    /* font-size: large; */
+    font-size: 20px;
+}
+
+.ch_title_more {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ch_innerimg {
+    width: 30%;
+}
+
+.ch_innerimg img {
+    width: 100%;
+    height: 100%;
+}
+
+.ch_innerblock {
+    background-color: #f2f2f2;
+    width: 33rem;
+    height: 9.2rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ch_innerul {
+    width: 70%;
+    height: 100%;
+}
+
+/* .ch_short_text {
+    display: block;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 21rem !important;
+} */
+
+.ch_short_text_span {
+    cursor: pointer;
+    /* width: 10rem; */
+    display: inline-block;
+    width: 200px !important;
+    height: 20px !important;
+    /* float: left !important; */
+    overflow: hidden !important;
+    white-space: nowrap;
+    text-overflow: ellipsis !important;
+    font: 14px/1 Microsoft YaHei;
+    color: #303030;
+}
+
+ul {
+    margin: 0;
 }
 </style>

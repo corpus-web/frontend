@@ -83,8 +83,12 @@ export default {
         },
         //首页
         firstpage() {
-            this.currentPage = this.headPage;
-            this.getCurrentPageData();
+            if (this.currentPage == 1) {
+                return false;
+            } else {
+                this.currentPage = this.headPage;
+                this.getCurrentPageData();
+            }
         },
         //上一页
         prevPage() {
@@ -97,7 +101,7 @@ export default {
         },
         // 下一页
         nextPage() {
-            console.log("下一页")
+            // console.log("下一页")
             if (this.currentPage == this.pageSize) {
                 return false;
             } else {
@@ -118,7 +122,7 @@ export default {
         showpage() {
             this.currentPage = this.showp;
             this.getCurrentPageData();
-            console.log(this.showp)
+            // console.log(this.showp)
         },
         change() {
             this.getCurrentPageData();
@@ -126,13 +130,13 @@ export default {
                 this.order = 'Random Order';
                 this.randomcase = false;
                 this.getCurrentPageData();
-                console.log(1)
+                // console.log(1)
             }
             else {
                 this.order = 'Show Corpus';
                 this.randomcase = true;
                 this.getCurrentPageData();
-                console.log(2)
+                // console.log(2)
             }
         },
 

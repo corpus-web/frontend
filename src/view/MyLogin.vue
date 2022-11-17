@@ -66,12 +66,12 @@ export default {
     },
     methods: {
         getimg() {
-            console.log(111);
+            // console.log(111);
             this.$axios.request({
                 method: 'GET',
                 url: "api/user/login"
             }).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.form.img = res.data.img;
             })
 
@@ -105,7 +105,7 @@ export default {
         async login() {
 
             this.$axios.post("/api/user/login", this.form).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.status != 200) {
                     return this.$message({
                         message: res.detail,
@@ -122,7 +122,7 @@ export default {
                     this.$router.push('/manage')
                 }
             }).catch((res) => {
-                console.log(res.response.data);
+                // console.log(res.response.data);
                 this.$message({
                     message: res.response.data.detail,
                     type: 'error'

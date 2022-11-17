@@ -1,49 +1,53 @@
 <template>
-  <div class="home" style="width:76.8rem;margin: auto; border: 1px solid #e5e5e5;">
+  <div>
     <my-header></my-header>
-    <!-- 轮播图 -->
-    <div class="body1">
-      <div class="swiper-container">
-        <el-carousel trigger="click" height="26rem" indicator-position="none">
-          <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-            <img :src="item.pictureurl" id="img">
-            <!-- <el-image :src=item.pictureurl fit="cover" id="img"></el-image> -->
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-    </div>
-    <!-- 文字介绍 -->
-    <div class="introduce">
-      <div class="title1">
-        Corpus of Shipbuilding and Oceanography Engineering and Nuclear Science
-      </div>
-      <div class="title1">
-        (COSON)
-      </div>
-      <div class="title2">
-        -Size of COSON as of 9th September, 2022: Around 9 million words-
-      </div>
-      <div class="content">
-        COSON is based on the school-based characteristics of Harbin Engineering University, aiming to collect English
-        research papers published in high-impact international journals from 2016 to 2020, containing of around 9
-        million words and covering the discipline of Shipbuilding and Oceanography Engineering and Nuclear Science. The
-        text sampling taxonomy for the corpus follows the Chinese National System of Level One Disciplines for Degree
-        Educational. The principle of sample selection takes into account the authority and impact factors of the
-        journals, and the selected journals are all SCI international journals, and the impact factors are high in the
-        discipline.
+    <div class="home" style="width:78rem;margin: auto; ">
 
+      <!-- 轮播图 -->
+      <div class="body1">
+        <div class="swiper-container">
+          <el-carousel trigger="click" height="26rem" indicator-position="none">
+            <el-carousel-item v-for="(item, index) in bannerList" :key="index">
+              <img :src="item.pictureurl" id="img">
+              <!-- <el-image :src=item.pictureurl fit="cover" id="img"></el-image> -->
+            </el-carousel-item>
+          </el-carousel>
+        </div>
       </div>
-    </div>
-    <!-- 思维导图 -->
-    <div class="Mindmapping">
-      <img src="../assets/images/Mindmapping.png" alt="Mind mapping">
-    </div>
-    <div style="display: flex;">
-      <div class="button" @click="$router.push('/Search')">
-        Go Searching
+      <!-- 文字介绍 -->
+      <div class="introduce">
+        <div class="title1">
+          Corpus of Shipbuilding and Oceanography Engineering and Nuclear Science
+        </div>
+        <div class="title1">
+          (COSON)
+        </div>
+        <div class="title2">
+          -Size of COSON as of 9th September, 2022: Around 9 million words-
+        </div>
+        <div class="content">
+          COSON is based on the school-based characteristics of Harbin Engineering University, aiming to collect English
+          research papers published in high-impact international journals from 2016 to 2020, containing of around 9
+          million words and covering the discipline of Shipbuilding and Oceanography Engineering and Nuclear Science.
+          The
+          text sampling taxonomy for the corpus follows the Chinese National System of Level One Disciplines for Degree
+          Educational. The principle of sample selection takes into account the authority and impact factors of the
+          journals, and the selected journals are all SCI international journals, and the impact factors are high in the
+          discipline.
+
+        </div>
       </div>
+      <!-- 思维导图 -->
+      <div class="Mindmapping">
+        <img src="../assets/images/Mindmapping.png" alt="Mind mapping">
+      </div>
+      <div style="display: flex;">
+        <div class="button" @click="$router.push('/Search')">
+          Go Searching
+        </div>
+      </div>
+      <my-footer></my-footer>
     </div>
-    <my-footer></my-footer>
   </div>
 </template>
 
@@ -83,6 +87,13 @@ export default {
   justify-content: center;
 }
 
+#img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
 .introduce .title1 {
   font-weight: 800;
   font-size: 1.5rem;
@@ -111,7 +122,7 @@ export default {
 }
 
 .button {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   cursor: pointer;
   background-color: rgba(47, 85, 151, 1);
   color: white;
@@ -134,7 +145,7 @@ export default {
 .swiper-container {
   height: 26rem;
   width: 100%;
-  background-color: skyblue;
+
 }
 </style>
 

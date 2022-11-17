@@ -144,10 +144,11 @@
 </template>
 
 <script>
+import Base from '@/globle/globleApi.js'
 export default {
     mounted() {
         this.GetMainSwiper();
-
+        // console.log(Base.baseURL);
     },
     data() {
         return {
@@ -169,8 +170,8 @@ export default {
     props: ['part', 'id'],
     methods: {
         changeUrl() {
-            console.log('http://192.168.1.144:8100' + this.url[this.part]);
-            return 'http://192.168.1.144:8100' + this.url[this.part];
+            // console.log(Base.baseURL + this.url[this.part]);
+            return Base.baseURL + this.url[this.id];
         },
         curs(row) {
             if (row.column.label === "图片地址")
@@ -195,7 +196,7 @@ export default {
             })
         },
         MainSwiperDel(index, row) {
-            console.log(row.pid);
+            // console.log(row.pid);
             this.$confirm('是否确认删除继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -344,9 +345,9 @@ export default {
             handler() {
 
                 if (this.part == this.id) {
-                    console.log(22222222);
-                    this.picurl = 'http://192.168.1.144:8100' + this.url[this.part];
-                    console.log(this.picurl);
+                    // console.log(22222222);
+                    // this.picurl = 'http://192.168.1.144:8100' + this.url[this.part];
+                    // console.log(this.picurl);
                     this.GetMainSwiper();
                 }
             }
