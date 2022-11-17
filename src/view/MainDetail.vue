@@ -1,32 +1,35 @@
 <template>
-    <div style="width:76.8rem;margin: auto;">
+    <div>
         <my-header></my-header>
-        <my-image></my-image>
-        <div class="detail">
-            <div class="column-path">
-                <span style="cursor:pointer;" @click="$router.push({ path: '/Main' })">当前位置：首页&nbsp;</span>
-                <span class="possplit">&nbsp;&nbsp;</span>
-                <span> &nbsp;{{ list[part_id] }}</span>
-            </div>
-            <div id="now">{{ list[part_id] }}</div>
-            <div>
-                <ul>
-                    <li v-for="(news, index) in DetailList" :key="index" class="my-news">
-                        <span class="news-title" @click="gotonews(news.aid)">{{ news.title }}</span>
-                        <span class="news-time">{{ news.time }}</span>
-                    </li>
+        <div style="width:76.8rem;margin: auto;">
 
-                </ul>
+            <my-image></my-image>
+            <div class="detail">
+                <div class="column-path">
+                    <span style="cursor:pointer;" @click="$router.push({ path: '/Main' })">当前位置：首页&nbsp;</span>
+                    <span class="possplit">&nbsp;&nbsp;</span>
+                    <span> &nbsp;{{ list[part_id] }}</span>
+                </div>
+                <div id="now">{{ list[part_id] }}</div>
+                <div>
+                    <ul>
+                        <li v-for="(news, index) in DetailList" :key="index" class="my-news">
+                            <span class="news-title" @click="gotonews(news.aid)">{{ news.title }}</span>
+                            <span class="news-time">{{ news.time }}</span>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="pagenation">
-            <div class="block">
-                <el-pagination @current-change="handleCurrentChange" :page-size="10"
-                    layout="total, prev, pager, next, jumper" :total="40">
-                </el-pagination>
+            <div class="pagenation">
+                <div class="block">
+                    <el-pagination @current-change="handleCurrentChange" :page-size="10"
+                        layout="total, prev, pager, next, jumper" :total="40">
+                    </el-pagination>
+                </div>
             </div>
+            <my-footer></my-footer>
         </div>
-        <my-footer></my-footer>
     </div>
 </template>
 
@@ -37,49 +40,7 @@ export default {
     },
     data() {
         return {
-            DetailList: [
-                {
-                    id: 212233,
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-                {
-                    title: "外国语学院分党委组织开展党的创新理论学习“943”工作法专题培训",
-                    time: "2022-04-21",
-                },
-            ],
+            DetailList: [],
             list: ["课程建设", "学术交流", "团队风采", "语料库"],
             nowpage: 1,
             // id从0-3分别表示四个部分

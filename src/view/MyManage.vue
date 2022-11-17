@@ -75,7 +75,7 @@ export default {
             })
         },
         MainSwiperDel(index, row) {
-            console.log(row.pid);
+            // console.log(row.pid);
             this.$confirm('是否确认删除继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

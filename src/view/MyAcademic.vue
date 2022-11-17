@@ -1,35 +1,39 @@
 <template>
-
-    <div style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
+    <div>
         <my-header></my-header>
-        <my-image></my-image>
-        <div id="body">
-            <div class="swiper-container">
-                <el-carousel indicator-position="outside" trigger="click" height="31.44rem">
-                    <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-                        <img :src="item.pictureurl" id="img">
-                        <!-- <el-image :src="item.pictureurl" id="img" fit="contain"></el-image> -->
-                    </el-carousel-item>
-                </el-carousel>
-            </div>
-            <div id="text">
-                <span @click="$router.push({ path: '/detail', query: { part_id: 1 } })"
-                    style="position:absolute;top:0.393rem;right:0.96rem;color:#46689f;cursor:pointer;font-size:larger">更多</span>
-                <ul style="margin-top:2.751rem">
-                    <li v-for="(litext, index) in text" :key="index">
+        <div
+            style="width: 76.8rem;margin: auto; border-left: 1px solid #e5e5e5;border-bottom: 1px solid #e5e5e5;border-right: 1px solid #e5e5e5;">
 
-                        <div style="height:1.5rem;border-bottom:1px solid #e5e5e5" @click="select(litext.aid)">{{ index
-                                +
-                                1
-                        }}.&nbsp;{{ litext.title }}
-                        </div>
-                    </li>
-                </ul>
+            <my-image></my-image>
+            <div id="body">
+                <div class="swiper-container">
+                    <el-carousel indicator-position="outside" trigger="click" height="420px">
+                        <el-carousel-item v-for="(item, index) in bannerList" :key="index">
+                            <img :src="item.pictureurl" id="img">
+                            <!-- <el-image :src="item.pictureurl" id="img" fit="contain"></el-image> -->
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+                <div id="text">
+                    <span @click="$router.push({ path: '/detail', query: { part_id: 1 } })"
+                        style="position:absolute;top:0.393rem;right:0.96rem;color:#46689f;cursor:pointer;font-size:larger">更多</span>
+                    <ul style="margin-top:2.751rem">
+                        <li v-for="(litext, index) in text" :key="index">
+
+                            <div style="height:1.5rem;border-bottom:1px solid #e5e5e5" @click="select(litext.aid)">{{
+                                    index
+                                    +
+                                    1
+                            }}.&nbsp;{{ litext.title }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <!-- <router-view></router-view> -->
+            <my-footer></my-footer>
+
         </div>
-        <!-- <router-view></router-view> -->
-        <my-footer></my-footer>
-
     </div>
 </template>
 
@@ -64,7 +68,7 @@ export default {
                 method: 'GET',
                 url: '/api/academic/title'
             }).then((res) => {
-                console.log("/api/academic/title");
+                // console.log("/api/academic/title");
                 if (res.status == 200) {
                     this.text = res.data.data;
                 } else {
@@ -88,14 +92,14 @@ export default {
 <style scoped>
 #body {
     position: relative;
-    height: 31.44rem;
+    height: 420px;
 }
 
 .swiper-container {
     position: absolute;
     top: 0;
     left: 1.92;
-    width: 36.48rem;
+    width: 560px;
     /* border-right: 1px solid blue; */
 }
 
@@ -109,9 +113,9 @@ export default {
 
 #text {
     position: absolute;
-    height: 31.47rem;
-    width: 40.3rem;
-    left: 36.5rem;
+    height: 26.2rem;
+    width: 41.8rem;
+    left: 35rem;
     background-color: #f2f2f2;
 }
 

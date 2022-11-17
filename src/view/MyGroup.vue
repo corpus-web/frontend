@@ -1,27 +1,31 @@
 <template>
-    <div style="width:76.8rem;margin: auto;">
+    <div>
         <my-header></my-header>
-        <my-image></my-image>
-        <div class="detail">
-            <div class="column-path">
-                <span style="cursor:pointer;" @click="$router.push({ path: '/Main' })">当前位置：首页&nbsp;</span>
-                <span class="possplit">&nbsp;&nbsp;</span>
-                <span> &nbsp;团队风采</span>
+
+        <div style="width:76.8rem;margin: auto;">
+
+            <my-image></my-image>
+            <div class="detail">
+                <div class="column-path">
+                    <span style="cursor:pointer;" @click="$router.push({ path: '/Main' })">当前位置：首页&nbsp;</span>
+                    <span class="possplit">&nbsp;&nbsp;</span>
+                    <span> &nbsp;团队风采</span>
+                </div>
+                <div id="now">团队风采</div>
             </div>
-            <div id="now">团队风采</div>
-        </div>
-        <div v-for="(yearr, index) in year" :key="index">
-            <div style="height:3rem;text-align:center;line-height:3rem;font-size:x-large;font-weight: 800;">{{ yearr
-            }}年风采墙</div>
-            <div id="imgs">
-                <div class="img" v-for="(list, index) in imgsList[yearr]" :key="index">
-                    <el-image :src=list.pictureurl fit="contain" @click="open(list.pictureurl)"
-                        style="width: 100%;height: 88%; background-color: white ;"></el-image>
-                    <div class="text">{{ list.text }}</div>
+            <div v-for="(yearr, index) in year" :key="index">
+                <div style="height:3rem;text-align:center;line-height:3rem;font-size:x-large;font-weight: 800;">{{ yearr
+                }}年风采墙</div>
+                <div id="imgs">
+                    <div class="img" v-for="(list, index) in imgsList[yearr]" :key="index">
+                        <el-image :src=list.pictureurl fit="contain" @click="open(list.pictureurl)"
+                            style="width: 100%;height: 88%; background-color: white ;"></el-image>
+                        <div class="text">{{ list.text }}</div>
+                    </div>
                 </div>
             </div>
+            <my-footer></my-footer>
         </div>
-        <my-footer></my-footer>
     </div>
 </template>
 
@@ -46,11 +50,11 @@ export default {
                 url: '/api/team/list',
             }).then((res) => {
                 if (res.status == 200) {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.imgsList = res.data;
                     this.year = Object.keys(this.imgsList).reverse();
-                    console.log(this.year);
-                    console.log(this.imgsList["2022"]);
+                    // console.log(this.year);
+                    // console.log(this.imgsList["2022"]);
                 } else {
                     alert("出错啦")
                 }

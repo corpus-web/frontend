@@ -73,6 +73,7 @@
 </template>
 
 <script>
+// import Base from '@/globle/globleApi.js'
 export default {
 
     created() {

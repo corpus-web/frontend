@@ -63,7 +63,7 @@ export default {
             return sums;
         },
         rowclick(row) {
-            console.log(row.name)
+            // console.log(row.name)
             this.$emit('jump', row.name)
 
 
@@ -75,6 +75,7 @@ export default {
 <style>
 .el-table {
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow: visible !important;
 }
 
 .el-table tr {
