@@ -4,7 +4,7 @@
     <my-image></my-image>
     <div class="menu">
       <div :class="[searchclick ? click : unclick]" @click="search">
-        Serch
+        Search
       </div>
       <div :class="[frequencyclick ? click : unclick]" @click="frequency">
         Frequency
@@ -27,10 +27,11 @@
           </div>
           <div class="selectionbox">
             <div class="tickbox">
-              <input type="checkbox" id="checkbox" v-model="limitcase" />
+              
               <div class="buttondark" style="width: 62%;">
                 Case-sensitive
               </div>
+              <input type="checkbox" id="checkbox" v-model="limitcase" />
             </div>
             <div class="tickbox">
               <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
@@ -89,11 +90,11 @@
         </div>
       </div>
       <div v-else-if="frequencyclick" class="frequency">
-        <frequency :currentPageData="currentPageData" :longtext="longtext" :indexnum="indexnum" :bothnum="bothnum"
+        <frequency :currentPageData="currentPageData" :longtext="longtext" :indexnum="indexnum" :bothnum="bothnum" :loading1="loading1"
            :limitcase="limitcase"  @jump="jump"></frequency>
       </div>
       <div v-else-if="contextclick" class="context">
-        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :bothnum="bothnum" :pageSize="pageSize"
+        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2"
           :limitcase="limitcase" :resindexnum="resindexnum" @turnpage="turnpage"></context>
       </div>
     </div>
@@ -111,6 +112,8 @@ export default {
   },
   data() {
     return {
+      loading1:false,
+      loading2:false,
       searchclick: true,
       frequencyclick: false,
       contextclick: false,
@@ -157,6 +160,7 @@ export default {
       else if (this.choice == 'sub-corpus of Nuclear-') {
         this.choicenum = 2
       }
+      this.loading1=true;
       this.$axios.request({
         method: 'GET',
         url: "/api/corpus/article",
@@ -170,11 +174,12 @@ export default {
         }
 
       }).then((res) => {
-        this.$message({
-          showClose: true,
-          message: '开始检索……',
-          type: 'success'
-        });
+        // this.$message({
+        //   showClose: true,
+        //   message: '开始检索……',
+        //   type: 'success'
+        // });
+        this.loading1=false;
         this.currentPageData = res.data
         // this.resindexnum = res.data.total
 
@@ -189,6 +194,7 @@ export default {
       this.longtext = ''
     },
     jump(t) {
+      this.loading2=true;
       this.keytype = t;
       console.log(t);
       this.$axios.request({
@@ -204,11 +210,12 @@ export default {
         }
 
       }).then((res) => {
-        this.$message({
-          showClose: true,
-          message: '开始检索……',
-          type: 'success'
-        });
+        this.loading2=false;
+        // this.$message({
+        //   showClose: true,
+        //   message: '开始检索……',
+        //   type: 'success'
+        // });
         this.tableData = res.data.data;
         this.resindexnum=res.data.total;
         this.pageSize = Math.ceil(this.resindexnum / this.indexnum);
@@ -224,6 +231,7 @@ export default {
 
     },
     turnpage(t){
+      this.loading2=true;
       console.log(t)
       this.$axios.request({
                 method: 'GET',
@@ -239,11 +247,12 @@ export default {
                 }
 
             }).then((res) => {
-                this.$message({
-                    showClose: true,
-                    message: '开始检索……',
-                    type: 'success'
-                });
+              this.loading2=false;
+                // this.$message({
+                //     showClose: true,
+                //     message: '开始检索……',
+                //     type: 'success'
+                // });
                 // eslint-disable-next-line
                 this.tableData = res.data.data;
 
@@ -323,7 +332,7 @@ export default {
   padding: 1rem 1rem;
   color: rgba(47, 85, 151, 1);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2rem;
   /* text-align: center; */
   line-height: 2rem;
 }
@@ -331,8 +340,8 @@ export default {
 .graysmall {
   text-indent: 2rem;
   text-align: justify;
-  padding-top: 2.5rem;
-  padding-bottom: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .buttonbox {
@@ -352,6 +361,7 @@ export default {
   text-align: center;
   line-height: 2rem;
   height: 2rem;
+  
 
 }
 
@@ -381,12 +391,18 @@ export default {
 }
 
 #checkbox {
-  width: 7%;
+  margin-left: 1rem;
+  margin-top: 0.7rem;
+  height: 1.8rem;
+  width: 1.8rem;
 
 }
 
 #selectbox {
-  width: 9rem;
+  font-size: 1rem;
+  width: 10rem;
+  margin-top: 0.6rem;
+  height: 1.8rem;
   text-align: center;
 }
 </style>
