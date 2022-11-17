@@ -83,8 +83,9 @@ export default {
 
 <style>
 .Mindmapping {
+  height: 40rem;
   display: flex;
-  justify-content: center;
+  margin-left: 4rem;
 }
 
 #img {

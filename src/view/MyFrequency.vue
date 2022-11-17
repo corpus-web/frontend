@@ -1,13 +1,20 @@
 <template>
     <div class="frequency">
-        <el-table :data="currentPageData" border style="width: 100%;text-align: center;" height="40rem" show-summary
-            :summary-method="getSummaries" @row-click="rowclick"
-            :header-cell-style="{ background: 'rgba(231, 230, 230, 1)', color: '#606266', fontSize: '1rem' }">
+        <el-table :data="currentPageData" border style="width: 100%;text-align: center;" height="40rem" show-summary  :header-row-style="{ background: 'rgba(231, 230, 230, 1)' }" 
+             v-loading="loading1" :summary-method="getSummaries" 
+            :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <el-table-column type="index" width="100" align="center">
             </el-table-column>
-            <el-table-column prop="name" width="800" align="center">
+            <el-table-column prop="name" width="800" align="center" >
                 <template slot="header">
                     All Forms(Samples): {{ indexnum }}
+                </template>
+
+
+                <template slot-scope="scope">
+                    <div style="cursor:pointer" @click="rowclick(scope.row)">
+                        {{scope.row.name}}
+                    </div>
                 </template>
             </el-table-column>
             <el-table-column prop="num" label="Frequency" align="center">
@@ -20,7 +27,7 @@
 
 <script>
 export default {
-    props: ["longtext", "resindexnum", "indexnum", "currentPageData", "bothnum"],
+    props: ["longtext", "resindexnum", "indexnum", "currentPageData", "bothnum","loading1"],
     // "longtext":要高亮的词
     // "total"：总共的索引数
     // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数
@@ -28,6 +35,7 @@ export default {
     // "bothnum":被检索词两边的字符数
     data() {
         return {
+            
             // title: "五百年前孙悟空大闹天宫",
             // searchWord: "孙悟空",
 
@@ -36,6 +44,7 @@ export default {
 
 
     methods: {
+
         getSummaries(param) {
             const { columns, data } = param;
             const sums = [];
@@ -73,6 +82,7 @@ export default {
 </script>
 
 <style>
+
 .el-table {
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     overflow: visible !important;

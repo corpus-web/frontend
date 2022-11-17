@@ -1,7 +1,7 @@
 <template>
     <div class="frequency">
-        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem"
-            :header-cell-style="{ background: 'rgba(231, 230, 230, 1)', color: '#606266', fontSize: '1rem' }">
+        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem" v-loading="loading2"
+            :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <el-table-column label="No." type="index" width="100" align="center">
             </el-table-column>
             <el-table-column prop="fname" label="Filename" width="180" align="center">
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize"],
+    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize","loading2"],
     // "longtext":要高亮的词
     // "total"：总共的索引数
     // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数
