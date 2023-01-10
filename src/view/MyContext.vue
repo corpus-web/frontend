@@ -8,7 +8,7 @@
             </el-table-column>
             <el-table-column prop="fline" align="center">
                 <template slot="header">
-                    Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ currentPage }}/#
+                    Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ currentPage }}/{{ pageSize }}&nbsp;&nbsp;Frequency:{{ fre }}
                 </template>
                 <template slot-scope="scope">
                     <span v-html="setkey(scope.row.fline)"></span>
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize","loading2"],
+    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize","loading2","fre"],
     // "longtext":要高亮的词
     // "total"：总共的索引数
     // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数

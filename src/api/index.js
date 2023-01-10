@@ -4,7 +4,7 @@ import axios from "axios"
 
 const aaxios = axios.create({
     // baseURL: "http://192.168.1.144:8100",
-    baseURL: "http://106.13.0.241:8100",
+    baseURL: "http://106.13.0.241:8000",
     timeout: 5000
 })
 

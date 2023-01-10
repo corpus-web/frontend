@@ -94,7 +94,7 @@
            :limitcase="limitcase"  @jump="jump"></frequency>
       </div>
       <div v-else-if="contextclick" class="context">
-        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2"
+        <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :fre="fre" :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2"
           :limitcase="limitcase" :resindexnum="resindexnum" @turnpage="turnpage"></context>
       </div>
     </div>
@@ -130,6 +130,7 @@ export default {
       currentPageData: [],
       par: '',//context页面要展示的文字的par
       keytype: '',
+      fre:'',
       tableData: []
     }
   },
@@ -195,13 +196,15 @@ export default {
     },
     jump(t) {
       this.loading2=true;
-      this.keytype = t;
+      this.keytype = t.name;
+      this.fre=t.num;
+      // console.log("keytype"+this.keytype)
       // console.log(t);
       this.$axios.request({
         method: 'GET',
         url: "/api/corpus/articles",
         params: {
-          'word': t,// 检索内容key的类型                       
+          'word': t.name,// 检索内容key的类型                       
           'limitcase': this.limitcase,//大小写敏感
           'window_size': this.bothnum,// 检索词两边的字符数
           'max_num': this.indexnum,// 一页展示的索引条数
