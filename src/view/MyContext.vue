@@ -6,12 +6,12 @@
             </el-table-column>
             <el-table-column prop="fname" label="Filename" width="180" align="center">
             </el-table-column>
-            <el-table-column prop="fline" align="center">
+            <el-table-column prop="s_name" align="center">
                 <template slot="header">
                     Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ currentPage }}/{{ pageSize }}&nbsp;&nbsp;Frequency:{{ fre }}
                 </template>
                 <template slot-scope="scope">
-                    <span v-html="setkey(scope.row.fline)"></span>
+                    <span v-html="setkey(scope.row.s_name)"></span>
                 </template>
 
             </el-table-column>
@@ -141,11 +141,11 @@ export default {
         },
 
         setkey(line) {
-            if (line.includes(this.longtext)) {
+            if (line.includes(this.keytype)) {
                 line = line.replace(
-                    this.longtext,
+                    this.keytype,
                     // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
-                    '<font style="color:red!important;">' + this.longtext + '</font>'
+                    '<font style="color:red!important;">' + this.keytype + '</font>'
 
                 )
                 return line

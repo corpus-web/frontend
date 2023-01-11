@@ -3,7 +3,8 @@
         <el-table :data="currentPageData" border style="width: 100%;text-align: center;" height="40rem" show-summary
             :header-row-style="{ background: 'rgba(231, 230, 230, 1)' }" v-loading="loading1"
             :summary-method="getSummaries"
-            :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
+            :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }"
+            :default-sort = "{prop: 'num', order: 'descending'}">
             <el-table-column type="index" width="100" align="center">
             </el-table-column>
             <el-table-column prop="name" width="800" align="center">
@@ -14,11 +15,11 @@
 
                 <template slot-scope="scope">
                     <div style="cursor:pointer" @click="rowclick(scope.row)">
-                        {{ scope.row.name }}
+                        {{ scope.row.s_name }}
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column prop="num" label="Frequency" align="center">
+            <el-table-column  prop="num" label="Frequency" align="center">
             </el-table-column>
         </el-table>
 
@@ -40,7 +41,8 @@ export default {
             // title: "五百年前孙悟空大闹天宫",
             // searchWord: "孙悟空",
             jump: {
-                name: '',
+                searchname:'',//查询的关键词
+                name: '',//标红的关键词
                 num: ''
             }
 
@@ -77,9 +79,11 @@ export default {
             return sums;
         },
         rowclick(row) {
-            this.jump.name = row.name
+            this.jump.searchname=row.name//查询的关键词
+            this.jump.name = row.s_name//标红的关键词
             this.jump.num = row.num
-            console.log("jump:" + this.jump.name)
+            // console.log("s_name"+row.s_name)
+            // console.log("jump:" + this.jump.name)
             this.$emit('jump', this.jump)
 
 

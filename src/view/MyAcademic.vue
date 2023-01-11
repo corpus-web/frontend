@@ -31,9 +31,9 @@
                 </div>
             </div>
             <!-- <router-view></router-view> -->
-            <my-footer></my-footer>
-
+            
         </div>
+        <my-footer></my-footer>
     </div>
 </template>
 

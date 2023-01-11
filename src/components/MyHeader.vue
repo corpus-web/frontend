@@ -30,24 +30,29 @@ export default {
     <div>
         <div id="top">
             <div class="main">
-                <div id="img">
-                    <img src="@/assets/images/header.png" width="100" height="60" border="0" title="哈工程语料库">
+                <div id="img" style="width: 400px;">
+                    <img src="@/assets/images/header.png" width="400" height="90" border="0" title="哈工程语料库">
                 </div>
-                <div style="float:left;padding-left:=120px;padding-top:5px">
-                    <table width="80%">
+                <!-- <div style="padding-top:5px">
+                    <table>
                         <tbody>
                             <tr>
-                                <td style="color:#fff;font-size:2.0em;">哈工程语料库语言学|Corpus Linguistics, Harbin
-                                    Engineering
+                                <td style="color:#fff;font-size:2.0em;">哈工程语料库语言学</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#fff;font-size:0.2em;">Corpus Linguistics, Harbin Engineering
                                     University</td>
                             </tr>
-                            <!-- <tr>
-                                <td style="color:white; font-size:1.0em; margin-top:7px; line-height:25px;">Foreign
-                                    Language
-                                    Education Research Informed by Corpora (FLERIC), BFSU</td>
-                            </tr> -->
                         </tbody>
                     </table>
+                </div> -->
+                <div class="headtitle" style="width: 25.7rem;">
+                    <div style="color:#fff;font-size:2.8em;">
+                        语料库语言学
+                    </div>
+                    <div style="color:#fff;font-size:1.18em;padding-top: 0.1rem;">
+                        Corpus&nbsp; Linguistics
+                    </div>
                 </div>
             </div>
 
@@ -104,20 +109,26 @@ export default {
 <style scoped>
 #top {
     width: 100%;
-    height: 10rem;
+    height: 8.5rem;
     background-color: #dc6d20;
     background-color: #003d81;
 }
 
 .main {
-    width: 1100px;
-    margin: auto;
-    margin-left: 8rem;
+    /* width: 1100px; */
+    display: flex;
+    /* justify-content: center; */
+    padding-left: 3rem;
+    /* margin: auto; */
+    /* margin-left: 8rem; */
 }
 
 #img {
-    padding: 18px 0;
+    padding: 18px 18px;
     display: inline;
+}
+.headtitle{
+    padding: 18px 18px;
 }
 
 .el-menu-item {
