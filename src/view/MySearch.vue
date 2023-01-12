@@ -119,6 +119,7 @@
 <script>
 import frequency from './MyFrequency.vue'
 import context from './MyContext.vue'
+
 export default {
   components: {
     frequency: frequency,
@@ -147,6 +148,7 @@ export default {
       currentPageData: [],
       par: '',//context页面要展示的文字的par
       keytype: '',
+      searchname: '',
       fre: '',
       tableData: []
     }
@@ -167,48 +169,52 @@ export default {
       this.frequencyclick = false;
       this.contextclick = true;
     },
+    // 转义
+    escape(n){
+      // % 用%25代替
+      n=n.replace(/%/g, "%25")
+      // 空格 用%20代替
+      n=n.replace(/ /g, "%20")
+      // " 用%22代替
+      n=n.replace(/"/g, "%22")
+      // # 用%23代替
+      n=n.replace(/#/g, "%23")
+      // &用%26代替
+      n=n.replace(/&/g, "%26")
+      // ( 用%28代替
+      n=n.replace(/\(/g, "%28")
+      // ) 用%29代替
+      n=n.replace(/\)/g, "%29")
+      // + 用%2B代替
+      n=n.replace(/\+/g, "%2B")
+      // , 用%2C代替
+      n=n.replace(/,/g, "%2C")
+      // / 用%2F代替
+      n=n.replace(/\//g, "%2F")
+      // : 用%3A代替
+      n=n.replace(/:/g, "%3A")
+      // ; 用%3B代替
+      n=n.replace(/;/g, "%3B")
+      // < 用%3C代替
+      n=n.replace(/</g, "%3C")
+      // = 用%3D代替
+      n=n.replace(/=/g, "%3D")
+      // > 用%3E代替
+      n=n.replace(/>/g, "%3E")
+      // ? 用%3F代替
+      n=n.replace(/\?/g, "%3F")
+      // @ 用%40代替
+      n=n.replace(/@/g, "%40")
+      // \ 用%5C代替
+      n=n.replace(/\\/g, "%5C")
+      // | 用%7C代替
+      n=n.replace(/\|/g, "%7C")
+      return n
+    },
     // 对检索框内容进行检索
     startsearch() {
       this.newlongtext=this.longtext
-      // // % 用%25代替
-      // this.newlongtext=this.newlongtext.replace(/%/g, "%25")
-      // // 空格 用%20代替
-      // this.newlongtext=this.newlongtext.replace(/ /g, "%20")
-      // // " 用%22代替
-      // this.newlongtext=this.newlongtext.replace(/"/g, "%22")
-      // // # 用%23代替
-      // this.newlongtext=this.newlongtext.replace(/#/g, "%23")
-      // // &用%26代替
-      // this.newlongtext=this.newlongtext.replace(/&/g, "%26")
-      // // ( 用%28代替
-      // this.newlongtext=this.newlongtext.replace(/\(/g, "%28")
-      // // ) 用%29代替
-      // this.newlongtext=this.newlongtext.replace(/\)/g, "%29")
-      // // + 用%2B代替
-      // this.newlongtext=this.newlongtext.replace(/\+/g, "%2B")
-      // // , 用%2C代替
-      // this.newlongtext=this.newlongtext.replace(/,/g, "%2C")
-      // // / 用%2F代替
-      // this.newlongtext=this.newlongtext.replace(/\//g, "%2F")
-      // // : 用%3A代替
-      // this.newlongtext=this.newlongtext.replace(/:/g, "%3A")
-      // // ; 用%3B代替
-      // this.newlongtext=this.newlongtext.replace(/;/g, "%3B")
-      // // < 用%3C代替
-      // this.newlongtext=this.newlongtext.replace(/</g, "%3C")
-      // // = 用%3D代替
-      // this.newlongtext=this.newlongtext.replace(/=/g, "%3D")
-      // // > 用%3E代替
-      // this.newlongtext=this.newlongtext.replace(/>/g, "%3E")
-      // // ? 用%3F代替
-      // this.newlongtext=this.newlongtext.replace(/\?/g, "%3F")
-      // // @ 用%40代替
-      // this.newlongtext=this.newlongtext.replace(/@/g, "%40")
-      // // \ 用%5C代替
-      // this.newlongtext=this.newlongtext.replace(/\\/g, "%5C")
-      // // | 用%7C代替
-      // this.newlongtext=this.newlongtext.replace(/\|/g, "%7C")
-      // console.log("newlongtext"+this.newlongtext)
+      
 
       if (this.choice == 'the whole corpus') {
         this.choicenum = 0
@@ -261,6 +267,7 @@ export default {
     jump(t) {
       this.loading2 = true;
       this.keytype = t.name;
+      this.searchname=t.searchname;
       this.fre = t.num;
       // console.log("keytype"+this.keytype)
       // console.log(t);
@@ -300,12 +307,14 @@ export default {
     },
     turnpage(t) {
       this.loading2 = true;
+      // this.searchname=escape(this.searchname)
+      // console.log("escape后的searchname"+this.searchname)
       console.log(t)
       this.$axios.request({
         method: 'GET',
         url: "/api/corpus/files",
         params: {
-          'word_or_regex': this.keytype,// 检索内容key的类型                    
+          'word_or_regex': this.searchname,// 检索内容key的类型                    
           'limit_case': this.limitcase,//大小写敏感
           'window_size': this.bothnum,// 检索词两边的字符数
           'per_page': this.indexnum,// 一页展示的索引条数
