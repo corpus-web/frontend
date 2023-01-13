@@ -28,7 +28,7 @@
             </div>
             <div class="selectionbox">
               <div class="tickbox">
-  
+
                 <div class="buttondark" style="width: 62%;">
                   Case-sensitive
                 </div>
@@ -47,7 +47,7 @@
                   <option>150</option>
                 </select>
               </div>
-  
+
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
                   Number of hits per page
@@ -59,7 +59,7 @@
                   <option>150</option>
                 </select>
               </div>
-  
+
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
                   Retrieval range
@@ -69,10 +69,10 @@
                   <option>the whole corpus</option>
                   <option>sub-corpus of Shipbuilding-</option>
                   <option>sub-corpus of Nuclear-</option>
-  
+
                 </select>
               </div>
-  
+
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
                   Query Method
@@ -83,16 +83,17 @@
                   <option>regular query</option>
                 </select>
               </div>
-  
+
             </div>
           </div>
           <div class="graybox1">
-  
+
             <div class="graysmall">
-              Case-Sensitive determines whether The result and the result would be two different searches, or It finds, it
+              Case-Sensitive determines whether The result and the result would be two different searches, or It finds,
+              it
               finds, It Finds.
             </div>
-  
+
             <div class="graysmall">
               Search Window Size refers to the number of characters on either side of the search word.
             </div>
@@ -100,7 +101,9 @@
               Number of Hits per Page means the number of hits that you have searched in one page.
             </div>
             <div class="graysmall">
-              Retrieval range refers to the corpus in which the target is retrieved. It includes the whole corpus as well as the two sub-corpora, Nuclear Science Academic English Corpus and Shipbuilding and Oceanography Engineering Academic English Corpus.
+              Retrieval range refers to the corpus in which the target is retrieved. It includes the whole corpus as
+              well as the two sub-corpora, Nuclear Science Academic English Corpus and Shipbuilding and Oceanography
+              Engineering Academic English Corpus.
             </div>
             <div class="graysmall">
               Query method serves for both word query and regular query.
@@ -113,8 +116,8 @@
         </div>
         <div v-else-if="contextclick" class="context">
           <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :fre="fre"
-            :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2" :limitcase="limitcase" :resindexnum="resindexnum"
-            @turnpage="turnpage"></context>
+            :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2" :limitcase="limitcase"
+            :resindexnum="resindexnum" @turnpage="turnpage"></context>
         </div>
       </div>
     </div>
@@ -149,8 +152,8 @@ export default {
       pageSize: 1, // 统共页数，默认为1
       choice: 'the whole corpus',//选择哪一个语料库进行检索
       choicenum: 0,
-      querymethod:'word query',//默认单词查找
-      querymethodnum:0,
+      querymethod: 'word query',//默认单词查找
+      querymethodnum: 0,
       currentPageData: [],
       par: '',//context页面要展示的文字的par
       keytype: '',
@@ -176,94 +179,114 @@ export default {
       this.contextclick = true;
     },
     // 转义
-    escape(n){
+    escape(n) {
       // % 用%25代替
-      n=n.replace(/%/g, "%25")
+      n = n.replace(/%/g, "%25")
       // 空格 用%20代替
-      n=n.replace(/ /g, "%20")
+      n = n.replace(/ /g, "%20")
       // " 用%22代替
-      n=n.replace(/"/g, "%22")
+      n = n.replace(/"/g, "%22")
       // # 用%23代替
-      n=n.replace(/#/g, "%23")
+      n = n.replace(/#/g, "%23")
       // &用%26代替
-      n=n.replace(/&/g, "%26")
+      n = n.replace(/&/g, "%26")
       // ( 用%28代替
-      n=n.replace(/\(/g, "%28")
+      n = n.replace(/\(/g, "%28")
       // ) 用%29代替
-      n=n.replace(/\)/g, "%29")
+      n = n.replace(/\)/g, "%29")
       // + 用%2B代替
-      n=n.replace(/\+/g, "%2B")
+      n = n.replace(/\+/g, "%2B")
       // , 用%2C代替
-      n=n.replace(/,/g, "%2C")
+      n = n.replace(/,/g, "%2C")
       // / 用%2F代替
-      n=n.replace(/\//g, "%2F")
+      n = n.replace(/\//g, "%2F")
       // : 用%3A代替
-      n=n.replace(/:/g, "%3A")
+      n = n.replace(/:/g, "%3A")
       // ; 用%3B代替
-      n=n.replace(/;/g, "%3B")
+      n = n.replace(/;/g, "%3B")
       // < 用%3C代替
-      n=n.replace(/</g, "%3C")
+      n = n.replace(/</g, "%3C")
       // = 用%3D代替
-      n=n.replace(/=/g, "%3D")
+      n = n.replace(/=/g, "%3D")
       // > 用%3E代替
-      n=n.replace(/>/g, "%3E")
+      n = n.replace(/>/g, "%3E")
       // ? 用%3F代替
-      n=n.replace(/\?/g, "%3F")
+      n = n.replace(/\?/g, "%3F")
       // @ 用%40代替
-      n=n.replace(/@/g, "%40")
+      n = n.replace(/@/g, "%40")
       // \ 用%5C代替
-      n=n.replace(/\\/g, "%5C")
+      n = n.replace(/\\/g, "%5C")
       // | 用%7C代替
-      n=n.replace(/\|/g, "%7C")
+      n = n.replace(/\|/g, "%7C")
       return n
     },
     // 对检索框内容进行检索
     startsearch() {
-      this.newlongtext=this.longtext
-      
+      this.newlongtext = this.longtext
+      if (this.newlongtext == '') {
+        this.$message({
+          message: '请输入内容后查询',
+          type: 'warning'
+        });
+      }
+      else {
 
-      if (this.choice == 'the whole corpus') {
-        this.choicenum = 0
-      }
-      else if (this.choice == 'sub-corpus of Shipbuilding-') {
-        this.choicenum = 1
-      }
-      else if (this.choice == 'sub-corpus of Nuclear-') {
-        this.choicenum = 2
-      }
-      if (this.querymethod == 'word query') {
-        this.querymethodnum = 0
-      }
-      else if (this.querymethod == 'regular query') {
-        this.querymethodnum = 1
-      }
-      this.loading1 = true;
-      this.$axios.request({
-        method: 'GET',
-        url: "/api/corpus/format",
-        params: {
-          word_or_regex: this.newlongtext,// 检索内容
-          limit_case: this.limitcase,//大小写敏感
-          window_size: this.bothnum,// 检索词两边的字符数
-          per_page: this.indexnum,// 一页展示的索引条数
-          category: this.choicenum,//选择哪一个语料库进行检索
-          query_method:this.querymethodnum,//默认单词查找
+        const firstChar = this.newlongtext.charAt(0);
+        console.log(firstChar)
+        const letters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+        if (!letters.includes(firstChar)) {
+          console.log("输错了憨批")
+          this.$message.error('输入包含非法字符，请重新输入');
+          
+        }
+        else {
+          if (this.choice == 'the whole corpus') {
+            this.choicenum = 0
+          }
+          else if (this.choice == 'sub-corpus of Shipbuilding-') {
+            this.choicenum = 1
+          }
+          else if (this.choice == 'sub-corpus of Nuclear-') {
+            this.choicenum = 2
+          }
+          if (this.querymethod == 'word query') {
+            this.querymethodnum = 0
+          }
+          else if (this.querymethod == 'regular query') {
+            this.querymethodnum = 1
+          }
+          this.loading1 = true;
+          this.$axios.request({
+            method: 'GET',
+            url: "/api/corpus/format",
+            params: {
+              word_or_regex: this.newlongtext,// 检索内容
+              limit_case: this.limitcase,//大小写敏感
+              window_size: this.bothnum,// 检索词两边的字符数
+              per_page: this.indexnum,// 一页展示的索引条数
+              category: this.choicenum,//选择哪一个语料库进行检索
+              query_method: this.querymethodnum,//默认单词查找
+            }
+
+          }).then((res) => {
+            // this.$message({
+            //   showClose: true,
+            //   message: '开始检索……',
+            //   type: 'success'
+            // });
+            this.loading1 = false;
+            this.currentPageData = res.data
+            // this.resindexnum = res.data.total
+
+          })
+          this.searchclick = false;
+          this.frequencyclick = true;
+          this.contextclick = false;
         }
 
-      }).then((res) => {
-        // this.$message({
-        //   showClose: true,
-        //   message: '开始检索……',
-        //   type: 'success'
-        // });
-        this.loading1 = false;
-        this.currentPageData = res.data
-        // this.resindexnum = res.data.total
 
-      })
-      this.searchclick = false;
-      this.frequencyclick = true;
-      this.contextclick = false;
+      }
+
 
     },
     // 重置检索框内容
@@ -273,7 +296,7 @@ export default {
     jump(t) {
       this.loading2 = true;
       this.keytype = t.name;
-      this.searchname=t.searchname;
+      this.searchname = t.searchname;
       this.fre = t.num;
       // console.log("keytype"+this.keytype)
       // console.log(t);
@@ -287,7 +310,7 @@ export default {
           'per_page': this.indexnum,// 一页展示的索引条数
           'page': 1,
           'category': this.choicenum,//选择哪一个语料库进行检索
-          'query_method':this.querymethodnum,//默认单词查找
+          'query_method': this.querymethodnum,//默认单词查找
         }
 
       }).then((res) => {
@@ -327,7 +350,7 @@ export default {
           'page': t.page,
           'random_case': t.rank,
           'category': this.choicenum,//选择哪一个语料库进行检索
-          'query_method':this.querymethodnum,//默认单词查找
+          'query_method': this.querymethodnum,//默认单词查找
         }
 
       }).then((res) => {
