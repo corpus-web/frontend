@@ -4,7 +4,7 @@
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <el-table-column label="No." type="index" width="100" align="center">
             </el-table-column>
-            <el-table-column prop="fname" label="Filename" width="180" align="center">
+            <el-table-column prop="fname" label="Filename" width="280" align="center">
             </el-table-column>
             <el-table-column prop="s_name" align="center">
                 <template slot="header">

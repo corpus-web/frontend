@@ -79,8 +79,8 @@
                 </div>
                 <select v-model="querymethod" id="selectbox">
                   <option disabled value=""></option>
-                  <option>word lookup</option>
-                  <option>regular lookup</option>
+                  <option>word query</option>
+                  <option>regular query</option>
                 </select>
               </div>
   
@@ -98,6 +98,12 @@
             </div>
             <div class="graysmall">
               Number of Hits per Page means the number of hits that you have searched in one page.
+            </div>
+            <div class="graysmall">
+              Retrieval range refers to the corpus in which the target is retrieved. It includes the whole corpus as well as the two sub-corpora, Nuclear Science Academic English Corpus and Shipbuilding and Oceanography Engineering Academic English Corpus.
+            </div>
+            <div class="graysmall">
+              Query method serves for both word query and regular query.
             </div>
           </div>
         </div>
@@ -143,7 +149,7 @@ export default {
       pageSize: 1, // 统共页数，默认为1
       choice: 'the whole corpus',//选择哪一个语料库进行检索
       choicenum: 0,
-      querymethod:'word lookup',//默认单词查找
+      querymethod:'word query',//默认单词查找
       querymethodnum:0,
       currentPageData: [],
       par: '',//context页面要展示的文字的par
@@ -225,10 +231,10 @@ export default {
       else if (this.choice == 'sub-corpus of Nuclear-') {
         this.choicenum = 2
       }
-      if (this.querymethod == 'word lookup') {
+      if (this.querymethod == 'word query') {
         this.querymethodnum = 0
       }
-      else if (this.querymethod == 'regular lookup') {
+      else if (this.querymethod == 'regular query') {
         this.querymethodnum = 1
       }
       this.loading1 = true;
@@ -402,15 +408,15 @@ export default {
 }
 
 .graybox1 {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 
   background-color: rgba(231, 230, 230, 1);
   width: 45%;
   /* height: 10vh; */
-  padding: 2.5rem 1rem;
+  padding: 0.5rem 1rem;
   color: rgba(47, 85, 151, 1);
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 1.2rem;
   /* text-align: center; */
   line-height: 2rem;
 }
@@ -418,8 +424,8 @@ export default {
 .graysmall {
   text-indent: 2rem;
   text-align: justify;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
 }
 
 .buttonbox {
