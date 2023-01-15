@@ -12,8 +12,7 @@ import router from '@/router'
 import header from '@/components/MyHeader.vue'
 import footer from '@/components/MyFotter.vue'
 import myimage from '@/components/MyImage.vue'
-//引入mock
-import "./Mock/index.js"
+
 //引入全局样式
 import "@/assets/css/global.css"
 Vue.config.productionTip = false

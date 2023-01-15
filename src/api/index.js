@@ -4,7 +4,7 @@ import axios from "axios"
 
 const aaxios = axios.create({
     // baseURL: "http://192.168.1.144:8100",
-    baseURL: "https://5706i41c44.oicp.vip",
+    baseURL: "http://cn-yw-plc-1.openfrp.top:20725/",
     timeout: 5000
 })
 

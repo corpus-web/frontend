@@ -111,7 +111,7 @@ export default {
         handleCurrentChange(val) {
             //向后端发请求
 
-            alert(this.currentPage);
+            // alert(this.currentPage);
             this.$axios.request({
                 method: 'GET',
                 url: 'api/corpus/file',
