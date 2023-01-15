@@ -204,10 +204,12 @@ export default {
 .el-dialog {
     width: 759px;
     height: 400px;
+
 }
 
 .title {
     text-align: center;
-    font-size: large;
+    font-size: 20px;
+    font-weight: 800;
 }
 </style>

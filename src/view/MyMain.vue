@@ -324,7 +324,7 @@ export default {
                     // console.log(res.data);
                     let data = res.data;
                     let pdata = data.map(item => {
-                        return { title: item.text, create_time: item.create_time };
+                        return { title: item.text, create_time: item.prize_time };
                     })
                     // console.log(pdata);
                     if (pdata.length >= 5) {

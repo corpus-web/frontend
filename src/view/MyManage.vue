@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div class="big">
         <div id="select">
             <div style="position: relative;width: 100%;height: 4rem;">
-                <h2 style="width:80%;position: absolute;font-weight: 400;font-family:'微软雅黑'">后台管理系统</h2>
-                <el-button type="info" style="position: absolute;right: 2rem;top: 1rem;" @click="exit()">退出</el-button>
+                <h2 style="width:80%;position: absolute;font-family:'微软雅黑';font-size: 30px;margin-left:42%;">后台管理系统
+                </h2>
+                <el-button type="info" style="position: absolute;right: 2rem;top: 1.5rem;" @click="exit()">退出
+                </el-button>
             </div>
             <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect"
                 background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"
@@ -13,6 +15,7 @@
                 <el-menu-item index="3">学术交流</el-menu-item>
                 <el-menu-item index="4">团队风采</el-menu-item>
                 <el-menu-item index="5">语料库</el-menu-item>
+                <el-menu-item index="6">语料库文章</el-menu-item>
             </el-menu>
         </div>
 
@@ -34,16 +37,21 @@
             <lbt :part="active" :id="5"></lbt>
             <zjxx :part="active" :id="5"></zjxx>
         </div>
+        <div v-show="active == 6">
+            <ylkcl :part="active" :id="6"></ylkcl>
+        </div>
     </div>
 </template>
 
 <script>
 import lbt from '@/view/MyLbt.vue'
 import zjxx from '@/view/MyZjxx.vue'
+import ylkcl from '@/view/MyYlkCl.vue'
 export default {
     components: {
         lbt: lbt,
-        zjxx: zjxx
+        zjxx: zjxx,
+        ylkcl: ylkcl
     },
     data() {
         return {

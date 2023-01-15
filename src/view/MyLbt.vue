@@ -116,7 +116,7 @@
                             <template slot="prepend">会议主题</template>
                         </el-input>
 
-                        <div style="width:360px;height:180px;margin:auto">
+                        <div style="width:360px;height:215px;margin:auto;;">
                             <el-upload drag ref="Academic_upload" :http-request="AcademicUpload" action="#"
                                 :auto-upload="false" :show-file-list="true" :limit="1" style="margin-top:0.5rem">
                                 <i class="el-icon-upload"></i>
@@ -163,7 +163,7 @@ export default {
             PrizeUploadDialog: false,
             prize_form: { prize_time: '', prize_title: '' },
 
-            url: ["jjoo", "/api/home/main", "/api/course/main", "/api/academic/title", "/api/team/lists", "/api/corpus/main"],
+            url: ["jjoo", "api/home/main", "api/course/main", "api/academic/title", "api/team/lists", "api/corpus/main"],
             title: ["", "首页轮播图", "课程建设轮播图", "学术交流会议信息", "团队风采照片墙", "语料库轮播图"]
         }
     },
@@ -357,9 +357,14 @@ export default {
 </script>
 
 <style scoped>
+#main {
+    margin-top: 1rem;
+}
+
 .title {
     text-align: center;
-    font-size: large;
+    font-size: 20px;
+    font-weight: 800;
 }
 
 .el-dialog {
