@@ -21,8 +21,9 @@
                 </div>
             </div>
 
-            <my-footer></my-footer>
+
         </div>
+        <my-footer></my-footer>
     </div>
 </template>
 
@@ -64,45 +65,40 @@ export default {
 
 <style scoped>
 #body {
-    position: relative;
-    height: 31.44rem;
+    /* position: relative; */
+    /* height: 31.44rem; */
     margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-around;
 }
 
 .swiper-container {
-    position: absolute;
-    left: 4px;
-    top: 4px;
+    margin-top: 5px;
     border: 1px solid #e5e5e5;
     height: 450px;
     width: 600px;
-    /* border: 1px solid red; */
 }
 
 #img {
     width: 100%;
     height: 100%;
-    /* object-position: center; */
     object-fit: contain;
 }
 
 #title {
-    position: absolute;
     height: 3.144rem;
     line-height: 3.144rem;
     text-align: center;
     margin: auto;
     margin-top: 0.3rem;
     width: 38.4rem;
-    /* border: 1px solid purple; */
 }
 
 #text {
-    position: absolute;
+    /* position: absolute; */
     width: 36.48rem;
-    height: 31.44rem;
+    /* height: 31.44rem; */
     right: 0;
-    /* border: 1px solid blue; */
 }
 
 .ganxiang {
