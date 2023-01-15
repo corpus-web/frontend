@@ -233,7 +233,7 @@ export default {
 
         const firstChar = this.newlongtext.charAt(0);
         console.log(firstChar)
-        const letters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+        const letters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ/\\(_"
         if (!letters.includes(firstChar)) {
           console.log("输错了憨批")
           this.$message.error('输入包含非法字符，请重新输入');
