@@ -1,13 +1,21 @@
 <template>
     <div id="main">
-        <div class="title">{{ title[part] }}</div>
-        <!-- <div class="title" v-show="part == 4">团队风采获奖证书</div> -->
-        <div style="margin:auto;width:65rem">
-            <el-table :data="MainSwiper" style="width: 100%" :cell-style="curs">
+        <div style="position: relative; width: 65%; height: 50px; margin: auto;line-height: 50px;">
+            <div class="title">{{ title[part] }}</div>
+            <!-- <div class="title" v-show="part == 4">团队风采获奖证书</div> -->
+            <div style="width:200px;position: absolute; right: 0;top: 30%;">
+                <el-progress :percentage="picUploadPercent" v-show="show_loading" :text-inside="true"
+                    :stroke-width="20">
+                </el-progress>
+            </div>
+        </div>
+
+        <div style="margin:auto;width:62rem">
+            <el-table :data="MainSwiper" style="width: 100%" :cell-style="curs" border>
                 <!-- <el-table-column width="1"></el-table-column> -->
                 <el-table-column type="index" label="序号" width="100" align="center">
                 </el-table-column>
-                <el-table-column prop="pictureurl" label="图片地址" width="450" align="center"
+                <el-table-column prop="pictureurl" label="图片地址" width="650" align="center"
                     v-if="part == 1 || part == 2 || part == 5">
                     <template slot-scope="scope">
                         <div @click="openpic(scope.row.pictureurl)">{{ scope.row.pictureurl }}</div>
@@ -28,7 +36,7 @@
                         <div>{{ scope.row.prize_time }}</div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="text" label="荣誉证书" width="450" align="center" v-if="part == 4" key="wfwf">
+                <el-table-column prop="text" label="荣誉证书" width="551" align="center" v-if="part == 4" key="wfwf">
                     <template slot-scope="scope">
                         <div @click="openpic(scope.row.pictureurl)" style="cursor:pointer">{{ scope.row.text }}</div>
                     </template>
@@ -36,38 +44,46 @@
 
                 <el-table-column label="操作" width="100" align="center">
                     <template slot-scope="scope">
-                        <div>
-                            <el-button type="danger" @click="MainSwiperDel(scope.$index, scope.row)">删除</el-button>
+                        <div @click="MainSwiperDel(scope.$index, scope.row)" style="color: red; cursor: pointer;">
+                            删除
+                            <!-- <el-button type="danger" @click="MainSwiperDel(scope.$index, scope.row)">删除</el-button> -->
                         </div>
                     </template>
                 </el-table-column>
 
 
 
-                <el-table-column v-if="part == 1 || part == 2 || part == 5" width="130" key="wfwfw">
+                <el-table-column v-if="part == 1 || part == 2 || part == 5" width="141" key="wfwfw" align="center">
                     <template slot="header">
-                        <!-- <el-button type="success" @click="MainSwiperadd">添加</el-button> -->
+
                         <el-upload class="upload-demo" :action="changeUrl()" :show-file-list=false
-                            :on-success="() => uploadsucc()" :headers="headerObj">
+                            :on-success="() => uploadsucc()" :headers="headerObj" :on-progress="uploadProgress">
                             <el-button type="success">点击上传</el-button>
                         </el-upload>
                     </template>
                 </el-table-column>
 
 
-                <el-table-column v-if="part == 3" width="200" key="wfwfwfwf" align="center">
+
+
+
+
+                <el-table-column v-if="part == 3" width="190" key="wfwfwfwf" align="center">
                     <template slot="header">
                         <el-button type="success" @click="AcademicAdd()">上传会议信息</el-button>
                     </template>
                 </el-table-column>
 
-                <el-table-column v-if="part == 4" width="200" key="wfwfwfwfwwww">
+                <el-table-column v-if="part == 4" width="140" key="wfwfwfwfwwww" align="center">
                     <template slot="header">
                         <el-button type="success" @click="PrizeAdd()">上传证书</el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
+
+
+            <!-- <el-progress :percentage="picUploadPercent" type="circle" v-show="show_loading"></el-progress> -->
 
             <el-dialog title="上传证书" :visible.sync="PrizeUploadDialog">
                 <div class="PrizeUp">
@@ -152,6 +168,8 @@ export default {
     },
     data() {
         return {
+            show_loading: false,
+            picUploadPercent: 0,
             MainSwiper: [],
             showAddDialog: false,
             headerObj: { token: window.localStorage.getItem('token') },
@@ -169,6 +187,26 @@ export default {
     },
     props: ['part', 'id'],
     methods: {
+
+        uploadProgress(event) {
+            this.show_loading = true;
+            let _self = this;
+            console.log("jsdoiwasje");
+            if (event.lengthComputable) {
+                let val = (event.loaded / event.total * 100).toFixed(0);
+                var progress = parseInt(val);
+                if (progress == 100) {
+                    this.show_loading = false;
+                    this.picUploadPercent = 0;
+                    return;
+                }
+                _self.picUploadPercent = progress;
+                // console.log(_self.picUploadPercent);
+            }
+
+        },
+
+
         changeUrl() {
             // console.log(Base.baseURL + this.url[this.part]);
             return Base.baseURL + this.url[this.id];
@@ -362,9 +400,12 @@ export default {
 }
 
 .title {
+    left: 45%;
+    position: absolute;
     text-align: center;
     font-size: 20px;
     font-weight: 800;
+    /* margin-bottom: 1rem; */
 }
 
 .el-dialog {

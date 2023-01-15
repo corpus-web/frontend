@@ -4,7 +4,7 @@
             <div style="position: relative;width: 100%;height: 4rem;">
                 <h2 style="width:80%;position: absolute;font-family:'微软雅黑';font-size: 30px;margin-left:42%;">后台管理系统
                 </h2>
-                <el-button type="info" style="position: absolute;right: 2rem;top: 1.5rem;" @click="exit()">退出
+                <el-button type="info" style="position: absolute;right: 0;top: 1.5rem;" @click="exit()">退出
                 </el-button>
             </div>
             <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect"

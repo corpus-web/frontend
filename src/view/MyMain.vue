@@ -62,7 +62,7 @@
                     </div>
                     <div class="ch_innerblock">
                         <div class="ch_innerimg">
-                            <img src="@/assets/images/1.jpg" alt="">
+                            <img src="@/assets/images/2.jpg" alt="">
                         </div>
                         <div class="ch_innerul">
                             <ul>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="ch_innerblock">
                         <div class="ch_innerimg">
-                            <img src="@/assets/images/1.jpg" alt="">
+                            <img src="@/assets/images/3.jpg" alt="">
                         </div>
                         <div class="ch_innerul">
                             <ul>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="ch_innerblock">
                         <div class="ch_innerimg">
-                            <img src="@/assets/images/1.jpg" alt="">
+                            <img src="@/assets/images/4.jpg" alt="">
                         </div>
                         <div class="ch_innerul">
                             <ul>
@@ -613,7 +613,7 @@ export default {
 }
 
 .ch_innerw {
-    width: 35rem;
+    width: 37rem;
     height: 15rem;
     border: 1px solid white;
 }
@@ -631,13 +631,17 @@ export default {
     font-size: 20px;
 }
 
+ul {
+    padding-left: 20px;
+}
+
 .ch_title_more {
     font-size: 14px;
     cursor: pointer;
 }
 
 .ch_innerimg {
-    width: 30%;
+    width: 42%;
 }
 
 .ch_innerimg img {
@@ -647,7 +651,7 @@ export default {
 
 .ch_innerblock {
     background-color: #f2f2f2;
-    width: 33rem;
+    width: 35rem;
     height: 9.2rem;
     padding: 1rem;
     display: flex;

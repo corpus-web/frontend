@@ -2,28 +2,29 @@
     <div class="main">
         <div class="title" v-if="this.part == 2">课程建设---最近消息</div>
         <div class="title" v-if="this.part == 5">语料库---最近消息</div>
-        <div style="margin:auto;width:65rem">
-            <el-table :data="LatestMassage" style="width: 100%">
+        <div style="margin:auto;width:62rem;margin-top: 1rem;">
+            <el-table :data="LatestMassage" style="width: 100%" border>
                 <el-table-column type="index" label="序号" width="100" align="center">
                 </el-table-column>
 
 
-                <el-table-column label="标题" width="500" align="center">
+                <el-table-column label="标题" width="650" align="center">
                     <template slot-scope="scope">
                         <div style="cursor:pointer" @click="GotoText(scope.$index, scope.row)">{{ scope.row.title }}
                         </div>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="200" align="center">
+                <el-table-column label="操作" width="100" align="center">
                     <template slot-scope="scope">
-                        <div>
-                            <el-button type="danger" @click="LatestMessageDel(scope.$index, scope.row)">删除</el-button>
+                        <div @click="LatestMessageDel(scope.$index, scope.row)" style="color:red;cursor: pointer;">
+                            删除
+                            <!-- <el-button type="danger" @click="LatestMessageDel(scope.$index, scope.row)">删除</el-button> -->
                         </div>
                     </template>
                 </el-table-column>
 
-                <el-table-column width="130" key="wfwfwf">
+                <el-table-column width="141" key="wfwfwf" align="center">
                     <template slot="header">
                         <el-button type="success" @click="LatestMessageAdd()">上传消息</el-button>
                     </template>
