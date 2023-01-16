@@ -1,5 +1,6 @@
-// import router from "@/router";
-import axios from "axios"
+import router from "@/router";
+import axios from "axios";
+import ElementUI from 'element-ui';
 // import { Store } from "vuex";
 
 const aaxios = axios.create({
@@ -19,5 +20,22 @@ aaxios.interceptors.request.use((config) => {
 
     return config;
 });
-
+aaxios.interceptors.response.use((res) => {
+    return res;
+}, (err) => {
+    if (err.response.status == 401) {
+        console.log(111);
+        localStorage.removeItem('token')
+        ElementUI.Message({
+            message: err.response.data.detail,
+            type: 'error'
+        })
+        router.push('/login')
+    } else if (err.response.status == 400) {
+        ElementUI.Message({
+            message: err.response.data.detail,
+            type: 'error'
+        })
+    }
+})
 export default aaxios;

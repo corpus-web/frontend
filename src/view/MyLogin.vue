@@ -19,8 +19,7 @@
                     <el-form-item label="验证码" prop="code" style="width:50%;position: absolute;">
                         <el-input v-model="form.code" spellcheck="false"></el-input>
                     </el-form-item>
-                    <div style="width:130px;height:35px;position: absolute; top:0;right:0;cursor:pointer"
-                        @click="getimg()">
+                    <div style="30px;height:35px;position: absolute; top:0;right:0;cursor:pointer" @click="getimg()">
                         <img :src="'data:image/png;base64,' + form.img" alt="">
                     </div>
                 </div>
