@@ -78,6 +78,7 @@ export default {
       })
     }
   },
+  
 }
 </script>
 
@@ -86,6 +87,7 @@ export default {
   height: 40rem;
   display: flex;
   margin-left: 4rem;
+  width: 75rem;
 }
 
 #img {
