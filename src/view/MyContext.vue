@@ -32,7 +32,7 @@
             <div class="buttondark" style="width: 20%;margin-left: 5%;cursor: pointer;" @click="showpage">
                 Show Page
             </div>
-            <input class="pagenum" v-model="showp" placeholder="" />
+            <input class="pagenum" v-model="currentPage" placeholder="" />
             <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;"
                 @click="change">
                 {{ order }}
@@ -57,7 +57,7 @@ export default {
 
             // currentPageData: [], //当前页显示内容
             headPage: 1,
-            showp: '',
+            // showp: '',
             order: 'Random Order',
             randomcase: false,//1表示Show Corpus；2表示Random Order
             // title: "五百年前孙悟空大闹天宫",
@@ -120,8 +120,13 @@ export default {
 
         },
         showpage() {
-            this.currentPage = this.showp;
-            this.getCurrentPageData();
+            // this.currentPage = this.showp;
+            if(this.currentPage>=this.pageSize){
+                this.lastPage();
+            }
+            else{
+                this.getCurrentPageData();
+            }
             // console.log(this.showp)
         },
         change() {
@@ -223,8 +228,8 @@ export default {
 }
 
 .pagenum {
-    width: 1.8rem;
-    margin-top: 0.5rem;
+    width: 3.8rem;
+    margin-top: 0.4rem;
     margin-left: 0.8rem;
     font-size: 1.8rem;
     height: 1.8rem;
