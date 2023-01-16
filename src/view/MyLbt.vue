@@ -242,15 +242,33 @@ export default {
             }).then(() => {
                 this.MainSwiper.splice(index, 1)
                 if (this.part == 3)
-                    this.$axios.delete("/api/academic/title", { 'data': { 'aid': row.aid } });
+                    this.$axios.delete("/api/academic/title", { 'data': { 'aid': row.aid } }).then((res) => {
+                        if (res.status == 200)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                    });
                 else if (this.part == 4)
-                    this.$axios.delete("/api/team/list", { 'data': { 'pid': row.pid } });
+                    this.$axios.delete("/api/team/list", { 'data': { 'pid': row.pid } }).then((res) => {
+                        if (res.status == 200)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                    });
                 else
-                    this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } });
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
+                    this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } }).then((res) => {
+                        if (res.status == 200)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                    });
+                // this.$message({
+                //     type: 'success',
+                //     message: '删除成功!'
+                // });
             }).catch(() => {
                 // 点的是取消，就弹出取消删除的提示框
                 this.$message({
@@ -297,17 +315,19 @@ export default {
             form.append("text", this.Academic_text);
             form.append("img", e.file);
             this.$axios.post("/api/academic/title", form)
-                .then(() => {
-                    this.AcademicUploadDialog = false;
-                    this.$refs.Academic_upload.clearFiles();
-                    this.Academic_title = '';
-                    this.Academic_text = '';
-                    this.GetMainSwiper();
-                    this.$message({
-                        showClose: true,
-                        message: "上传成功",
-                        type: "success",
-                    });
+                .then((res) => {
+                    if (res.status == 200) {
+                        this.AcademicUploadDialog = false;
+                        this.$refs.Academic_upload.clearFiles();
+                        this.Academic_title = '';
+                        this.Academic_text = '';
+                        this.GetMainSwiper();
+                        this.$message({
+                            showClose: true,
+                            message: "上传成功",
+                            type: "success",
+                        });
+                    }
                 }).catch(() => {
                     this.$message({
                         showClose: true,
