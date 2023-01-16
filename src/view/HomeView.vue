@@ -39,7 +39,7 @@
       </div>
       <!-- 思维导图 -->
       <div class="Mindmapping">
-        <img src="../assets/images/Mindmapping.png" alt="Mind mapping">
+        <img src="../assets/images/Mindmapping.png" alt="Mind mapping" width="100%">
       </div>
       <div style="display: flex;">
         <div class="button" @click="$router.push('/Search')">
@@ -86,8 +86,8 @@ export default {
 .Mindmapping {
   height: 40rem;
   display: flex;
-  margin-left: 4rem;
-  width: 75rem;
+  margin-left: 3rem;
+  /* width: 75rem; */
 }
 
 #img {
