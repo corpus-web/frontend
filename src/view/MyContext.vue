@@ -1,6 +1,7 @@
 <template>
     <div class="frequency">
-        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem" v-loading="loading2"
+        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem"
+            v-loading="loading2"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <el-table-column label="No." type="index" width="100" align="center">
             </el-table-column>
@@ -8,7 +9,9 @@
             </el-table-column>
             <el-table-column prop="s_name" align="center">
                 <template slot="header">
-                    Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ currentPage }}/{{ pageSize }}&nbsp;&nbsp;Frequency:{{ fre }}
+                    Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ copycurrentPage }}/{{
+                        pageSize
+                    }}&nbsp;&nbsp;Frequency:{{ fre }}
                 </template>
                 <template slot-scope="scope">
                     <span v-html="setkey(scope.row.s_name)"></span>
@@ -32,7 +35,7 @@
             <div class="buttondark" style="width: 20%;margin-left: 5%;cursor: pointer;" @click="showpage">
                 Show Page
             </div>
-            <input class="pagenum" v-model="currentPage" placeholder="" />
+            <input class="pagenum" v-model.trim="currentPage" placeholder="" />
             <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;"
                 @click="change">
                 {{ order }}
@@ -44,7 +47,7 @@
 
 <script>
 export default {
-    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize","loading2","fre"],
+    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize", "loading2", "fre"],
     // "longtext":要高亮的词
     // "total"：总共的索引数
     // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数
@@ -54,6 +57,7 @@ export default {
 
 
             currentPage: 1, //当前页数 ，默认为1
+            copycurrentPage: 1, //当前页数副本 ，默认为1
 
             // currentPageData: [], //当前页显示内容
             headPage: 1,
@@ -87,6 +91,7 @@ export default {
                 return false;
             } else {
                 this.currentPage = this.headPage;
+                this.copycurrentPage = this.currentPage;
                 this.getCurrentPageData();
             }
         },
@@ -96,6 +101,7 @@ export default {
                 return false;
             } else {
                 this.currentPage--;
+                this.copycurrentPage = this.currentPage;
                 this.getCurrentPageData();
             }
         },
@@ -106,6 +112,7 @@ export default {
                 return false;
             } else {
                 this.currentPage++;
+                this.copycurrentPage = this.currentPage;
                 this.getCurrentPageData();
             }
         },
@@ -115,19 +122,26 @@ export default {
                 return false;
             } else {
                 this.currentPage = this.pageSize;
+                this.copycurrentPage = this.currentPage;
                 this.getCurrentPageData();
             }
 
         },
         showpage() {
             // this.currentPage = this.showp;
-            if(this.currentPage>=this.pageSize){
-                this.lastPage();
+            if (this.currentPage == '') {
+                this.currentPage = this.copycurrentPage;
             }
-            else{
-                this.getCurrentPageData();
+            else {
+                if (this.currentPage >= this.pageSize) {
+                    this.lastPage();
+                }
+                else {
+                    this.getCurrentPageData();
+                }
+                // console.log(this.showp)
             }
-            // console.log(this.showp)
+
         },
         change() {
             this.getCurrentPageData();
