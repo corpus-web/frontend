@@ -41,10 +41,11 @@
                 <select v-model="bothnum" id="selectbox">
                   <option disabled value=""></option>
                   <option>50</option>
-                  <option>75</option>
                   <option>100</option>
-                  <option>125</option>
-                  <option>150</option>
+                  <option>200</option>
+                  <option>300</option>
+                  <option>400</option>
+                  <option>500</option>
                 </select>
               </div>
 
@@ -57,6 +58,7 @@
                   <option>50</option>
                   <option>100</option>
                   <option>150</option>
+                  
                 </select>
               </div>
 
