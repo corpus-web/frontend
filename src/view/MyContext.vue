@@ -176,21 +176,37 @@ export default {
         },
         getCaption(obj) {
             const index = obj.lastIndexOf(this.keytype)
-            const res = obj.substring(index+2, index+3)
-            if(!(res.match(/^[ ]*$/))){
-                console.log("res"+res+"line"+obj)
+            const res = obj.substring(index + 2, index + 3)
+            // if(!(res.match(/^[ ]*$/)||res.match(/^[ ]*$/))){
+            //     console.log("res"+res+"line"+obj)
+            //     return false
+            // }
+            if (res >= "a" && res <= "z") {
+                console.log("res" + res + "line" + obj)
                 return false
             }
+            // if(res=='-') return true
+            // if(res.isalpha()){
+            //     console.log("不正常"+obj)
+            //     return false
+            // }
 
             return true
         },
         getCaption1(obj) {
             const index = obj.lastIndexOf(this.keytype1)
-            const res = obj.substring(index+2, index+3)
-            if(!(res.match(/^[ ]*$/))){
-                console.log("res"+res+"line"+obj)
+            const res = obj.substring(index + 2, index + 3)
+            // if(!(res.match(/^[ ]*$/))){
+            //     console.log("res"+res+"line"+obj)
+            //     return false
+            // }
+            if (res >= "a" && res <= "z") {
+                console.log("res" + res + "line" + obj)
                 return false
             }
+            // if(res.isalpha()){
+            //     return false
+            // }
 
             return true
         },
@@ -206,33 +222,62 @@ export default {
             this.keytype1 = this.Fisrt(this.keytype)
             this.keytype2 = this.Upper(this.keytype)
             console.log("首字母大写:" + this.keytype1)
-            if (line.includes(this.keytype) && this.getCaption(line)) {
-                line = line.replace(
-                    this.keytype,
-                    // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
-                    '<font style="color:red!important;">' + this.keytype + '</font>'
-                )
-                // return line
-            }
-            if (this.limitcase == false && line.includes(this.keytype1) && this.getCaption1(line)) {
-                line = line.replace(
-                    this.keytype1,
-                    // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
-                    '<font style="color:red!important;">' + this.keytype1 + '</font>'
+            // if (line.includes(this.keytype) && this.getCaption(line)) {
+            //     line = line.replace(
+            //         this.keytype,
+            //         // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+            //         '<font style="color:red!important;">' + this.keytype + '</font>'
+            //     )
+            //     // return line
+            // }
+            // if (line.includes(this.keytype1) && this.getCaption1(line)) {
+            //     line = line.replace(
+            //         this.keytype1,
+            //         // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+            //         '<font style="color:red!important;">' + this.keytype1 + '</font>'
 
-                )
-                // return line
-            }
-            if (this.limitcase == false && line.includes(this.keytype2)) {
-                // console.log("大写:"+this.keytype2)
-                line = line.replace(
-                    this.keytype2,
-                    // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
-                    '<font style="color:red!important;">' + this.keytype2 + '</font>'
+            //     )
+            //     // return line
+            // }
+            // if (line.includes(this.keytype2)) {
+            //     // console.log("大写:"+this.keytype2)
+            //     line = line.replace(
+            //         this.keytype2,
+            //         // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+            //         '<font style="color:red!important;">' + this.keytype2 + '</font>'
 
-                )
-                // return line
+            //     )
+            //     // return line
+            // }
+            // 若包含
+            // const index = line.lastIndexOf(this.keytype)
+            // const res = line.substring(index + 2, index + 3)
+            // let linenew
+            // if (res >= "a" && res <= "z") {
+            //     linenew = line.slice(0, index);
+            //     const index = linenew.lastIndexOf(this.keytype)
+            //     res = linenew.substring(index + 2, index + 3)
+            // }
+
+            // let arr = line.split('')
+            // for (let i = index; i < index + this.keytype.length; i++) {
+            //     arr[i] = '<font style="color:red!important;">' + arr[i] + '</font>'
+            // }
+            // line = arr.join('')
+            let arr = line.split('')
+            for (let i = 0; i < arr.length; i++) {
+                let sub = arr.slice(i, i + this.keytype.length)
+                let substr = sub.join('')
+                if (substr == this.keytype || substr == this.keytype1 || substr == this.keytype2) {
+                    const res = line.substring(i + this.keytype.length, i + this.keytype.length + 1)
+                    if(!(res >= "a" && res <= "z")){
+                        for(let j=i;j<i + this.keytype.length;j++){
+                            arr[j] = '<font style="color:red!important;">' + arr[j] + '</font>'
+                        }
+                    }
+                }
             }
+            line = arr.join('')
             // 不包含的话还用这个
 
             return line
