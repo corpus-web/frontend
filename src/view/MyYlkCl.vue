@@ -90,10 +90,10 @@ export default {
                 label: '全部'
             }, {
                 value: 1,
-                label: '船舶学院'
+                label: '船舶与海洋工程学术英语语料库'
             }, {
                 value: 2,
-                label: '核学院'
+                label: '核学科学术英语语料库'
             }],
             sel_value: 0,
             show_adddialog: false,
