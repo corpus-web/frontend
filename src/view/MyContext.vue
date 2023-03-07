@@ -1,7 +1,6 @@
 <template>
     <div class="frequency">
-        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem"
-            v-loading="loading2"
+        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem" v-loading="loading2"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <el-table-column label="No." type="index" width="100" align="center">
             </el-table-column>
@@ -36,8 +35,7 @@
                 Show Page
             </div>
             <input class="pagenum" v-model.trim="currentPage" placeholder="" />
-            <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;"
-                @click="change">
+            <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;" @click="change">
                 {{ order }}
             </div>
         </div>
@@ -47,7 +45,7 @@
 
 <script>
 export default {
-    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize", "loading2", "fre"],
+    props: ["longtext", "indexnum", "tableData", "keytype", "bothnum", "choicenum", "pageSize", "loading2", "fre", "limitcase"],
     // "longtext":要高亮的词
     // "total"：总共的索引数
     // "indexnum"：索引条数，要展示在表格第三列的表头,每一页显示条数
@@ -70,7 +68,9 @@ export default {
                 page: 0,
                 rank: true,
 
-            }
+            },
+            keytype1: '',
+            keytype2: '',
         }
     },
 
@@ -159,20 +159,129 @@ export default {
             }
         },
 
-        setkey(line) {
-            if (line.includes(this.keytype)) {
-                line = line.replace(
-                    this.keytype,
-                    // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
-                    '<font style="color:red!important;">' + this.keytype + '</font>'
+        Fisrt(arg) {
+            var str = arg.split('');
+            str[0] = str[0].toUpperCase();
+            return str.join('');
+        },
+        Upper(arg) {
+            var str = arg.split('');
+            for (var i = 0; i < str.length; i++) {
+                if (str[i].charAt() >= "a" && str[i].charAt() <= "z") {
+                    str[i] = str[i].toUpperCase();
+                    // console.log(str[i].toLowerCase());
+                }
+            }
+            return str.join('');
+        },
+        getCaption(obj) {
+            const index = obj.lastIndexOf(this.keytype)
+            const res = obj.substring(index + 2, index + 3)
+            // if(!(res.match(/^[ ]*$/)||res.match(/^[ ]*$/))){
+            //     console.log("res"+res+"line"+obj)
+            //     return false
+            // }
+            if (res >= "a" && res <= "z") {
+                console.log("res" + res + "line" + obj)
+                return false
+            }
+            // if(res=='-') return true
+            // if(res.isalpha()){
+            //     console.log("不正常"+obj)
+            //     return false
+            // }
 
-                )
-                return line
+            return true
+        },
+        getCaption1(obj) {
+            const index = obj.lastIndexOf(this.keytype1)
+            const res = obj.substring(index + 2, index + 3)
+            // if(!(res.match(/^[ ]*$/))){
+            //     console.log("res"+res+"line"+obj)
+            //     return false
+            // }
+            if (res >= "a" && res <= "z") {
+                console.log("res" + res + "line" + obj)
+                return false
             }
+            // if(res.isalpha()){
+            //     return false
+            // }
+
+            return true
+        },
+        // getCaption1(obj) {
+        //     // const index1 = obj.lastIndexOf(this.keytype1)
+        //     // const res1 = obj.substring(index1, index1+1)
+        //     // if(res1 >= "a" && res1 <= "z") return false
+        //     // if(res1 >= "A" && res1 <= "Z") return false
+        //     // return true
+        // },
+
+        setkey(line) {
+            this.keytype1 = this.Fisrt(this.keytype)
+            this.keytype2 = this.Upper(this.keytype)
+            console.log("首字母大写:" + this.keytype1)
+            // if (line.includes(this.keytype) && this.getCaption(line)) {
+            //     line = line.replace(
+            //         this.keytype,
+            //         // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+            //         '<font style="color:red!important;">' + this.keytype + '</font>'
+            //     )
+            //     // return line
+            // }
+            // if (line.includes(this.keytype1) && this.getCaption1(line)) {
+            //     line = line.replace(
+            //         this.keytype1,
+            //         // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+            //         '<font style="color:red!important;">' + this.keytype1 + '</font>'
+
+            //     )
+            //     // return line
+            // }
+            // if (line.includes(this.keytype2)) {
+            //     // console.log("大写:"+this.keytype2)
+            //     line = line.replace(
+            //         this.keytype2,
+            //         // 这里是替换成html格式的数据，最好再加一个样式权重，保险一点
+            //         '<font style="color:red!important;">' + this.keytype2 + '</font>'
+
+            //     )
+            //     // return line
+            // }
+            // 若包含
+            // const index = line.lastIndexOf(this.keytype)
+            // const res = line.substring(index + 2, index + 3)
+            // let linenew
+            // if (res >= "a" && res <= "z") {
+            //     linenew = line.slice(0, index);
+            //     const index = linenew.lastIndexOf(this.keytype)
+            //     res = linenew.substring(index + 2, index + 3)
+            // }
+
+            // let arr = line.split('')
+            // for (let i = index; i < index + this.keytype.length; i++) {
+            //     arr[i] = '<font style="color:red!important;">' + arr[i] + '</font>'
+            // }
+            // line = arr.join('')
+            let arr = line.split('')
+            for (let i = 0; i < arr.length; i++) {
+                let sub = arr.slice(i, i + this.keytype.length)
+                let substr = sub.join('')
+                if (substr == this.keytype || substr == this.keytype1 || substr == this.keytype2) {
+                    const res = line.substring(i + this.keytype.length, i + this.keytype.length + 1)
+                    if(!(res >= "a" && res <= "z")){
+                        for(let j=i;j<i + this.keytype.length;j++){
+                            arr[j] = '<font style="color:red!important;">' + arr[j] + '</font>'
+                        }
+                    }
+                }
+            }
+            line = arr.join('')
             // 不包含的话还用这个
-            else {
-                return line
-            }
+
+            return line
+
         },
 
     },
