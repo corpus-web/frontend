@@ -181,7 +181,7 @@ export default {
             PrizeUploadDialog: false,
             prize_form: { prize_time: '', prize_title: '' },
 
-            url: ["jjoo", "api/home/main", "api/course/main", "api/academic/title", "api/team/lists", "api/corpus/main"],
+            url: ["jjoo", "/api/home/main", "/api/course/main", "/api/academic/title", "/api/team/lists", "/api/corpus/main"],
             title: ["", "首页轮播图", "课程建设轮播图", "学术交流会议信息", "团队风采照片墙", "语料库轮播图"]
         }
     },
