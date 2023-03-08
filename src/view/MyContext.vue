@@ -71,6 +71,7 @@ export default {
             },
             keytype1: '',
             keytype2: '',
+            keytype3: '',
         }
     },
 
@@ -174,6 +175,11 @@ export default {
             }
             return str.join('');
         },
+        FLower(arg){
+            var str = arg.split('');
+            str[0] = str[0].toLowerCase();
+            return str.join('');
+        },
         getCaption(obj) {
             const index = obj.lastIndexOf(this.keytype)
             const res = obj.substring(index + 2, index + 3)
@@ -221,6 +227,7 @@ export default {
         setkey(line) {
             this.keytype1 = this.Fisrt(this.keytype)
             this.keytype2 = this.Upper(this.keytype)
+            this.keytype3 = this.FLower(this.keytype)
             console.log("首字母大写:" + this.keytype1)
             // if (line.includes(this.keytype) && this.getCaption(line)) {
             //     line = line.replace(
@@ -268,7 +275,7 @@ export default {
             for (let i = 0; i < arr.length; i++) {
                 let sub = arr.slice(i, i + this.keytype.length)
                 let substr = sub.join('')
-                if (substr == this.keytype || substr == this.keytype1 || substr == this.keytype2) {
+                if (substr == this.keytype || substr == this.keytype1 || substr == this.keytype2 || substr == this.keytype3) {
                     const res = line.substring(i + this.keytype.length, i + this.keytype.length + 1)
                     if(!(res >= "a" && res <= "z")){
                         for(let j=i;j<i + this.keytype.length;j++){
