@@ -1,12 +1,12 @@
 <template>
     <div class="frequency">
-        <el-table :data="tableData" border style="width: 76.8rem;text-align: center;" height="40rem" v-loading="loading2"
+        <el-table :data="tableData1" border style="width: 76.8rem;text-align: center;" height="40rem" v-loading="loading2" :key="isUpdate"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <el-table-column label="No." type="index" width="100" align="center">
             </el-table-column>
             <el-table-column prop="fname" label="Filename" width="280" align="center">
             </el-table-column>
-            <el-table-column prop="s_name" align="center">
+            <el-table-column prop="fline" align="center">
                 <template slot="header">
                     Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ copycurrentPage }}/{{
                         pageSize
@@ -52,11 +52,13 @@ export default {
     // "currentPageData"：表格的数据
     data() {
         return {
-
-
+            isUpdate:0,
+            tableData1: [],
+            tableDataCopy: [],
+            tableDataCopyRandom: [],
             currentPage: 1, //当前页数 ，默认为1
             copycurrentPage: 1, //当前页数副本 ，默认为1
-
+            firstcopy: true,
             // currentPageData: [], //当前页显示内容
             headPage: 1,
             // showp: '',
@@ -74,9 +76,35 @@ export default {
             keytype3: '',
         }
     },
+    watch: {
+        tableData: function (t) {
+            if (this.firstcopy == true) {
+                if (t != []) {
+                    this.tableData1 = this.tableData.slice();
+                    this.tableDataCopyRandom = this.tableData.slice();
+                    // this.tableData1 = this.tableData
+                    // this.tableDataCopyRandom = this.tableData
+                }
+            }
 
-    mounted() {
-
+        }
+    },
+    created() {
+        // this.loading2 = false;
+        // this.tableData1 = this.tableData
+        // console.log("this.tableData");
+        // console.log(this.tableData);
+        // console.log("this.tableData1");
+        // console.log(this.tableData1);
+        // this.tableDataCopy = this.tableData
+        // this.tableDataCopyRandom = this.tableData
+        // for (let i =0;i<=this.tableDataCopyRandom.length/2;i++) {
+        //     const random = Math.floor(Math.random() * this.tableData.length);
+        //     // console.log("i:" + i + "random:" + random);
+        //     [this.tableDataCopyRandom[i], this.tableDataCopyRandom[random]] = [this.tableDataCopyRandom[random], this.tableDataCopyRandom[i]];
+        // }
+        // console.log("交换成功")
+        // this.loading2 = true;
     },
     methods: {
         getCurrentPageData() {
@@ -144,20 +172,59 @@ export default {
             }
 
         },
+        // torandom() {
+        //     console.log("变随机")
+        //     // console.log(typeof(this.tableData))
+        //     // console.log("tableData.length"+this.tableData.length)
+        //     // console.log("具体第一个"+this.tableDataCopyRandom[0])
+        //     for(var i in this.tableData){
+        //         this.tableDataCopyRandom.push(this.tableData[i])
+        //     }
+        //     // for (let i in this.tableDataCopyRandom) {
+        //     //     const random = Math.floor(Math.random()* this.tableData.length);
+        //     //     console.log("i:"+i+"random:"+random);
+        //     //     [this.tableDataCopyRandom[i], this.tableDataCopyRandom[random]] = [this.tableDataCopyRandom[random], this.tableDataCopyRandom[i]];
+        //     // }
+        //     console.log("this.tableDataCopyRandom的tpye"+typeof(this.tableDataCopyRandom))
+        //     this.tableData1 = this.tableDataCopyRandom
+        // },
+        // tocommon() {
+        //     console.log("恢复出厂设置")
+        //     this.tableData1 = this.tableDataCopy;
+        // },
+        randomitem() {
+            for (let i = 0; i <= this.tableDataCopyRandom.length / 2; i++) {
+                const random = Math.floor(Math.random() * this.tableData.length);
+                // console.log("i:" + i + "random:" + random);
+                [this.tableDataCopyRandom[i], this.tableDataCopyRandom[random]] = [this.tableDataCopyRandom[random], this.tableDataCopyRandom[i]];
+            }
+            
+            return
+        },
         change() {
-            this.getCurrentPageData();
+            this.firstcopy=false
+            // this.getCurrentPageData();
             if (this.order == 'Show Corpus') {
+                // 恢复出厂设置
+
                 this.order = 'Random Order';
                 this.randomcase = false;
-                this.getCurrentPageData();
+                this.tableData1 = this.tableData
+                console.log(this.tableData[0].fline)
                 // console.log(1)
             }
             else {
+                // 变随机
+
                 this.order = 'Show Corpus';
                 this.randomcase = true;
-                this.getCurrentPageData();
+                this.randomitem();
+                // console.log(this.tableDataCopyRandom[0].fline)
+                this.tableData1 = this.tableDataCopyRandom
+                // console.log(this.tableData1[0].fline)
                 // console.log(2)
             }
+            this.isUpdate = !this.isUpdate;
         },
 
         Fisrt(arg) {
@@ -175,7 +242,7 @@ export default {
             }
             return str.join('');
         },
-        FLower(arg){
+        FLower(arg) {
             var str = arg.split('');
             str[0] = str[0].toLowerCase();
             return str.join('');
@@ -277,8 +344,8 @@ export default {
                 let substr = sub.join('')
                 if (substr == this.keytype || substr == this.keytype1 || substr == this.keytype2 || substr == this.keytype3) {
                     const res = line.substring(i + this.keytype.length, i + this.keytype.length + 1)
-                    if(!(res >= "a" && res <= "z")){
-                        for(let j=i;j<i + this.keytype.length;j++){
+                    if (!(res >= "a" && res <= "z")) {
+                        for (let j = i; j < i + this.keytype.length; j++) {
                             arr[j] = '<font style="color:red!important;">' + arr[j] + '</font>'
                         }
                     }
