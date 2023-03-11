@@ -108,6 +108,7 @@ export default {
     },
     methods: {
         getCurrentPageData() {
+            this.order = 'Random Order';
             this.pack.page = this.currentPage;
             this.pack.rank = this.randomcase;
             this.$emit('turnpage', this.pack)
