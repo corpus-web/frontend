@@ -19,7 +19,6 @@ VueRouter.prototype.push = function push(location) {
 }
 
 const router = new VueRouter({
-    mode: 'history',
     routes: [
         { path: '*', redirect: '/Main' },
         {
