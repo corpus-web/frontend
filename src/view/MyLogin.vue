@@ -77,7 +77,9 @@ export default {
 
         },
         resetForm() {
-            this.$refs.login_form.resetFields();
+            this.username = "";
+            this.password = "";
+            this.code = "";
         },
 
         lllgoin() {

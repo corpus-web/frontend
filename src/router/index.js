@@ -19,7 +19,7 @@ VueRouter.prototype.push = function push(location) {
 }
 
 const router = new VueRouter({
-    mode:"history",
+    mode: "history",
     routes: [
         { path: '/', redirect: '/Main' },
         {
@@ -111,6 +111,7 @@ const router = new VueRouter({
             path: '/Search',
             name: 'Search',
             meta: {
+                needValid: true, //需要登录
                 title: "语料库搜索界面",
             },
             // route level code-splitting
@@ -144,9 +145,9 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    let token = localStorage.getItem('token')
-    // let ticket = localStorage.getItem('ticket')
+
     if (to.meta.needLogin) { // 判断该路由是否需要登录权限
+        let token = localStorage.getItem('token')
         if (token) { // 判断是否已经登录
             next()
         }
@@ -154,24 +155,34 @@ router.beforeEach((to, from, next) => {
             next({ path: '/Login' }) //跳转到登录页
         }
     }
-    // else if (to.meta.needValid) {
-    //     if (ticket) {
-    //         next()
-    //     }
-    //     else {
-    //         window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/#/Search'
-    //         //跳转网页
-    //         //https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/#/Search
+    if (to.meta.needValid) {
+        let ticket = localStorage.getItem('ticket')
+        if (!ticket) {
+            ticket = to.query.ticket
+        }
+        // ticket = to.query.ticket
+        if (ticket) {
+            console.log(ticket)
+            window.localStorage.setItem("ticket", ticket);
+            // console.log("spokxpsokpoakxpaoksxpaoksoapsopa");
+            next()
+        }
+        else {
+            // console.log("jjkjjkol");
+            window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search'
+            // next({ path: 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search' }) 
+            //跳转网页
+            //https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/#/Search
 
-    //         //认证成功后跳转回http://corpus.hrbeu.edu.cn/#/Search?ticket=xxxx
-    //         //在MySearch那边保存ticket(不写在这)
+            //认证成功后跳转回http://corpus.hrbeu.edu.cn/#/Search?ticket=xxxx
+            //在MySearch那边保存ticket(不写在这)
 
-    //         //MySearch页面向后端发送ticket能请求到用户名(不写在这)
-    //         //后端api地址 http://corpus.hrbeu.edu.cn/api/user/cas
-    //         //请求方式：post
-    //         //请求参数：ticket: "xxx"
-    //     }
-    // }
+            //MySearch页面向后端发送ticket能请求到用户名(不写在这)
+            //后端api地址 http://corpus.hrbeu.edu.cn/api/user/cas
+            //请求方式：post
+            //请求参数：ticket: "xxx"
+        }
+    }
     else {
         next()
     }

@@ -28,7 +28,7 @@ aaxios.interceptors.request.use((config) => {
 aaxios.interceptors.response.use((res) => {
     return res;
 }, (err) => {
-    if (err.response.status == 401) {
+    if (err.response.status == 402) {
         console.log(111);
         localStorage.removeItem('token')
         ElementUI.Message({

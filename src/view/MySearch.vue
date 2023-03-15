@@ -16,7 +16,7 @@
       </div>
       <div style="position: relative;height: 2.2rem;">
         <div class="user">
-          {{ username }}, 你好！
+          {{ usercode }}&nbsp;{{ username }}, 你好！
           <el-button type="text" style="color: black;font-size: 0.9rem;margin-right: 0;" @click="logout">退出登录</el-button>
         </div>
       </div>
@@ -137,10 +137,10 @@
 <script>
 import frequency from './MyFrequency.vue'
 import context from './MyContext.vue'
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
-  
+
   components: {
     frequency: frequency,
     context: context,
@@ -171,25 +171,40 @@ export default {
       searchname: '',
       fre: '',
       tableData: [],
-      username: '叶笑君',
+      username: '',
+      usercode: '',
     }
   },
   mounted() {
     // var url = window.location.search;
     // alert(url); 
     // alert(this.$route.query.b)
-    window.localStorage.setItem("ticket", this.$route.query.ticket);
-    if (this.$route.query.ticket == undefined) window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search'
+
+    // if(this.$route.query.ticket == undefined) window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search'
+
+    let userName = window.localStorage.getItem('username');
+    let userCode = window.localStorage.getItem('usercode');
+    let ticket = window.localStorage.getItem('ticket');
+
+    if (userName && userCode) {
+      this.username = userName;
+      this.usercode = userCode;
+    }
     else {
       this.$axios.request({
         method: 'POST',
         url: "/api/user/cas",
         data: {
-          ticket: this.$route.query.ticket,// ticket
+          ticket: ticket,// ticket
           service: 'http://corpus.hrbeu.edu.cn/Search',//网址
         }
       }).then((res) => {
-        this.username = res.data;
+        this.username = res.data.detail.user_name;
+        this.usercode = res.data.detail.user_code;
+        window.localStorage.setItem("username", this.username);
+        window.localStorage.setItem("usercode", this.usercode);
+
+
       })
     }
 
@@ -198,14 +213,16 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.setItem('ticket', undefined);
-      
-      axios({
-        method: 'get',
-        url: 'https://cas.hrbeu.edu.cn/cas/logout',
-        params: { service: "http://corpus.hrbeu.edu.cn/Search" }
-      });
-      this.$router.push("./home");
+      window.localStorage.removeItem('ticket');
+      window.localStorage.removeItem('username');
+      window.localStorage.removeItem('usercode');
+
+      // axios({
+      //   method: 'get',
+      //   url: 'https://cas.hrbeu.edu.cn/cas/logout',
+      //   params: { service: "http://corpus.hrbeu.edu.cn/Search" }
+      // });
+      // this.$router.push("./home");
 
       // this.$axios.request({
       //   method: 'GET',
@@ -215,6 +232,9 @@ export default {
       //     service: 'http://corpus.hrbeu.edu.cn/Search',//网址
       //   }
       // })
+
+      //https://cas.hrbeu.edu.cn/cas/logout?service=http://corpus.hrbeu.edu.cn/
+      window.location.href = 'https://cas.hrbeu.edu.cn/cas/logout?service=http://corpus.hrbeu.edu.cn/'
     },
     search() {
       this.searchclick = true;
