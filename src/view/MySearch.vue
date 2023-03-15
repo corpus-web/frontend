@@ -14,6 +14,13 @@
           Context
         </div>
       </div>
+      <div style="position: relative;height: 2.2rem;">
+        <div class="user">
+          {{ username }}, 你好！
+          <el-button type="text" style="color: black;font-size: 0.9rem;margin-right: 0;" @click="logout">退出登录</el-button>
+        </div>
+      </div>
+
       <div class="content">
         <div class="search" v-if="searchclick">
           <div class="graybox">
@@ -58,7 +65,7 @@
                   <option>50</option>
                   <option>100</option>
                   <option>150</option>
-                  
+
                 </select>
               </div>
 
@@ -118,8 +125,8 @@
         </div>
         <div v-else-if="contextclick" class="context">
           <context :tableData="tableData" :longtext="longtext" :indexnum="indexnum" :keytype="keytype" :fre="fre"
-            :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2" :limitcase="limitcase"
-            :resindexnum="resindexnum" @turnpage="turnpage"></context>
+            :bothnum="bothnum" :pageSize="pageSize" :loading2="loading2" :limitcase="limitcase" :resindexnum="resindexnum"
+            @turnpage="turnpage"></context>
         </div>
       </div>
     </div>
@@ -130,8 +137,10 @@
 <script>
 import frequency from './MyFrequency.vue'
 import context from './MyContext.vue'
+import axios from 'axios';
 
 export default {
+  
   components: {
     frequency: frequency,
     context: context,
@@ -161,10 +170,52 @@ export default {
       keytype: '',
       searchname: '',
       fre: '',
-      tableData: []
+      tableData: [],
+      username: '叶笑君',
     }
   },
+  mounted() {
+    // var url = window.location.search;
+    // alert(url); 
+    // alert(this.$route.query.b)
+    window.localStorage.setItem("ticket", this.$route.query.ticket);
+    if (this.$route.query.ticket == undefined) window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search'
+    else {
+      this.$axios.request({
+        method: 'POST',
+        url: "/api/user/cas",
+        data: {
+          ticket: this.$route.query.ticket,// ticket
+          service: 'http://corpus.hrbeu.edu.cn/Search',//网址
+        }
+      }).then((res) => {
+        this.username = res.data;
+      })
+    }
+
+
+    // alert(loc);
+  },
   methods: {
+    logout() {
+      localStorage.setItem('ticket', undefined);
+      
+      axios({
+        method: 'get',
+        url: 'https://cas.hrbeu.edu.cn/cas/logout',
+        params: { service: "http://corpus.hrbeu.edu.cn/Search" }
+      });
+      this.$router.push("./home");
+
+      // this.$axios.request({
+      //   method: 'GET',
+      //   url: "/api/user/cas",
+      //   data: {
+      //     ticket: this.$route.query.ticket,// ticket
+      //     service: 'http://corpus.hrbeu.edu.cn/Search',//网址
+      //   }
+      // })
+    },
     search() {
       this.searchclick = true;
       this.frequencyclick = false;
@@ -239,7 +290,7 @@ export default {
         if (!letters.includes(firstChar)) {
           console.log("输错了憨批")
           this.$message.error('输入包含非法字符，请重新输入');
-          
+
         }
         else {
           if (this.choice == 'the whole corpus') {
@@ -387,7 +438,7 @@ export default {
   font-weight: 700;
   font-size: 1.2rem;
   text-align: center;
-  width: 33.1%;
+  width: 33.2%;
   height: 3rem;
   line-height: 3rem;
 }
@@ -400,14 +451,17 @@ export default {
   font-weight: 700;
   font-size: 1.2rem;
   text-align: center;
-  width: 33.1%;
+  width: 33.2%;
   height: 3rem;
   line-height: 3rem;
 }
 
 .search {
 
-  padding: 2rem 9rem;
+  /* padding: 2rem 9rem; */
+  padding-bottom: 2rem;
+  padding-left: 9rem;
+  padding-right: 9rem;
   padding-left: 0;
   padding-right: 0;
   padding-bottom: 1rem;
@@ -513,5 +567,14 @@ export default {
   margin-top: 0.6rem;
   height: 1.8rem;
   text-align: center;
+}
+
+.user {
+  display: flex;
+  /* width: 18%; */
+  align-items: center;
+  font-size: 0.9rem;
+  position: absolute;
+  right: 0;
 }
 </style>

@@ -19,8 +19,9 @@ VueRouter.prototype.push = function push(location) {
 }
 
 const router = new VueRouter({
+    mode:"history",
     routes: [
-        { path: '*', redirect: '/Main' },
+        { path: '/', redirect: '/Main' },
         {
             path: '/Main',
             component: Main,
@@ -98,6 +99,9 @@ const router = new VueRouter({
 
             path: '/home',
             name: 'home',
+            meta: {
+                title: "语料库主页",
+            },
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
@@ -106,32 +110,42 @@ const router = new VueRouter({
         {
             path: '/Search',
             name: 'Search',
+            meta: {
+                title: "语料库搜索界面",
+            },
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
             component: () => import(/* webpackChunkName: "about" */ '../view/MySearch.vue')
         },
-        {
-            path: '/Frequency',
-            name: 'Frequency',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ '../view/MyFrequency.vue')
-        },
-        {
-            path: '/Context',
-            name: 'Context',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import(/* webpackChunkName: "about" */ '@/view/MyContext.vue')
-        },
+        // {
+        //     path: '/Frequency',
+        //     name: 'Frequency',
+        //     meta: {
+        //         title: "Frequency",
+        //     },
+        //     // route level code-splitting
+        //     // this generates a separate chunk (about.[hash].js) for this route
+        //     // which is lazy-loaded when the route is visited.
+        //     component: () => import(/* webpackChunkName: "about" */ '../view/MyFrequency.vue')
+        // },
+        // {
+        //     path: '/Context',
+        //     name: 'Context',
+        //     meta: {
+        //         title: "Context",
+        //     },
+        //     // route level code-splitting
+        //     // this generates a separate chunk (about.[hash].js) for this route
+        //     // which is lazy-loaded when the route is visited.
+        //     component: () => import(/* webpackChunkName: "about" */ '@/view/MyContext.vue')
+        // },
     ]
 })
 
 router.beforeEach((to, from, next) => {
     let token = localStorage.getItem('token')
+    // let ticket = localStorage.getItem('ticket')
     if (to.meta.needLogin) { // 判断该路由是否需要登录权限
         if (token) { // 判断是否已经登录
             next()
@@ -139,7 +153,26 @@ router.beforeEach((to, from, next) => {
         else {
             next({ path: '/Login' }) //跳转到登录页
         }
-    } else {
+    }
+    // else if (to.meta.needValid) {
+    //     if (ticket) {
+    //         next()
+    //     }
+    //     else {
+    //         window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/#/Search'
+    //         //跳转网页
+    //         //https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/#/Search
+
+    //         //认证成功后跳转回http://corpus.hrbeu.edu.cn/#/Search?ticket=xxxx
+    //         //在MySearch那边保存ticket(不写在这)
+
+    //         //MySearch页面向后端发送ticket能请求到用户名(不写在这)
+    //         //后端api地址 http://corpus.hrbeu.edu.cn/api/user/cas
+    //         //请求方式：post
+    //         //请求参数：ticket: "xxx"
+    //     }
+    // }
+    else {
         next()
     }
 })

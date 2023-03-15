@@ -5,9 +5,14 @@ import ElementUI from 'element-ui';
 
 const aaxios = axios.create({
     // baseURL: "http://192.168.1.144:8100",
-    baseURL: "http://cn-yw-plc-1.openfrp.top:20725/",
+    baseURL: "http://corpus.hrbeu.edu.cn",
     timeout: 60000
 })
+// const raxios = axios.create({
+//     // baseURL: "http://192.168.1.144:8100",
+//     baseURL: "",
+//     timeout: 60000
+// })
 
 //在发请求之前：请求拦截器可以检测到，可以做一些事情
 
