@@ -24,8 +24,8 @@
             </el-menu>
         </div>
         <el-dialog title="修改密码" :visible.sync="show_change_pwd" width="500px">
-            <el-form :model="change_pass" label-width="70px" label-position="left">
-                <el-form-item label="新密码">
+            <el-form :model="change_pass" label-width="70px" label-position="left" :rules="rules">
+                <el-form-item label="新密码" prop="new_pass">
                     <el-input v-model="change_pass.new_pass" show-password>
 
                     </el-input>
@@ -70,6 +70,7 @@
 import lbt from '@/view/MyLbt.vue'
 import zjxx from '@/view/MyZjxx.vue'
 import ylkcl from '@/view/MyYlkCl.vue'
+import { validatePass } from "@/globle/passwod_config"
 export default {
     components: {
         lbt: lbt,
@@ -84,10 +85,16 @@ export default {
             change_pass: {
                 new_pass: "",
                 qr: "",
+            },
+            rules: {
+                new_pass: [{ required: true, message: "密码不能为空", trigger: "blur" },
+                { trigger: "blur", validator: validatePass }]
             }
         }
     },
     methods: {
+
+
         ok_change() {
             if (this.change_pass.new_pass == this.change_pass.qr)//相等
             {
