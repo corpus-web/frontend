@@ -4,8 +4,8 @@ import ElementUI from 'element-ui';
 // import { Store } from "vuex";
 
 const aaxios = axios.create({
-    // baseURL: "http://192.168.1.144:8100",
-    baseURL: "http://corpus.hrbeu.edu.cn",
+    baseURL: "http://192.168.31.200:8000",
+    // baseURL: "http://corpus.hrbeu.edu.cn",
     timeout: 60000
 })
 // const raxios = axios.create({
@@ -25,6 +25,7 @@ aaxios.interceptors.request.use((config) => {
 
     return config;
 });
+
 aaxios.interceptors.response.use((res) => {
     return res;
 }, (err) => {
@@ -42,5 +43,6 @@ aaxios.interceptors.response.use((res) => {
             type: 'error'
         })
     }
-})
+});
+// aaxios.defaults.withCredentials=true;
 export default aaxios;
