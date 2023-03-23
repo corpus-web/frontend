@@ -4,8 +4,8 @@ import ElementUI from 'element-ui';
 // import { Store } from "vuex";
 
 const aaxios = axios.create({
-    // baseURL: "http://192.168.1.144:8100",
-    baseURL: "http://cn-yw-plc-1.openfrp.top:20725/",
+    // baseURL: "http://corpus.hrbeu.edu.cn",
+    baseURL: "http://127.0.0.1:8000",
     timeout: 60000
 })
 
@@ -32,6 +32,7 @@ aaxios.interceptors.response.use((res) => {
         })
         router.push('/login')
     } else if (err.response.status == 400) {
+        console.log(222222)
         ElementUI.Message({
             message: err.response.data.detail,
             type: 'error'
