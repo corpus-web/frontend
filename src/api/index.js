@@ -8,6 +8,11 @@ const aaxios = axios.create({
     baseURL: "http://127.0.0.1:8000",
     timeout: 60000
 })
+// const raxios = axios.create({
+//     // baseURL: "http://192.168.1.144:8100",
+//     baseURL: "",
+//     timeout: 60000
+// })
 
 //在发请求之前：请求拦截器可以检测到，可以做一些事情
 
@@ -20,10 +25,11 @@ aaxios.interceptors.request.use((config) => {
 
     return config;
 });
+
 aaxios.interceptors.response.use((res) => {
     return res;
 }, (err) => {
-    if (err.response.status == 401) {
+    if (err.response.status == 402) {
         console.log(111);
         localStorage.removeItem('token')
         ElementUI.Message({
@@ -38,5 +44,6 @@ aaxios.interceptors.response.use((res) => {
             type: 'error'
         })
     }
-})
+});
+// aaxios.defaults.withCredentials=true;
 export default aaxios;

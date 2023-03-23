@@ -6,6 +6,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //引入axios
 import axios from '@/api/index'
+axios.defaults.withCredentials=true;
 //导入路由
 import router from '@/router'
 
@@ -15,6 +16,10 @@ import myimage from '@/components/MyImage.vue'
 
 //引入全局样式
 import "@/assets/css/global.css"
+
+// import Rsa from "@/utils/rsa.js" //引入RSA加密方法；
+// Vue.prototype.Rsa = Rsa // 将Rsa注册为公共方法,方便其他页面调用
+
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 //使用element-ui

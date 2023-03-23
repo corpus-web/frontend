@@ -37,16 +37,19 @@
 // import axios from 'axios';
 
 // import { request } from 'http';
-
+import  JSEncrypt  from '@/utils/jsencrypt.min.js';
+// import { send } from 'process';
 
 
 export default {
     name: 'MyLogin',
     created() {
         this.getimg();
+        this.get_public_key();
     },
     data() {
         return {
+            public_key:'',
             form: {
                 username: '',
                 password: '',
@@ -64,6 +67,15 @@ export default {
         }
     },
     methods: {
+        get_public_key()
+        {
+            this.$axios.request({
+                method:'GET',
+                url: "api/user/cas"
+            }).then((res)=>{
+                this.public_key=res.data.public_key;
+            })
+        },
         getimg() {
             // console.log(111);
             this.$axios.request({
@@ -105,7 +117,18 @@ export default {
         },
         async login() {
 
-            this.$axios.post("/api/user/login", this.form).then((res) => {
+            var jsencrypt = new JSEncrypt();
+            jsencrypt.setPublicKey(this.public_key);
+            let send_form = new FormData();
+
+
+            send_form.append("username",this.form.username);
+            send_form.append("password",jsencrypt.encrypt(this.form.password));
+            send_form.append("code",this.form.code);
+            send_form.append("img",this.form.img);
+            send_form.append("public_key",this.public_key);
+            
+            this.$axios.post("/api/user/login", send_form).then((res) => {
                 // console.log(res.data);
                 if (res.status != 200) {
                     return this.$message({

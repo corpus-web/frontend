@@ -42,7 +42,7 @@
         <img src="../assets/images/Mindmapping.png" alt="Mind mapping" width="100%">
       </div>
       <div style="display: flex;">
-        <div class="button" @click="$router.push('/Search')">
+        <div class="button" @click="jumppage">
           Go Searching
         </div>
       </div>
@@ -62,9 +62,14 @@ export default {
   data() {
     return {
       bannerList: [],
+      ticket:''
     }
   },
   methods: {
+    jumppage(){
+      this.$router.push('/Search');
+
+    },
     getbannerList() {
       this.$axios.request({
         method: 'GET',
