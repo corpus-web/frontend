@@ -113,6 +113,7 @@ export default {
                     type: 'error '
                 })
             }
+            this.getimg();
             this.login();
         },
         async login() {
