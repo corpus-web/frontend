@@ -110,38 +110,16 @@ const router = new VueRouter({
         {
             path: '/Search',
             name: 'Search',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
+            meta: {
+                title: "语料检索",
+                needValid: true
+            },
             component: () => import(/* webpackChunkName: "about" */ '../view/MySearch.vue')
         },
-        // {
-        //     path: '/Frequency',
-        //     name: 'Frequency',
-        //     meta: {
-        //         title: "Frequency",
-        //     },
-        //     // route level code-splitting
-        //     // this generates a separate chunk (about.[hash].js) for this route
-        //     // which is lazy-loaded when the route is visited.
-        //     component: () => import(/* webpackChunkName: "about" */ '../view/MyFrequency.vue')
-        // },
-        // {
-        //     path: '/Context',
-        //     name: 'Context',
-        //     meta: {
-        //         title: "Context",
-        //     },
-        //     // route level code-splitting
-        //     // this generates a separate chunk (about.[hash].js) for this route
-        //     // which is lazy-loaded when the route is visited.
-        //     component: () => import(/* webpackChunkName: "about" */ '@/view/MyContext.vue')
-        // },
     ]
 })
 
 router.beforeEach((to, from, next) => {
-    let token = localStorage.getItem('token')
     if (to.meta.needLogin) { // 判断该路由是否需要登录权限
         let token = localStorage.getItem('token')
         if (token) { // 判断是否已经登录
@@ -150,7 +128,23 @@ router.beforeEach((to, from, next) => {
         else {
             next({ path: '/Login' }) //跳转到登录页
         }
-    } else {
+    }
+    else if (to.meta.needValid) {
+        let ticket = localStorage.getItem('ticket')
+        if (!ticket) {
+            ticket = to.query.ticket
+        }
+        // ticket = to.query.ticket
+        if (ticket) {
+            console.log(ticket)
+            window.localStorage.setItem("ticket", ticket);
+            next()
+        }
+        else {
+            window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search'
+        }
+    }
+    else {
         next()
     }
 })

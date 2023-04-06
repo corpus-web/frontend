@@ -24,7 +24,7 @@
             </el-menu>
         </div>
         <el-dialog title="修改密码" :visible.sync="show_change_pwd" width="500px">
-            <el-form :model="change_pass" label-width="70px" label-position="left" :rules="rules">
+            <el-form :model="change_pass" label-width="70px" label-position="left" :rules="rules" ref="change_pass">
                 <el-form-item label="新密码" prop="new_pass">
                     <el-input v-model="change_pass.new_pass" show-password>
 
@@ -71,6 +71,7 @@ import lbt from '@/view/MyLbt.vue'
 import zjxx from '@/view/MyZjxx.vue'
 import ylkcl from '@/view/MyYlkCl.vue'
 import { validatePass } from "@/globle/passwod_config"
+import JSEncrypt from '@/utils/jsencrypt.min.js';
 export default {
     components: {
         lbt: lbt,
@@ -79,6 +80,7 @@ export default {
     },
     data() {
         return {
+            public_key: '',
             active: 1,
             MainSwiper: [],
             show_change_pwd: false,
@@ -93,37 +95,64 @@ export default {
         }
     },
     methods: {
-
-
+        send() {
+            var jsencrypt = new JSEncrypt();
+            jsencrypt.setPublicKey(this.public_key);
+            this.change_pass.new_pass = jsencrypt.encrypt(this.change_pass.new_pass);
+            this.$axios.request({
+                method: 'POST',
+                url: "/api/user/change",
+                data: {
+                    token: localStorage.getItem('token'),
+                    new_password: this.change_pass.new_pass,
+                    public_key: this.public_key,
+                },
+            }).then((res) => {
+                if (res.status == 200) {
+                    this.$message({
+                        type: 'success',
+                        message: 'ok',
+                    }),
+                        window.localStorage.removeItem('token');//删去token
+                    this.$router.push('/login');//路由跳转
+                }
+            })
+        },
         ok_change() {
-            if (this.change_pass.new_pass == this.change_pass.qr)//相等
-            {
-                this.show_change_pwd = false;
-                this.$axios.request({
-                    method: 'POST',
-                    url: "/api/user/change",
-                    data: {
-                        token: localStorage.getItem('token'),
-                        new_password: this.change_pass.new_pass,
-                    },
-                }).then((res) => {
-                    if (res.status == 200) {
-                        this.$message({
-                            type: 'success',
-                            message: 'ok',
-                        }),
-                            window.localStorage.removeItem('token');//删去token
-                        this.$router.push('/login');//路由跳转
-                    }
-                })
 
-            }
-            else {
-                this.$message({
-                    type: 'error',
-                    message: '确认密码与新密码不匹配',
-                })
-            }
+            this.$refs["change_pass"].validate((valid) => {
+                if (valid) {
+                    if (this.change_pass.new_pass == this.change_pass.qr) {
+                        this.show_change_pwd = false;
+                        this.$axios.request({
+                            method: 'GET',
+                            url: "/api/user/cas"
+                        }).then((res) => {
+                            if (res.status == 200) {
+                                this.public_key = res.data.public_key;
+                                this.send();
+                            }
+                        })
+                    }
+                    else {
+                        this.$message({
+                            type: 'error',
+                            message: '确认密码与新密码不匹配',
+                        })
+                    }
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: '请检查密码格式',
+                    })
+                    console.log(false)
+                    return false;
+                }
+            });
+            //
+
+
+
         },
         change_pwd() {
             this.show_change_pwd = true;

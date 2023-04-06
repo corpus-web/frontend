@@ -203,8 +203,6 @@ export default {
         this.usercode = res.data.detail.user_code;
         window.localStorage.setItem("username", this.username);
         window.localStorage.setItem("usercode", this.usercode);
-
-
       })
     }
 
