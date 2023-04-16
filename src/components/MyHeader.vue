@@ -68,11 +68,14 @@ export default {
                 <el-menu-item index="3">团队风采</el-menu-item>
                 <el-menu-item index="4">语料库</el-menu-item>
                 <el-submenu style="">
-                    <template slot="title">友情链接</template>
+                    <template slot="title">链接直达</template>
                     <el-menu-item index="5-1">哈尔滨工程大学</el-menu-item>
-                    <el-menu-item index="5-2">图书馆</el-menu-item>
+                    <el-menu-item index="5-2">哈尔滨工程大学图书馆</el-menu-item>
                     <el-menu-item index="5-3">外国语学院</el-menu-item>
                     <el-menu-item index="5-4">国际交流学院</el-menu-item>
+                    <el-menu-item index="5-5">English-corpora</el-menu-item>
+                    <el-menu-item index="5-6">Sub-corpora of DEAP</el-menu-item>
+                    <el-menu-item index="5-7">《习近平谈治国理政》多语数据库综合平台</el-menu-item>
                 </el-submenu>
             </el-menu>
         </div>
@@ -101,6 +104,12 @@ export default {
                 window.open('http://fld.hrbeu.edu.cn/')
             else if (index == "5-4")
                 window.open('http://heucice.hrbeu.edu.cn/ ')
+            else if (index == "5-5")
+                window.open('https://www.english-corpora.org/ ')
+            else if (index == "5-6")
+                window.open('http://114.251.154.212/cqp/ ')
+            else if (index == "5-7")
+                window.open('http://imate.cascorpus.com/ ')
         }
     },
 }
