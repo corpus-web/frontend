@@ -4,7 +4,7 @@
             <div id="title">
                 <span style="position:absolute;left:45%">文章展示列表</span>
                 <div id="select">
-                    <el-select  v-model="sel_value" placeholder="请选择文章类别" @change="getdata()">
+                    <el-select v-model="sel_value" placeholder="请选择文章类别" @change="getdata()">
                         <el-option v-for="item in show_tablecategory" :key="item.cid" :label="item.name" :value="item.cid">
                         </el-option>
                     </el-select>
@@ -22,11 +22,11 @@
                     </el-table-column>
                     <el-table-column prop="create_time" label="创建时间" width="200" align="center">
                     </el-table-column>
-                    <el-table-column prop="name" label="文件名" width="400" align="center">
+                    <el-table-column prop="name" label="文件名" width="300" align="center">
                     </el-table-column>
                     <el-table-column prop="sub_name" label="提交文件名" width="445" align="center">
                     </el-table-column>
-                    <el-table-column label="操作" width="70" align="center">
+                    <el-table-column label="操作" align="center">
                         <template slot-scope="scope">
                             <div>
                                 <span style="cursor: pointer;color: red;"
@@ -83,7 +83,8 @@
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <div>
-                            <span style="cursor: pointer;color: red;" @click="CategoryDel(scope.$index, scope.row)">删除</span>
+                            <span style="cursor: pointer;color: red;"
+                                @click="CategoryDel(scope.$index, scope.row)">删除</span>
                             <!-- <el-button type="danger" @click="MainSwiperDel(scope.$index, scope.row)">删除</el-button> -->
                         </div>
                     </template>
@@ -107,13 +108,13 @@ export default {
     data() {
         return {
             tabledata: [],
-            show_tablecategory:[],
-            tablecategory:[],
+            show_tablecategory: [],
+            tablecategory: [],
             total: 0,
             currentPage: 1,//当前页数,默认是1
-            category_ch:'',
-            category_en:'',
-            
+            category_ch: '',
+            category_en: '',
+
             sel_value: 0,
             show_adddialog: false,
             show_adimin: false,
@@ -131,22 +132,22 @@ export default {
         admin_category() {
             this.show_adimin = true;
         },
-        getcategory(){
+        getcategory() {
             this.$axios.request({
-                method:'GET',
-                url:'api/corpus/category'
-            }).then((res)=>{
-                this.tablecategory=res.data.a;
-                this.show_tablecategory=res.data.a.concat([]);
+                method: 'GET',
+                url: 'api/corpus/category'
+            }).then((res) => {
+                this.tablecategory = res.data.a;
+                this.show_tablecategory = res.data.a.concat([]);
                 this.show_tablecategory.unshift({
-                    cid:0,
-                    name:"全部"
+                    cid: 0,
+                    name: "全部"
                 });
                 // console.log(this.show_tablecategory);
-                
+
             })
         },
-        CategoryDel(index,row){
+        CategoryDel(index, row) {
             this.$confirm('是否确认删除?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -166,29 +167,28 @@ export default {
                 });
             });
         },
-        add_category(){
-            if(this.category_ch==''||this.category_en=='')
-            {
+        add_category() {
+            if (this.category_ch == '' || this.category_en == '') {
                 this.$message({
                     type: 'error',
                     message: '请填写完整名字'
                 })
-            }else{
+            } else {
                 this.$axios.request({
-                    method:'POST',
-                    url:'api/corpus/category',
-                    data:{
-                        name:this.category_ch,
-                        name_en:this.category_en
+                    method: 'POST',
+                    url: 'api/corpus/category',
+                    data: {
+                        name: this.category_ch,
+                        name_en: this.category_en
                     }
-                }).then((res)=>{
+                }).then((res) => {
                     this.$message({
                         type: 'success',
                         message: '上传成功'
                     })
                     this.getcategory();
-                    this.category_ch='';
-                    this.category_en='';
+                    this.category_ch = '';
+                    this.category_en = '';
                 })
             }
         },

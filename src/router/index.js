@@ -84,7 +84,7 @@ const router = new VueRouter({
             path: '/manage',
             component: Manage,
             meta: {
-                needLogin: true, //需要登录
+                // needLogin: true, //需要登录
                 title: "后台管理",
             }
         },

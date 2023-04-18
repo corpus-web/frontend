@@ -330,7 +330,7 @@ export default {
           // if(this.querymethod=='regular query') this.limitcase=true;
           // console.log(this.newlongtext.substring(0,2))
           // console.log(this.newlongtext.substring(0,2).indexOf("\b"))
-          if (this.newlongtext.substring(0, 2).indexOf("\b") == -1) {
+          if (this.newlongtext.substring(0, 2).indexOf("\b") != -1) {
             // console.log("hhh"+this.newlongtext.substring(0,2))
             this.newlongtext = this.newlongtext.slice(2)
             // console.log(this.newlongtext)
