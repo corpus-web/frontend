@@ -1,19 +1,19 @@
 <template>
     <div class="frequency">
         <el-table :data="currentPageData" border style="width: 100%;text-align: center;" height="40rem" show-summary
-            :header-row-style="{ background: 'rgba(231, 230, 230, 1)' }" v-loading="loading1"
-            :summary-method="getSummaries"
+            :header-row-style="{ background: 'rgba(231, 230, 230, 1)' }" v-loading="loading1" :summary-method="getSummaries"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }"
-            :default-sort = "{prop: 'num', order: 'descending'}">
+            :default-sort="{ prop: 'num', order: 'descending' }">
+
             <!-- 自定义空数据模板 -->
             <template v-slot:empty>
-                请点击"Search"界面检索结果条显示"Frequency"
+                请点击“搜索”界面检索结果条显示“频数”
             </template>
             <el-table-column type="index" width="100" align="center">
             </el-table-column>
             <el-table-column prop="name" width="800" align="center">
                 <template slot="header">
-                    All Forms(Samples): {{ this.currentPageData.length }}
+                    结果形式: {{ this.currentPageData.length }}
                 </template>
 
 
@@ -23,7 +23,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column  prop="num" label="Frequency" align="center">
+            <el-table-column prop="num" label="结果频数" align="center">
             </el-table-column>
         </el-table>
 
@@ -45,7 +45,7 @@ export default {
             // title: "五百年前孙悟空大闹天宫",
             // searchWord: "孙悟空",
             jump: {
-                searchname:'',//查询的关键词
+                searchname: '',//查询的关键词
                 name: '',//标红的关键词
                 num: ''
             }
@@ -53,7 +53,7 @@ export default {
         }
     },
 
-    
+
     methods: {
 
         getSummaries(param) {
@@ -83,7 +83,7 @@ export default {
             return sums;
         },
         rowclick(row) {
-            this.jump.searchname=row.name//查询的关键词
+            this.jump.searchname = row.name//查询的关键词
             this.jump.name = row.s_name//标红的关键词
             this.jump.num = row.num
             // console.log("s_name"+row.s_name)

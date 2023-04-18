@@ -5,17 +5,17 @@
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <!-- 自定义空数据模板 -->
             <template v-slot:empty>
-                请点击"Frequency"界面检索结果条显示"context"
+                请点击“频数”界面检索结果条显示“语境”
             </template>
-            <el-table-column label="No." type="index" width="100" align="center">
+            <el-table-column label="排名" type="index" width="100" align="center">
             </el-table-column>
-            <el-table-column prop="fname" label="Filename" width="280" align="center">
+            <el-table-column prop="fname" label="文件名" width="280" align="center">
             </el-table-column>
             <el-table-column prop="fline" align="center">
                 <template slot="header">
-                    Solution 1 to&nbsp; {{ indexnum }}&nbsp;Page&nbsp;{{ copycurrentPage }}/{{
+                    结果 1 -&nbsp; {{ indexnum }}&nbsp;页码&nbsp;{{ copycurrentPage }}/{{
                         pageSize
-                    }}&nbsp;&nbsp;Frequency:{{ fre }}
+                    }}&nbsp;&nbsp;频数:{{ fre }}
                 </template>
                 <template slot-scope="scope">
                     <span v-html="setkey(scope.row.s_name)"></span>
@@ -37,7 +37,7 @@
                 &gt;|
             </div>
             <div class="buttondark" style="width: 20%;margin-left: 5%;cursor: pointer;" @click="showpage">
-                Show Page
+                显示页码
             </div>
             <input class="pagenum" v-model.trim="currentPage" placeholder="" />
             <div class="buttondark" style="cursor: pointer;width: 30%;margin-left: 18%;margin-right: 1%;" @click="change">
@@ -67,7 +67,7 @@ export default {
             // currentPageData: [], //当前页显示内容
             headPage: 1,
             // showp: '',
-            order: 'Random Order',
+            order: '随机顺序',
             randomcase: false,//1表示Show Corpus；2表示Random Order
             // title: "五百年前孙悟空大闹天宫",
             // searchWord: "孙悟空",
@@ -113,7 +113,7 @@ export default {
     },
     methods: {
         getCurrentPageData() {
-            this.order = 'Random Order';
+            this.order = '随机顺序';
             this.pack.page = this.currentPage;
             this.pack.rank = this.randomcase;
             this.$emit('turnpage', this.pack)
@@ -210,10 +210,10 @@ export default {
         change() {
             this.firstcopy = false
             // this.getCurrentPageData();
-            if (this.order == 'Show Corpus') {
+            if (this.order == '语料库顺序') {
                 // 恢复出厂设置
 
-                this.order = 'Random Order';
+                this.order = '随机顺序';
                 this.randomcase = false;
                 this.tableData1 = this.tableData
                 console.log(this.tableData[0].fline)
@@ -222,7 +222,7 @@ export default {
             else {
                 // 变随机
 
-                this.order = 'Show Corpus';
+                this.order = '语料库顺序';
                 this.randomcase = true;
                 this.randomitem();
                 // console.log(this.tableDataCopyRandom[0].fline)

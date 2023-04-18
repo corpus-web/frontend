@@ -34,18 +34,18 @@ export default {
                     <img src="@/assets/images/header.png" width="400" height="90" border="0" title="哈工程语料库">
                 </div>
                 <!-- <div style="padding-top:5px">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style="color:#fff;font-size:2.0em;">哈工程语料库语言学</td>
-                            </tr>
-                            <tr>
-                                <td style="color:#fff;font-size:0.2em;">Corpus Linguistics, Harbin Engineering
-                                    University</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="color:#fff;font-size:2.0em;">哈工程语料库语言学</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:#fff;font-size:0.2em;">Corpus Linguistics, Harbin Engineering
+                                            University</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
                 <div class="headtitle" style="width: 25.7rem;">
                     <div style="color:#fff;font-size:2.8em;">
                         语料库语言学
@@ -66,7 +66,12 @@ export default {
                 <el-menu-item index="1">课程建设</el-menu-item>
                 <el-menu-item index="2">学术交流</el-menu-item>
                 <el-menu-item index="3">团队风采</el-menu-item>
-                <el-menu-item index="4">语料库</el-menu-item>
+                <!-- <el-menu-item index="4">语料库</el-menu-item> -->
+                <el-submenu style="" index="4">
+                    <template slot="title">语料库</template>
+                    <el-menu-item index="4-1">中文版</el-menu-item>
+                    <el-menu-item index="4-2">English</el-menu-item>
+                </el-submenu>
                 <el-submenu style="">
                     <template slot="title">友情链接</template>
                     <el-menu-item index="5-1">哈尔滨工程大学</el-menu-item>
@@ -91,8 +96,12 @@ export default {
                 this.$router.push('/Academic');
             else if (index == 3)
                 this.$router.push('/Group');
-            else if (index == 4)
+            // else if (index == 4)
+            //     this.$router.push('/home');
+            else if (index == "4-2")
                 this.$router.push('/home');
+            else if (index == "4-1")
+                this.$router.push('/homezh_CN');
             else if (index == "5-1")
                 window.open('http://www.hrbeu.edu.cn/ ')
             else if (index == "5-2")
@@ -127,7 +136,8 @@ export default {
     padding: 18px 18px;
     display: inline;
 }
-.headtitle{
+
+.headtitle {
     padding: 18px 18px;
 }
 

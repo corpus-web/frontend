@@ -96,11 +96,10 @@ const router = new VueRouter({
             }
         },
         {
-
             path: '/home',
             name: 'home',
             meta: {
-                title: "语料库主页",
+                title: "语料库英文版主页",
             },
             // route level code-splitting
             // this generates a separate chunk (about.[hash].js) for this route
@@ -111,10 +110,30 @@ const router = new VueRouter({
             path: '/Search',
             name: 'Search',
             meta: {
-                title: "语料检索",
-                needValid: true
+                title: "英文版语料检索",
+                // needValid: true
             },
             component: () => import(/* webpackChunkName: "about" */ '../view/MySearch.vue')
+        },
+        {
+            path: '/homezh_CN',
+            name: 'homezh_CN',
+            meta: {
+                title: "语料库主页",
+            },
+            // route level code-splitting
+            // this generates a separate chunk (about.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "about" */ '../view/HomeViewzh_CN.vue')
+        },
+        {
+            path: '/Searchzh_CN',
+            name: 'Searchzh_CN',
+            meta: {
+                title: "中文版语料检索",
+                // needValid: true
+            },
+            component: () => import(/* webpackChunkName: "about" */ '../view/MySearchzh_CN.vue')
         },
     ]
 })

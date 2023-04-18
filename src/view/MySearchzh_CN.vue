@@ -5,13 +5,13 @@
       <my-image></my-image>
       <div class="menu">
         <div :class="[searchclick ? click : unclick]" @click="search">
-          Search
+          检索界面
         </div>
         <div :class="[frequencyclick ? click : unclick]" @click="frequency">
-          Frequency
+          频率界面
         </div>
         <div :class="[contextclick ? click : unclick]" @click="context">
-          Context
+          具体内容
         </div>
       </div>
       <div style="position: relative;height: 2.2rem;">
@@ -24,26 +24,26 @@
       <div class="content">
         <div class="search" v-if="searchclick">
           <div class="graybox">
-            <textarea v-model="longtext" id="longinput" placeholder="add multiple lines"></textarea>
+            <textarea v-model="longtext" id="longinput" placeholder="请添加检索内容"></textarea>
             <div class="buttonbox">
               <div class="buttonlight" style="width: 62%;cursor: pointer;" @click="startsearch">
-                Start Searching
+                检索
               </div>
               <div class="buttonlight" style="width: 32%;cursor: pointer;" @click="reset">
-                Reset
+                重置
               </div>
             </div>
             <div class="selectionbox">
               <div class="tickbox">
 
                 <div class="buttondark" style="width: 62%;">
-                  Case-sensitive
+                  区分大小写
                 </div>
                 <input type="checkbox" id="checkbox" v-model="limitcase" />
               </div>
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
-                  Search window size
+                  显示词数
                 </div>
                 <select v-model="bothnum" id="selectbox">
                   <option disabled value=""></option>
@@ -58,7 +58,7 @@
 
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
-                  Number of hits per page
+                  显示条数
                 </div>
                 <select v-model="indexnum" id="selectbox">
                   <option disabled value=""></option>
@@ -71,51 +71,47 @@
 
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
-                  Retrieval range
+                  检索范围
                 </div>
                 <select v-model="choice" id="selectbox">
                   <option disabled value=""></option>
-                  <option>the whole corpus</option>
-                  <option>{{ qm[0].name_en }}</option>
-                  <option>{{ qm[1].name_en }}</option>
+                  <option>船海核语料库</option>
+                  <option>{{ this.qm[0].name }}</option>
+                  <option>{{ this.qm[1].name }}</option>
 
                 </select>
               </div>
 
               <div class="tickbox">
                 <div class="buttondark" style="width: 62%;margin-right: 0.8rem;">
-                  Query Method
+                  检索方法
                 </div>
                 <select v-model="querymethod" id="selectbox">
                   <option disabled value=""></option>
-                  <option>word query</option>
-                  <option>regular query</option>
+                  <option>单词查找</option>
+                  <option>正则查找</option>
                 </select>
               </div>
 
             </div>
           </div>
-          <div class="graybox1">
+          <div class="graybox1" style="padding-top: 5rem;">
 
             <div class="graysmall">
-              Case-Sensitive determines whether The result and the result would be two different searches, or It finds,
-              it
-              finds, It Finds.
+              区分大小写：检索内容区分大小写，如The result和the result; It finds, it finds 和It Finds。
             </div>
 
             <div class="graysmall">
-              Search Window Size refers to the number of characters on either side of the search word.
+              显示词数：检索结果在“语境”界面前后文单词显示的数量。
             </div>
             <div class="graysmall">
-              Number of Hits per Page means the number of hits that you have searched in one page.
+              显示条目：检索结果在“频数”界面当前页所显示的检索结果条数。
             </div>
             <div class="graysmall">
-              Retrieval range refers to the corpus in which the target is retrieved. It includes the whole corpus as
-              well as the two sub-corpora, Nuclear Science Academic English Corpus and Shipbuilding and Oceanography
-              Engineering Academic English Corpus.
+              检索范围：检索目标语料库的内容，包括“船海核语料库”、“船舶与海洋工程语料库”、“核科学与技术语料库”。
             </div>
             <div class="graysmall">
-              Query method serves for both word query and regular query.
+              检索方法：语料库支持单词检索和正则表达式检索。
             </div>
           </div>
         </div>
@@ -135,8 +131,8 @@
 </template>
 
 <script>
-import frequency from './MyFrequency.vue'
-import context from './MyContext.vue'
+import frequency from './MyFrequencyzh_CN.vue'
+import context from './MyContextzh_CN.vue'
 // import axios from 'axios';
 
 export default {
@@ -161,9 +157,9 @@ export default {
       indexnum: 50,//索引条数
       resindexnum: 0,//后端返回的索引条数
       pageSize: 1, // 统共页数，默认为1
-      choice: 'the whole corpus',//选择哪一个语料库进行检索
+      choice: '船海核语料库',//选择哪一个语料库进行检索
       choicenum: 0,
-      querymethod: 'word query',//默认单词查找
+      querymethod: '单词查找',//默认单词查找
       querymethodnum: 0,
       currentPageData: [],
       par: '',//context页面要展示的文字的par
@@ -185,9 +181,8 @@ export default {
 
     }).then((res) => {
       this.qm = res.data.a;
-      // console.log(res.data.a);
     })
-    // console.log("qm:"+this.qm);
+    console.log("qm:" + this.qm)
     // var url = window.location.search;
     // alert(url); 
     // alert(this.$route.query.b)
@@ -305,7 +300,7 @@ export default {
     },
     // 匹配qm和cid
     findCidByName(name, qm) {
-      const matchedObject = qm.find(item => item.name_en === name);
+      const matchedObject = qm.find(item => item.name === name);
       return matchedObject ? matchedObject.cid : 0;
     },
     // 对检索框内容进行检索
@@ -335,7 +330,7 @@ export default {
             this.newlongtext = this.newlongtext.slice(2)
             // console.log(this.newlongtext)
           }
-          // if (this.choice == 'the whole corpus') {
+          // if (this.choice == '船海核语料库') {
           //   this.choicenum = 0
           // }
           // else if (this.choice == 'sub-corpus of Shipbuilding-') {
@@ -344,21 +339,19 @@ export default {
           // else if (this.choice == 'sub-corpus of Nuclear-') {
           //   this.choicenum = 2
           // }
-          if (this.querymethod == 'word query') {
+          if (this.querymethod == '单词查找') {
             this.querymethodnum = 0
           }
-          else if (this.querymethod == 'regular query') {
+          else if (this.querymethod == '正则查找') {
             this.querymethodnum = 1
           }
           this.loading1 = true;
-          // console.log("categoryname" + this.qm[0])
-          // console.log("category" + this.qm.indexOf(this.choice))
           this.$axios.request({
             method: 'GET',
             url: "/api/corpus/format",
             params: {
               word_or_regex: this.newlongtext,// 检索内容
-              limit_case: (this.querymethod == 'regular query') ? true : this.limitcase,//大小写敏感
+              limit_case: (this.querymethod == '正则查找') ? true : this.limitcase,//大小写敏感
               window_size: this.bothnum,// 检索词两边的字符数
               per_page: this.indexnum,// 一页展示的索引条数
               category: this.findCidByName(this.choice, this.qm),//选择哪一个语料库进行检索
@@ -402,7 +395,7 @@ export default {
         url: "/api/corpus/files",
         params: {
           'word_or_regex': t.searchname,// 检索内容key的类型                       
-          'limit_case': (this.querymethod == 'regular query') ? true : this.limitcase,//大小写敏感
+          'limit_case': (this.querymethod == '正则查找') ? true : this.limitcase,//大小写敏感
           'window_size': this.bothnum,// 检索词两边的字符数
           'per_page': this.indexnum,// 一页展示的索引条数
           'page': 1,
@@ -441,7 +434,7 @@ export default {
         url: "/api/corpus/files",
         params: {
           'word_or_regex': this.searchname,// 检索内容key的类型                    
-          'limit_case': (this.querymethod == 'regular query') ? true : this.limitcase,//大小写敏感
+          'limit_case': (this.querymethod == '正则查找') ? true : this.limitcase,//大小写敏感
           'window_size': this.bothnum,// 检索词两边的字符数
           'per_page': this.indexnum,// 一页展示的索引条数
           'page': t.page,
@@ -547,8 +540,9 @@ export default {
 .graysmall {
   text-indent: 2rem;
   text-align: justify;
-  padding-top: 0.5rem;
+  padding-top: 0.9rem;
   padding-bottom: 1rem;
+  line-height: 2rem;
 }
 
 .buttonbox {
