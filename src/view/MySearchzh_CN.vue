@@ -11,7 +11,7 @@
           频率界面
         </div>
         <div :class="[contextclick ? click : unclick]" @click="context">
-          具体内容
+          语境
         </div>
       </div>
       <div style="position: relative;height: 2.2rem;">
@@ -305,6 +305,14 @@ export default {
     },
        // 真正搜索
        realsearch() {
+        // 判断是否为单词
+      if (this.this.querymethod == '单词查找') {
+        this.querymethodnum = 0
+      }
+      // 判断是正则查找
+      else if (this.querymethod == '正则查找') {
+        this.querymethodnum = 1
+      };
       this.loading1 = true;
       // console.log("categoryname" + this.qm[0])
       // console.log("category" + this.qm.indexOf(this.choice))
@@ -313,7 +321,7 @@ export default {
         url: "/api/corpus/format",
         params: {
           word_or_regex: this.newlongtext,// 检索内容
-          limit_case: (this.querymethod == 'regular query') ? true : this.limitcase,//大小写敏感
+          limit_case: (this.querymethod == '正则查找') ? true : this.limitcase,//大小写敏感
           window_size: this.bothnum,// 检索词两边的字符数
           per_page: this.indexnum,// 一页展示的索引条数
           category: this.findCidByName(this.choice, this.qm),//选择哪一个语料库进行检索

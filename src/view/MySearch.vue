@@ -331,6 +331,14 @@ export default {
 
     // 真正搜索
     realsearch() {
+      // 判断是否为单词
+      if (this.this.querymethod == 'word query') {
+        this.querymethodnum = 0
+      }
+      // 判断是正则查找
+      else if (this.querymethod == 'regular query') {
+        this.querymethodnum = 1
+      };
       this.loading1 = true;
       // console.log("categoryname" + this.qm[0])
       // console.log("category" + this.qm.indexOf(this.choice))
