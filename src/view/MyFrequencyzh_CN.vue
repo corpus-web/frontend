@@ -6,7 +6,7 @@
             :default-sort="{ prop: 'num', order: 'descending' }">
 
             <!-- 自定义空数据模板 -->
-            <template v-slot:empty>
+            <template v-slot:empty v-if="!longtext">
                 请点击“搜索”界面检索结果条显示“频数”
             </template>
             <el-table-column type="index" width="100" align="center">

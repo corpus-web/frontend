@@ -41,6 +41,11 @@ aaxios.interceptors.response.use((res) => {
             message: err.response.data.detail,
             type: 'error'
         })
+    } else if (err.response.status == 500) {
+        ElementUI.Message({
+            message: "信息格式有误",
+            type: 'error'
+        })
     }
 });
 // aaxios.defaults.withCredentials=true;

@@ -4,7 +4,7 @@
             :key="isUpdate"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <!-- 自定义空数据模板 -->
-            <template v-slot:empty>
+            <template v-slot:empty v-if="!longtext">
                 请点击“频数”界面检索结果条显示“语境”
             </template>
             <el-table-column label="排名" type="index" width="100" align="center">

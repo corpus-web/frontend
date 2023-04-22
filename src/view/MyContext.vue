@@ -4,7 +4,7 @@
             :key="isUpdate"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <!-- 自定义空数据模板 -->
-            <template v-slot:empty>
+            <template v-slot:empty v-if="!longtext">
                 请点击"Frequency"界面检索结果条显示"context"
             </template>
             <el-table-column label="No." type="index" width="100" align="center">

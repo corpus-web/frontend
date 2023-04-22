@@ -303,76 +303,137 @@ export default {
       const matchedObject = qm.find(item => item.name === name);
       return matchedObject ? matchedObject.cid : 0;
     },
+       // 真正搜索
+       realsearch() {
+      this.loading1 = true;
+      // console.log("categoryname" + this.qm[0])
+      // console.log("category" + this.qm.indexOf(this.choice))
+      this.$axios.request({
+        method: 'GET',
+        url: "/api/corpus/format",
+        params: {
+          word_or_regex: this.newlongtext,// 检索内容
+          limit_case: (this.querymethod == 'regular query') ? true : this.limitcase,//大小写敏感
+          window_size: this.bothnum,// 检索词两边的字符数
+          per_page: this.indexnum,// 一页展示的索引条数
+          category: this.findCidByName(this.choice, this.qm),//选择哪一个语料库进行检索
+          query_method: this.querymethodnum,//默认单词查找
+        }
+
+      }).then((res) => {
+        // this.$message({
+        //   showClose: true,
+        //   message: '开始检索……',
+        //   type: 'success'
+        // });
+        this.loading1 = false;
+        this.currentPageData = res.data
+        // this.resindexnum = res.data.total
+
+      })
+      this.searchclick = false;
+      this.frequencyclick = true;
+      this.contextclick = false;
+    },
+
     // 对检索框内容进行检索
     startsearch() {
       this.newlongtext = this.longtext
-      if (this.newlongtext == '') {
+      if (this.newlongtext == '' || this.newlongtext.trim().length === 0) {
         this.$message({
           message: '请输入内容后查询',
           type: 'warning'
         });
       }
       else {
-        const firstChar = this.newlongtext.charAt(0);
-        // console.log(firstChar)
-        const letters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ/\\(_"
-        if (!letters.includes(firstChar)) {
-          console.log("输错了憨批")
-          this.$message.error('输入包含非法字符，请重新输入');
-
+        console.log("现在是有东西的");
+        if (this.newlongtext.substring(0, 2).indexOf("\\b") != -1) {
+          console.log("存在\b")
+          // console.log("hhh"+this.newlongtext.substring(0,2))
+          this.newlongtext = this.newlongtext.slice(2)
+          // console.log(this.newlongtext)
         }
-        else {
-          // if(this.querymethod=='regular query') this.limitcase=true;
-          // console.log(this.newlongtext.substring(0,2))
-          // console.log(this.newlongtext.substring(0,2).indexOf("\b"))
-          if (this.newlongtext.substring(0, 2).indexOf("\b") != -1) {
-            // console.log("hhh"+this.newlongtext.substring(0,2))
-            this.newlongtext = this.newlongtext.slice(2)
-            // console.log(this.newlongtext)
-          }
-          // if (this.choice == '船海核语料库') {
-          //   this.choicenum = 0
-          // }
-          // else if (this.choice == 'sub-corpus of Shipbuilding-') {
-          //   this.choicenum = 1
-          // }
-          // else if (this.choice == 'sub-corpus of Nuclear-') {
-          //   this.choicenum = 2
-          // }
-          if (this.querymethod == '单词查找') {
-            this.querymethodnum = 0
-          }
-          else if (this.querymethod == '正则查找') {
-            this.querymethodnum = 1
-          }
-          this.loading1 = true;
-          this.$axios.request({
-            method: 'GET',
-            url: "/api/corpus/format",
-            params: {
-              word_or_regex: this.newlongtext,// 检索内容
-              limit_case: (this.querymethod == '正则查找') ? true : this.limitcase,//大小写敏感
-              window_size: this.bothnum,// 检索词两边的字符数
-              per_page: this.indexnum,// 一页展示的索引条数
-              category: this.findCidByName(this.choice, this.qm),//选择哪一个语料库进行检索
-              query_method: this.querymethodnum,//默认单词查找
-            }
+        this.realsearch();
+        // 判断是否为单词
+        // if (this.this.querymethod == 'word query') {
+        //   this.querymethodnum = 0
+        // };
+        // 判断是否为正则表达式
+        // if (this.querymethod == 'regular query') {
+        //   console.log("现在是正则表达式哦")
+        //   this.querymethodnum = 1
+        //   console.log(this.newlongtext)
+        //   if (this.isRegex(this.newlongtext)) {
+        //     this.realsearch();
+        //   }
+        //   else {
+        //     console.log("这不是正则表达式，憨批！")
+        //     this.$message.error('输入不符合正则表达式规范');
+        //   }
+        // };
 
-          }).then((res) => {
-            // this.$message({
-            //   showClose: true,
-            //   message: '开始检索……',
-            //   type: 'success'
-            // });
-            this.loading1 = false;
-            this.currentPageData = res.data
-            // this.resindexnum = res.data.total
+        // const firstChar = this.newlongtext.charAt(0);
+        // // console.log(firstChar)
+        // const letters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ/\\(_"
+        // if (!letters.includes(firstChar)) {
+        //   console.log("输错了憨批")
+        //   this.$message.error('输入包含非法字符，请重新输入');
 
-          })
-          this.searchclick = false;
-          this.frequencyclick = true;
-          this.contextclick = false;
-        }
+        // }
+        // else {
+        //   // if(this.querymethod=='regular query') this.limitcase=true;
+        //   // console.log(this.newlongtext.substring(0,2))
+        //   // console.log(this.newlongtext.substring(0,2).indexOf("\b"))
+        //   if (this.newlongtext.substring(0, 2).indexOf("\b") != -1) {
+        //     // console.log("hhh"+this.newlongtext.substring(0,2))
+        //     this.newlongtext = this.newlongtext.slice(2)
+        //     // console.log(this.newlongtext)
+        //   }
+        //   // if (this.choice == 'the whole corpus') {
+        //   //   this.choicenum = 0
+        //   // }
+        //   // else if (this.choice == 'sub-corpus of Shipbuilding-') {
+        //   //   this.choicenum = 1
+        //   // }
+        //   // else if (this.choice == 'sub-corpus of Nuclear-') {
+        //   //   this.choicenum = 2
+        //   // }
+        //   // if (this.querymethod == 'word query') {
+        //   //   this.querymethodnum = 0
+        //   // }
+        //   // else if (this.querymethod == 'regular query') {
+        //   //   this.querymethodnum = 1
+        //   // }
+        //   // this.loading1 = true;
+        //   // // console.log("categoryname" + this.qm[0])
+        //   // // console.log("category" + this.qm.indexOf(this.choice))
+        //   // this.$axios.request({
+        //   //   method: 'GET',
+        //   //   url: "/api/corpus/format",
+        //   //   params: {
+        //   //     word_or_regex: this.newlongtext,// 检索内容
+        //   //     limit_case: (this.querymethod == 'regular query') ? true : this.limitcase,//大小写敏感
+        //   //     window_size: this.bothnum,// 检索词两边的字符数
+        //   //     per_page: this.indexnum,// 一页展示的索引条数
+        //   //     category: this.findCidByName(this.choice, this.qm),//选择哪一个语料库进行检索
+        //   //     query_method: this.querymethodnum,//默认单词查找
+        //   //   }
+
+        //   // }).then((res) => {
+        //   //   // this.$message({
+        //   //   //   showClose: true,
+        //   //   //   message: '开始检索……',
+        //   //   //   type: 'success'
+        //   //   // });
+        //   //   this.loading1 = false;
+        //   //   this.currentPageData = res.data
+        //   //   // this.resindexnum = res.data.total
+
+        //   // })
+        //   // this.searchclick = false;
+        //   // this.frequencyclick = true;
+        //   // this.contextclick = false;
+        // }
 
 
       }
