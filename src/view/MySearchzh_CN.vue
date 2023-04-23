@@ -306,7 +306,7 @@ export default {
        // 真正搜索
        realsearch() {
         // 判断是否为单词
-      if (this.this.querymethod == '单词查找') {
+      if (this.querymethod == '单词查找') {
         this.querymethodnum = 0
       }
       // 判断是正则查找

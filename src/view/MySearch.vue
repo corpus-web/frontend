@@ -332,7 +332,7 @@ export default {
     // 真正搜索
     realsearch() {
       // 判断是否为单词
-      if (this.this.querymethod == 'word query') {
+      if (this.querymethod == 'word query') {
         this.querymethodnum = 0
       }
       // 判断是正则查找
@@ -340,6 +340,8 @@ export default {
         this.querymethodnum = 1
       };
       this.loading1 = true;
+      console.log("this.loading1"+this.loading1)
+      
       // console.log("categoryname" + this.qm[0])
       // console.log("category" + this.qm.indexOf(this.choice))
       this.$axios.request({
@@ -372,6 +374,7 @@ export default {
 
     // 对检索框内容进行检索
     startsearch() {
+      // console.log("搜索啊憨批")
       this.newlongtext = this.longtext
       if (this.newlongtext == '' || this.newlongtext.trim().length === 0) {
         this.$message({
