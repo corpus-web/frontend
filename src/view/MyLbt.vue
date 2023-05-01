@@ -242,10 +242,12 @@ export default {
             }).then(() => {
                 this.MainSwiper.splice(index, 1)
 
-
+            
 
                 if(this.part==1){
-                    this.$axios.post("/api/home/delete", { 'data': { 'aid': row.aid } }).then((res) => {
+                    console.log(row.pid);
+                    // console.log(this.part);
+                    this.$axios.post("/api/home/delete", {  'pid': row.pid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
@@ -253,7 +255,7 @@ export default {
                             });
                     });
                 }else if(this.part==2){
-                    this.$axios.post("/api/course/delete", { 'data': { 'aid': row.aid } }).then((res) => {
+                    this.$axios.post("/api/course/delete", { 'pid': row.pid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
@@ -261,7 +263,7 @@ export default {
                             });
                     });
                 }else if(this.part==3){
-                    this.$axios.post("/api/academic/delete", { 'data': { 'aid': row.aid } }).then((res) => {
+                    this.$axios.post("/api/academic/delete", { 'aid': row.aid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
@@ -269,7 +271,7 @@ export default {
                             });
                     });
                 }else if(this.part==4){
-                    this.$axios.post("/api/team/delete", { 'data': { 'aid': row.aid } }).then((res) => {
+                    this.$axios.post("/api/team/delete", {  'pid': row.pid }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
@@ -277,7 +279,7 @@ export default {
                             });
                     });
                 } else if(this.part==5){
-                    this.$axios.post("/api/corpus/delete/3", { 'data': { 'aid': row.aid } }).then((res) => {
+                    this.$axios.post("/api/corpus/delete/3", { 'pid': row.pid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
