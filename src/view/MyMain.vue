@@ -3,7 +3,7 @@
     <!-- style="background-image: linear-gradient(to bottom,#d8dfe2,white)" -->
     <div>
         <my-header></my-header>
-        <div class="main" style="width:78rem;margin: auto;">
+        <div class="main" style="width:78rem;width:82%;margin: auto;">
 
 
 

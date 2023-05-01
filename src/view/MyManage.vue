@@ -187,7 +187,7 @@ export default {
                 type: 'warning'
             }).then(() => {
                 this.MainSwiper.splice(index, 1)
-                this.$axios.delete('/api/home/main', { 'data': { 'id': row.pid } });
+                this.$axios.post('/api/home/delete', { 'data': { 'id': row.pid } });
                 this.$message({
                     type: 'success',
                     message: '删除成功!'

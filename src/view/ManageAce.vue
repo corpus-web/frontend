@@ -77,7 +77,14 @@ export default {
                 type: 'warning'
             }).then(() => {
                 this.MainSwiper.splice(index, 1)
-                this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } });
+                if(this.part==1){
+                    this.$axios.post('/api/home/delete', { 'data': { 'pid': row.pid } });
+                }else if(this.part==2){
+                    this.$axios.post('/api/course/delete', { 'data': { 'pid': row.pid } });   
+                }else if(this.part==4){
+                    this.$axios.post('/api/team/delete', { 'data': { 'pid': row.pid } });
+                }
+                // this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } });
                 this.$message({
                     type: 'success',
                     message: '删除成功!'

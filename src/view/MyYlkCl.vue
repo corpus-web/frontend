@@ -153,7 +153,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$axios.delete("api/corpus/category", { 'data': { 'cid': row.cid } });
+                this.$axios.post("/api/corpus/delete/2", { 'data': { 'cid': row.cid } });
                 this.getcategory();
                 this.$message({
                     type: 'success',
@@ -247,7 +247,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$axios.delete("api/corpus/files", { 'data': { 'fid': row.fid } });
+                this.$axios.post("/api/corpus/delete/1", { 'data': { 'fid': row.fid } });
                 this.getdata();
                 this.$message({
                     type: 'success',
