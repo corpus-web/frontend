@@ -153,12 +153,14 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$axios.post("/api/corpus/delete/2", { 'data': { 'cid': row.cid } });
-                this.getcategory();
-                this.$message({
+                this.$axios.post("/api/corpus/delete/2", {  'cid': row.cid }).then(()=>{
+                    this.getcategory();
+                    this.$message({
                     type: 'success',
                     message: '删除成功!'
                 });
+                })
+                
             }).catch(() => {
                 // 点的是取消，就弹出取消删除的提示框
                 this.$message({
@@ -247,7 +249,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$axios.post("/api/corpus/delete/1", { 'data': { 'fid': row.fid } });
+                this.$axios.post("/api/corpus/delete/1", { 'fid': row.fid });
                 this.getdata();
                 this.$message({
                     type: 'success',

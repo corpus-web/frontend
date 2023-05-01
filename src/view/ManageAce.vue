@@ -70,7 +70,7 @@ export default {
             })
         },
         MainSwiperDel(index, row) {
-            // console.log(row.pid);
+            console.log(row.aid);
             this.$confirm('是否确认删除继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -78,11 +78,11 @@ export default {
             }).then(() => {
                 this.MainSwiper.splice(index, 1)
                 if(this.part==1){
-                    this.$axios.post('/api/home/delete', { 'data': { 'pid': row.pid } });
+                    this.$axios.post('/api/home/delete', {  'aid': row.aid });
                 }else if(this.part==2){
-                    this.$axios.post('/api/course/delete', { 'data': { 'pid': row.pid } });   
+                    this.$axios.post('/api/course/delete', { 'aid': row.aid });   
                 }else if(this.part==4){
-                    this.$axios.post('/api/team/delete', { 'data': { 'pid': row.pid } });
+                    this.$axios.post('/api/team/delete', { 'aid': row.aid  });
                 }
                 // this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } });
                 this.$message({
