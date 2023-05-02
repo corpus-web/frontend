@@ -111,7 +111,7 @@ const router = new VueRouter({
             name: 'Search',
             meta: {
                 title: "英文版语料检索",
-                // needValid: true
+                needValid: true
             },
             component: () => import(/* webpackChunkName: "about" */ '../view/MySearch.vue')
         },
