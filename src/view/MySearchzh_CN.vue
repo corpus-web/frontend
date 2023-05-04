@@ -1,14 +1,14 @@
 <template>
   <div>
     <my-header></my-header>
-    <div class="about" style="width: 76.8rem;width:82%;margin: auto; border: 1px solid #e5e5e5;">
+    <div class="about" style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
       <my-image></my-image>
       <div class="menu">
         <div :class="[searchclick ? click : unclick]" @click="search">
-          检索界面
+          检索
         </div>
         <div :class="[frequencyclick ? click : unclick]" @click="frequency">
-          频率界面
+          频率
         </div>
         <div :class="[contextclick ? click : unclick]" @click="context">
           语境
@@ -78,6 +78,8 @@
                   <option>船海核语料库</option>
                   <option>{{ this.qm[0].name }}</option>
                   <option>{{ this.qm[1].name }}</option>
+                  <option>{{ this.qm[2].name }}</option>
+                  <option>{{ this.qm[3].name }}</option>
 
                 </select>
               </div>
