@@ -76,10 +76,7 @@
                 <select v-model="choice" id="selectbox">
                   <option disabled value=""></option>
                   <option>船海核语料库</option>
-                  <option>{{ this.qm[0].name }}</option>
-                  <option>{{ this.qm[1].name }}</option>
-                  <option>{{ this.qm[2].name }}</option>
-                  <option>{{ this.qm[3].name }}</option>
+                  <option v-for="(item, index) in qm" :key="index">{{ item.name }}</option>
 
                 </select>
               </div>
@@ -646,6 +643,9 @@ export default {
   height: 2rem;
   line-height: 2rem;
 
+}
+.buttonlight:active {
+    background: rgba(47, 85, 151, 1);
 }
 
 .tickbox {
