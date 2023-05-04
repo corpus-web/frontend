@@ -1,7 +1,8 @@
 <template>
   <div>
     <my-header></my-header>
-    <div class="about" style="width: 76.8rem;width:82%;margin: auto; border: 1px solid #e5e5e5;">
+    <!-- <div class="about" style="width: 76.8rem;width:82%;margin: auto; border: 1px solid #e5e5e5;"> -->
+    <div class="about" style="width: 76.8rem;margin: auto; border: 1px solid #e5e5e5;">
       <my-image></my-image>
       <div class="menu">
         <div :class="[searchclick ? click : unclick]" @click="search">
