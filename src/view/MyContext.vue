@@ -1,6 +1,6 @@
 <template>
     <div class="frequency">
-        <el-table :data="tableData1" border style="width: 76.8rem;text-align: center;" height="40rem" v-loading="loading2"
+        <el-table :data="tableData1" border style="width: 76.8rem;width:100%;text-align: center;" height="40rem" v-loading="loading2"
             :key="isUpdate"
             :header-cell-style="{ background: 'rgba(190, 190, 190, 1)', color: '#606266', fontSize: '1rem' }">
             <!-- 自定义空数据模板 -->

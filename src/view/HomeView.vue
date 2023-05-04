@@ -1,7 +1,7 @@
 <template>
   <div>
     <my-header></my-header>
-    <div class="home" style="width:78rem;margin: auto; ">
+    <div class="home" style="width:78rem;width:82%;margin: auto; ">
 
       <!-- 轮播图 -->
       <div class="body1">
@@ -121,7 +121,7 @@ export default {
   text-indent: 2rem;
   text-align: justify;
   margin: 0 auto;
-  width: 75rem;
+  /* width: 75rem; */
   /* font-weight: 800; */
   padding-top: 1.5rem;
   font-size: 1.2rem;
