@@ -5,7 +5,7 @@ import ElementUI from 'element-ui';
 
 const aaxios = axios.create({
     // baseURL: "http://corpus.hrbeu.edu.cn",
-    baseURL: "http://192.168.31.200:8000",
+    baseURL: "http://192.168.31.33:8000",
     timeout: 60000
 })
 // const raxios = axios.create({
