@@ -3,7 +3,7 @@
     <!-- style="background-image: linear-gradient(to bottom,#d8dfe2,white)" -->
     <div>
         <my-header></my-header>
-        <div class="main" style="width:78rem;margin: auto;">
+        <div class="main" style="width:78rem;width:82%;margin: auto;">
 
 
 
@@ -613,7 +613,7 @@ export default {
 }
 
 .ch_innerw {
-    width: 37rem;
+    width: 48%;
     height: 15rem;
     border: 1px solid white;
 }
@@ -651,7 +651,7 @@ ul {
 
 .ch_innerblock {
     background-color: #f2f2f2;
-    width: 35rem;
+    width: 95%;
     height: 9.2rem;
     padding: 1rem;
     display: flex;

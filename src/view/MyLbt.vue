@@ -241,30 +241,76 @@ export default {
                 type: 'warning'
             }).then(() => {
                 this.MainSwiper.splice(index, 1)
-                if (this.part == 3)
-                    this.$axios.delete("/api/academic/title", { 'data': { 'aid': row.aid } }).then((res) => {
+
+            
+
+                if(this.part==1){
+                    console.log(row.pid);
+                    // console.log(this.part);
+                    this.$axios.post("/api/home/delete", {  'pid': row.pid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
                     });
-                else if (this.part == 4)
-                    this.$axios.delete("/api/team/list", { 'data': { 'pid': row.pid } }).then((res) => {
+                }else if(this.part==2){
+                    this.$axios.post("/api/course/delete", { 'pid': row.pid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
                     });
-                else
-                    this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } }).then((res) => {
+                }else if(this.part==3){
+                    this.$axios.post("/api/academic/delete", { 'aid': row.aid  }).then((res) => {
                         if (res.status == 200)
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
                     });
+                }else if(this.part==4){
+                    this.$axios.post("/api/team/delete", {  'pid': row.pid }).then((res) => {
+                        if (res.status == 200)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                    });
+                } else if(this.part==5){
+                    this.$axios.post("/api/corpus/delete/3", { 'pid': row.pid  }).then((res) => {
+                        if (res.status == 200)
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                    });
+                }               
+                // if (this.part == 3)
+                //     this.$axios.delete("/api/academic/title", { 'data': { 'aid': row.aid } }).then((res) => {
+                //         if (res.status == 200)
+                //             this.$message({
+                //                 type: 'success',
+                //                 message: '删除成功!'
+                //             });
+                //     });
+                // else if (this.part == 4)
+                //     this.$axios.delete("/api/team/list", { 'data': { 'pid': row.pid } }).then((res) => {
+                //         if (res.status == 200)
+                //             this.$message({
+                //                 type: 'success',
+                //                 message: '删除成功!'
+                //             });
+                //     });
+                // else
+                //     this.$axios.delete(this.url[this.part], { 'data': { 'pid': row.pid } }).then((res) => {
+                //         if (res.status == 200)
+                //             this.$message({
+                //                 type: 'success',
+                //                 message: '删除成功!'
+                //             });
+                //     });
                 // this.$message({
                 //     type: 'success',
                 //     message: '删除成功!'

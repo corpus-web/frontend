@@ -77,7 +77,7 @@ export default {
                     <el-menu-item index="5-1">哈尔滨工程大学</el-menu-item>
                     <el-menu-item index="5-2">哈尔滨工程大学图书馆</el-menu-item>
                     <el-menu-item index="5-3">外国语学院</el-menu-item>
-                    <el-menu-item index="5-4">国际交流学院</el-menu-item>
+                    <el-menu-item index="5-4">国际合作教育学院</el-menu-item>
                     <el-menu-item index="5-5">English-corpora</el-menu-item>
                     <el-menu-item index="5-6">Sub-corpora of DEAP</el-menu-item>
                     <el-menu-item index="5-7">《习近平谈治国理政》多语数据库综合平台</el-menu-item>

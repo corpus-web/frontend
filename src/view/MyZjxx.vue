@@ -127,7 +127,7 @@ export default {
                 type: 'warning'
             }).then(() => {
                 this.LatestMassage.splice(index, 1)
-                this.$axios.delete('/api/message/title', { 'data': { 'aid': row.aid } });
+                this.$axios.post('/api/message/delete', { 'aid': row.aid  });
                 this.$message({
                     type: 'success',
                     message: '删除成功!'

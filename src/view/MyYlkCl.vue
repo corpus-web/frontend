@@ -54,8 +54,12 @@
                 </el-form-item>
                 <el-form-item label="学科领域" prop="category">
                     <el-select v-model="add_form.category" placeholder="请选择学科领域" style="width:400px;margin-left:-236px">
-                        <el-option label="船舶与海洋结构物设计制造学术" value="1"></el-option>
-                        <el-option label="核学科学术" value="2"></el-option>
+                        <!-- <el-option label="船舶与海洋结构物设计制造学术" value="1"></el-option>
+                        <el-option label="核学科学术" value="2"></el-option> -->
+                        <!-- 遍历目录列表， -->
+                        <el-option v-for="item in tablecategory" :key="item.value" :label="item.name" :value="item.cid">
+
+                        </el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
@@ -109,6 +113,7 @@ export default {
         return {
             tabledata: [],
             show_tablecategory: [],
+            categoryy:[],//语料库添加文章时选择的文章类别，不包含全部
             tablecategory: [],
             total: 0,
             currentPage: 1,//当前页数,默认是1
@@ -137,7 +142,9 @@ export default {
                 method: 'GET',
                 url: 'api/corpus/category'
             }).then((res) => {
+                // console.log(res.data.a);
                 this.tablecategory = res.data.a;
+                console.log(this.tablecategory);
                 this.show_tablecategory = res.data.a.concat([]);
                 this.show_tablecategory.unshift({
                     cid: 0,
@@ -153,12 +160,14 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$axios.delete("api/corpus/category", { 'data': { 'cid': row.cid } });
-                this.getcategory();
-                this.$message({
+                this.$axios.post("/api/corpus/delete/2", {  'cid': row.cid }).then(()=>{
+                    this.getcategory();
+                    this.$message({
                     type: 'success',
                     message: '删除成功!'
                 });
+                })
+                
             }).catch(() => {
                 // 点的是取消，就弹出取消删除的提示框
                 this.$message({
@@ -247,7 +256,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$axios.delete("api/corpus/files", { 'data': { 'fid': row.fid } });
+                this.$axios.post("/api/corpus/delete/1", { 'fid': row.fid });
                 this.getdata();
                 this.$message({
                     type: 'success',
