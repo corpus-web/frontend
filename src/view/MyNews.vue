@@ -18,7 +18,7 @@
                     <!-- 文章信息 -->
                     <p id="meta">
                         <span id="time">时间：{{ news.create_time }}</span>
-                        <span id="sources">文章来源：外国语学院</span>
+                        <span id="sources">文章来源：国际合作教育学院</span>
                         <!-- <span id="views">浏览：{{ news.viewed }}</span> -->
                     </p>
                     <!-- 文章内容 -->
