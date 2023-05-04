@@ -2,13 +2,13 @@
     <div class="big">
         <div class="main">
             <div id="title">
-                <span style="position:absolute;left:45%">文章展示列表</span>
+                <span style="position:absolute;left:43%">文章展示列表</span>
                 <div id="select">
-                    <el-select v-model="sel_value" placeholder="请选择文章类别" @change="getdata()">
+                    <el-select v-model="sel_value" placeholder="请选择文章类别" @change="getdata()" style="width:41%">
                         <el-option v-for="item in show_tablecategory" :key="item.cid" :label="item.name" :value="item.cid">
                         </el-option>
                     </el-select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;
                     <el-button type="success" @click="admin_category">文章类别管理</el-button>
                     <el-button type="success" @click="change_add_dialog">添加文章</el-button>
                 </div>
@@ -18,13 +18,13 @@
                 <el-table :data="tabledata" border style="width: 100%">
                     <!-- <el-table-column type="index" label="序号" width="50" align="center">
                     </el-table-column> -->
-                    <el-table-column prop="fid" label="文章编号" width="100" align="center">
+                    <el-table-column prop="fid" label="文章编号" width='80' align="center">
                     </el-table-column>
-                    <el-table-column prop="create_time" label="创建时间" width="200" align="center">
+                    <el-table-column prop="create_time" label="创建时间" width="180" align="center">
                     </el-table-column>
-                    <el-table-column prop="name" label="文件名" width="300" align="center">
+                    <el-table-column prop="name" label="文件名" width="275" align="center">
                     </el-table-column>
-                    <el-table-column prop="sub_name" label="提交文件名" width="445" align="center">
+                    <el-table-column prop="sub_name" label="提交文件名" width="406" align="center">
                     </el-table-column>
                     <el-table-column label="操作" align="center">
                         <template slot-scope="scope">
@@ -347,8 +347,9 @@ export default {
 }
 
 #select {
+    width:50%;
     position: absolute;
-    left: 59.5%;
+    left: 52.9%;
 }
 
 .main {
