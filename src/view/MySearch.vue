@@ -76,8 +76,10 @@
                 <select v-model="choice" id="selectbox">
                   <option disabled value=""></option>
                   <option>the whole corpus</option>
-                  <option>{{ qm[0].name_en }}</option>
-                  <option>{{ qm[1].name_en }}</option>
+                  <option v-for="(item, index) in qm" :key="index">{{ item.name_en }}</option>
+
+                  <!-- <option>{{ qm[0].name_en }}</option>
+                  <option>{{ qm[1].name_en }}</option> -->
 
                 </select>
               </div>
@@ -340,8 +342,8 @@ export default {
         this.querymethodnum = 1
       };
       this.loading1 = true;
-      console.log("this.loading1"+this.loading1)
-      
+      console.log("this.loading1" + this.loading1)
+
       // console.log("categoryname" + this.qm[0])
       // console.log("category" + this.qm.indexOf(this.choice))
       this.$axios.request({
@@ -672,6 +674,10 @@ export default {
   height: 2rem;
   line-height: 2rem;
 
+}
+
+.buttonlight:active {
+  background: rgba(47, 85, 151, 1);
 }
 
 .tickbox {
