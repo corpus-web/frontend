@@ -2,7 +2,7 @@
     <div class="big">
         <div id="select">
             <div style="position: relative;width: 100%;height: 4rem;">
-                <h2 style="width:80%;position: absolute;font-family:'微软雅黑';font-size: 30px;margin-left:42%;">后台管理系统
+                <h2 style="width:80%;position: absolute;font-family:'微软雅黑';font-size: 30px;margin-left:7%;text-align: center;">后台管理系统
                 </h2>
                 <div style="position:absolute;right: 0;top: 1.5rem;">
                     <el-button type="info" @click="change_pwd()">
@@ -222,7 +222,8 @@ export default {
 
 <style scoped>
 #select {
-    width: 76.8rem;
+    /* width: 76.8rem; */
+    width:82%;
     margin: auto;
 }
 </style>

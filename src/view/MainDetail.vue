@@ -1,7 +1,7 @@
 <template>
     <div>
         <my-header></my-header>
-        <div style="width:76.8rem;margin: auto;">
+        <div style="width:76.8rem; width:82%;margin: auto;">
 
             <my-image></my-image>
             <div class="detail">

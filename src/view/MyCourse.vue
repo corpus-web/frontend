@@ -1,7 +1,7 @@
 <template>
     <div>
         <my-header></my-header>
-        <div style="width: 78rem;margin:0 auto; border: 1px solid #e5e5e5;">
+        <div style="width: 78rem; width:82%;margin:0 auto; border: 1px solid #e5e5e5;">
             <div class="swiper-container">
                 <el-carousel indicator-position="none" trigger="click" height="26rem">
                     <el-carousel-item v-for="(item, index) in bannerList" :key="index">
