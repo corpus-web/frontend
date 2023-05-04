@@ -1,7 +1,7 @@
 <template>
   <div>
     <my-header></my-header>
-    <div class="home" style="width:78rem;margin: auto; ">
+    <div class="home" style="width:76.8rem;margin: auto; ">
 
       <!-- 轮播图 -->
       <div class="body1">
