@@ -132,7 +132,8 @@ export default {
 .button {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   cursor: pointer;
-  background-color: rgba(47, 85, 151, 1);
+  
+  background-color: rgba(143, 170, 220, 1);
   color: white;
   font-weight: 700;
   font-size: 2.1rem;
@@ -142,6 +143,9 @@ export default {
   /* margin-right: 1rem; */
   margin-left: auto;
   margin-bottom: 0.5rem;
+}
+.button:active{
+  background-color: rgba(47, 85, 151, 1);
 }
 
 /* 轮播图 */

@@ -111,8 +111,7 @@ const router = new VueRouter({
             name: 'Search',
             meta: {
                 title: "英文版语料检索",
-                // needValid_en: true,
-                needValid_cn: false
+                needValid: true,
             },
             component: () => import(/* webpackChunkName: "about" */ '../view/MySearch.vue')
         },
@@ -132,8 +131,7 @@ const router = new VueRouter({
             name: 'Searchzh_CN',
             meta: {
                 title: "中文版语料检索",
-                needValid_en: false,
-                // needValid_cn: true
+                needValid: true
             },
             component: () => import(/* webpackChunkName: "about" */ '../view/MySearchzh_CN.vue')
         },
@@ -150,7 +148,7 @@ router.beforeEach((to, from, next) => {
             next({ path: '/Login' }) //跳转到登录页
         }
     }
-    else if (to.meta.needValid_en) {
+    else if (to.meta.needValid) {
         let ticket = localStorage.getItem('ticket')
         if (!ticket) {
             ticket = to.query.ticket
@@ -165,21 +163,21 @@ router.beforeEach((to, from, next) => {
             window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Search'
         }
     }
-    else if (to.meta.needValid_cn) {
-        let ticket = localStorage.getItem('ticket')
-        if (!ticket) {
-            ticket = to.query.ticket
-        }
-        // ticket = to.query.ticket
-        if (ticket) {
-            console.log(ticket)
-            window.localStorage.setItem("ticket", ticket);
-            next()
-        }
-        else {
-            window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Searchzh_CN'
-        }
-    }
+    // else if (to.meta.needValid_cn) {
+    //     let ticket = localStorage.getItem('ticket')
+    //     if (!ticket) {
+    //         ticket = to.query.ticket
+    //     }
+    //     // ticket = to.query.ticket
+    //     if (ticket) {
+    //         console.log(ticket)
+    //         window.localStorage.setItem("ticket", ticket);
+    //         next()
+    //     }
+    //     else {
+    //         window.location.href = 'https://cas.hrbeu.edu.cn/cas/login?service=http://corpus.hrbeu.edu.cn/Searchzh_CN'
+    //     }
+    // }
     else {
         next()
     }

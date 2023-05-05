@@ -4,8 +4,8 @@ import ElementUI from 'element-ui';
 // import { Store } from "vuex";
 
 const aaxios = axios.create({
-    // baseURL: "http://corpus.hrbeu.edu.cn",
-    baseURL: "http://192.168.31.200:8000",
+    baseURL: "http://corpus.hrbeu.edu.cn",
+    // baseURL: "http://192.168.31.200:8000",
     timeout: 60000
 })
 // const raxios = axios.create({
