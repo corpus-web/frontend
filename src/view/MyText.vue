@@ -75,28 +75,31 @@ export default {
 .swiper-container {
     margin-top: 5px;
     border: 1px solid #e5e5e5;
-    height: 450px;
-    width: 600px;
+    /* height: 450px; */
+    /* width: 600px; */
+    width:45%;
 }
 
 #img {
     width: 100%;
-    height: 100%;
+    height: 450px;
     object-fit: contain;
+    /* border-bottom: 1px solid #e5e5e5; */
 }
 
 #title {
-    height: 3.144rem;
-    line-height: 3.144rem;
+    /* height: 3.144rem; */
+    /* line-height: 3.144rem; */
     text-align: center;
     margin: auto;
     margin-top: 0.3rem;
-    width: 38.4rem;
+    width: 100%;
 }
 
 #text {
     /* position: absolute; */
-    width: 36.48rem;
+    /* width: 36.48rem; */
+    width:55%;
     /* height: 31.44rem; */
     right: 0;
 }

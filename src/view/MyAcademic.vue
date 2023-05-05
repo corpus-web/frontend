@@ -5,7 +5,7 @@
             style="width: 76.8rem;width:82%;margin: auto; border-left: 1px solid #e5e5e5;border-bottom: 1px solid #e5e5e5;border-right: 1px solid #e5e5e5;">
 
             <my-image></my-image>
-            <div id="body">
+            <div id="body" style="width:100%">
                 <div class="swiper-container">
                     <el-carousel indicator-position="outside" trigger="click" height="420px">
                         <el-carousel-item v-for="(item, index) in bannerList" :key="index">
@@ -99,7 +99,7 @@ export default {
     position: absolute;
     top: 0;
     left: 1.92;
-    width: 560px;
+    width: 45%;
     /* border-right: 1px solid blue; */
 }
 
@@ -114,8 +114,8 @@ export default {
 #text {
     position: absolute;
     height: 26.2rem;
-    width: 41.8rem;
-    left: 35rem;
+    width: 55%;
+    left: 45%;
     background-color: #f2f2f2;
 }
 
@@ -133,7 +133,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     height: 2.358rem;
-    width: 33.6rem;
+    width: 100%;
     cursor: pointer;
     margin-top: 1px;
 }
