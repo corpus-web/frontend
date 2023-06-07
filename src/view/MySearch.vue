@@ -113,8 +113,7 @@
             </div>
             <div class="graysmall">
               Retrieval range refers to the corpus in which the target is retrieved. It includes the whole corpus as
-              well as the two sub-corpora, Nuclear Science Academic English Corpus and Shipbuilding and Oceanography
-              Engineering Academic English Corpus.
+              well as the two sub-corpora, Naval Architecture and Marine Engineering Academic English Corpus, and Nuclear Science and Technology Academic English Corpus.
             </div>
             <div class="graysmall">
               Query method serves for both word query and regular query.

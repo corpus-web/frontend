@@ -17,7 +17,7 @@
       <!-- 文字介绍 -->
       <div class="introduce">
         <div class="title1">
-          Corpus of Shipbuilding and Oceanography Engineering and Nuclear Science
+          Academic English Corpus of Naval Architecture and Marine Engineering & Nuclear Science and Technology
         </div>
         <div class="title1">
           (COSON)
@@ -26,15 +26,10 @@
           -Size of COSON as of 9th September, 2022: Around 9 million words-
         </div>
         <div class="content">
-          COSON is based on the school-based characteristics of Harbin Engineering University, aiming to collect English
-          research papers published in high-impact international journals from 2016 to 2020, containing of around 9
-          million words and covering the discipline of Shipbuilding and Oceanography Engineering and Nuclear Science.
-          The
-          text sampling taxonomy for the corpus follows the Chinese National System of Level One Disciplines for Degree
-          Educational. The principle of sample selection takes into account the authority and impact factors of the
-          journals, and the selected journals are all SCI international journals, and the impact factors are high in the
-          discipline.
-
+          Based on the school characteristics of Harbin Engineering University, Academic English Corpus of Naval Architecture and Marine Engineering & Nuclear Science and Technology (AECNN) is committed to serving academic English teaching of the domain, and promoting academic English research. AECNN aims to collect about 1600 pieces of English research articles published in high-impact SCI international journals from 2016 to 2020, contains around 9 million words, and covers seven sub-disciplines of Naval Architecture and Marine Engineering & Nuclear Science and Technology. The figure below shows sub-disciplines. The text sampling taxonomy for the corpus follows the Chinese National System of Level One Disciplines for Degree Educational.
+        </div>
+        <div class="content">
+          AECNN is established by Tian Miao and members of her research group.
         </div>
       </div>
       <!-- 思维导图 -->
